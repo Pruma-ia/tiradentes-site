@@ -1,0 +1,62 @@
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Onde fica a Tiradentes Moto Peças?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Na Rua Tiradentes, 2980 — Bairro Industrial, em Contagem, Minas Gerais."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Qual é o horário de funcionamento?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "De segunda a sexta, das 8h às 18h. Aos sábados, das 8h às 13h. Domingo não abre."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "A oficina faz orçamento antes de executar o serviço?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sim. O preço e o prazo são passados antes de qualquer coisa ser feita na moto, e nada é executado sem a sua aprovação do valor."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Vocês vendem peça avulsa ou só junto com o serviço?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Vendemos peça avulsa no balcão. A aplicação é conferida pelo modelo, ano e versão antes da venda. Se quiser, a oficina instala na hora, sem marcar outro dia."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Trabalham com peça original ou paralela?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Com as duas linhas. O orçamento padrão usa peça paralela de boa procedência; peça original é orçada sob pedido."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quanto custa uma revisão?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Depende do modelo da moto e da faixa de quilometragem. Mande o modelo pelo WhatsApp (31) 98324-7256 que a gente responde com o preço e o prazo."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quais serviços a oficina faz?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Revisão programada por checklist, troca de óleo, relação (corrente, coroa e pinhão), freios, suspensão, elétrica e bateria, pneus, regulagem de válvulas e diagnóstico, além da venda de peças no balcão."
+      }
+    }
+  ]
+}

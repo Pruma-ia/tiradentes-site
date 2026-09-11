@@ -13,6 +13,14 @@
 - **Instagram:** https://www.instagram.com/tiradentesmotopecas
 - **Site:** https://pruma-ia.github.io/tiradentes-site/
 
+## Páginas
+
+- [Início](https://pruma-ia.github.io/tiradentes-site/) — apresentação, o que a oficina faz e como trabalha
+- [Serviços e revisão](https://pruma-ia.github.io/tiradentes-site/servicos.html) — os 10 serviços e o que entra numa revisão
+- [Loja de peças](https://pruma-ia.github.io/tiradentes-site/pecas.html) — venda de peça no balcão
+- [A oficina](https://pruma-ia.github.io/tiradentes-site/oficina.html) — como o atendimento funciona, do WhatsApp à entrega
+- [Contato e dúvidas](https://pruma-ia.github.io/tiradentes-site/contato.html) — endereço, horário, mapa e perguntas frequentes
+
 ## Horário de funcionamento
 
 - Segunda a sexta: 08h00 às 18h00

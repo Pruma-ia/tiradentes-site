@@ -192,6 +192,14 @@
     var links  = $$('.nav__link');
     if (!secoes.length || !links.length || !('IntersectionObserver' in window)) return;
 
+    // O site virou multipágina: o menu aponta para arquivos, não para âncoras.
+    // Nesse caso quem marca o item ativo é o montador (scripts/montar.py), e
+    // este observador tem de ficar quieto — senão ele apaga a marcação.
+    var porAncora = links.some(function (l) {
+      return (l.getAttribute('href') || '').charAt(0) === '#';
+    });
+    if (!porAncora) return;
+
     var obs = new IntersectionObserver(function (entradas) {
       entradas.forEach(function (e) {
         if (!e.isIntersecting) return;

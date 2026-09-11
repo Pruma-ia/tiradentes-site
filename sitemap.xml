@@ -1,18 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://pruma-ia.github.io/tiradentes-site/</loc>
     <lastmod>2026-09-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
-    <image:image>
-      <image:loc>https://pruma-ia.github.io/tiradentes-site/assets/img/balcao.jpg</image:loc>
-      <image:caption>Balcao da Tiradentes Moto Pecas, em Contagem/MG</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://pruma-ia.github.io/tiradentes-site/assets/img/oficina.jpg</image:loc>
-      <image:caption>Mecanico atendendo uma moto no elevador da oficina</image:caption>
-    </image:image>
+  </url>
+  <url>
+    <loc>https://pruma-ia.github.io/tiradentes-site/servicos.html</loc>
+    <lastmod>2026-09-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pruma-ia.github.io/tiradentes-site/pecas.html</loc>
+    <lastmod>2026-09-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pruma-ia.github.io/tiradentes-site/oficina.html</loc>
+    <lastmod>2026-09-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pruma-ia.github.io/tiradentes-site/contato.html</loc>
+    <lastmod>2026-09-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
 </urlset>

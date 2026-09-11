@@ -1,52 +1,65 @@
-# Como abrir e como colocar a mídia
+# Como mexer no site
 
-## Abrir o site
-
-**http://localhost:4173** — já está rodando, é só colar no navegador.
-
-Se o link não abrir (o servidor cai quando o computador reinicia), reabra assim:
+## Ver o site
 
 ```bash
 cd ~/pruma_dev/tiradentes-site
-python3 -m http.server 4173
+python3 -m http.server 4173      # http://localhost:4173
 ```
 
-E deixe essa janela do terminal aberta enquanto estiver olhando o site.
+No ar: **https://pruma-ia.github.io/tiradentes-site/**
 
-## Colocar as fotos e vídeos do Instagram
+## ⚠️ O site é MONTADO — não edite os .html da raiz
 
-Você **não precisa renomear nem redimensionar nada**.
+`index.html`, `servicos.html`, `pecas.html`, `oficina.html` e `contato.html`
+são **gerados**. Qualquer coisa escrita neles é perdida na próxima montagem.
 
-1. Baixe do Instagram o que fizer sentido — umas 6 peças resolvem
-   (fachada, serviço no elevador, balcão de peças, equipe, um reel, uma moto pronta).
-2. Jogue **todos os arquivos** dentro de `assets/incoming/`.
-3. Rode:
+Edite em `src/` e rode:
 
 ```bash
-cd ~/pruma_dev/tiradentes-site
-python3 scripts/importar-midia.py
+python3 scripts/montar.py
 ```
 
-4. Recarregue http://localhost:4173
-
-O script escolhe qual arquivo vai em cada lugar, redimensiona, renomeia e liga
-tudo no site sozinho. Ele guarda um backup do HTML na primeira vez, então rodar
-de novo com outra seleção é seguro.
-
-### Como ele decide
-
-| Espaço | O que recebe |
+| Quero mudar | Edito |
 |---|---|
-| Fundo do hero | a foto mais larga de todas |
-| Galeria 1 e 6 (largos) | fotos em paisagem |
-| Galeria 3 e 4 (quadrados) | fotos quadradas ou em pé |
-| Galeria 2 e 5 | os vídeos |
+| Cabeçalho, menu, logo | `src/_header.html` |
+| Rodapé | `src/_footer.html` |
+| Texto de uma seção | `src/_secoes/<nome>.html` |
+| Título e descrição de uma página (SEO) | `PAGINAS`, no topo de `scripts/montar.py` |
+| Quais seções cada página tem | `PAGINAS`, no mesmo lugar |
+| Endereço, horário, telefone nos dados de busca | `src/_schema-negocio.json` |
+| Perguntas frequentes | `src/_schema-faq.json` **e** `src/_secoes/duvidas.html` |
+| WhatsApp e horário do selo "aberto agora" | `CONFIG`, no topo de `assets/js/main.js` |
+| Cores e tipografia | bloco `:root` em `assets/css/style.css` |
 
-Se sobrar espaço sem arquivo, ele continua mostrando a tarja listrada dizendo o
-que falta — nada quebra.
+O `montar.py` também reescreve o `sitemap.xml` sozinho.
+
+## Publicar
+
+```bash
+git add -A && git commit -m "o que mudou" && git push
+```
+
+O GitHub Pages atualiza em 1 a 2 minutos.
+
+## Colocar fotos e vídeos novos
+
+1. Jogue os arquivos em `assets/incoming/` (sem renomear nem redimensionar).
+2. `python3 scripts/importar-midia.py`
+3. `python3 scripts/montar.py`
 
 ## Trocar o logo
 
-Salve o arquivo original por cima de `assets/img/logo-mark.svg`. Se for PNG,
-salve como `assets/img/logo-mark.png` e troque a extensão nas 2 linhas com
-`brand__mark` no `index.html`.
+```bash
+python3 scripts/usar-logo.py ~/caminho/do/logo.png
+python3 scripts/montar.py
+```
+
+## Gerar um arquivo para revisão
+
+```bash
+python3 scripts/gerar-para-compartilhar.py
+```
+
+Gera `tiradentes-revisao.html` com tudo embutido, abre offline.
+⚠️ Ele empacota **só a home** — as outras páginas ficam de fora.

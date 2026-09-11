@@ -714,3 +714,46 @@ body.is-locked { overflow: hidden; }
 .faq__q { font-size: 1.0625rem; margin-bottom: var(--s-2); }
 .faq__a { font-size: .9375rem; color: var(--c-muted-fg); margin: 0; }
 @media (max-width: 860px) { .faq { grid-template-columns: 1fr; gap: var(--s-4); } }
+
+/* — Três frentes na home: cada cartão leva para a sua página.
+     Existe para resolver o menu cheio (7 itens -> 4) sem esconder nada:
+     o que saiu da navegação continua a um clique da home. — */
+.frentes { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s-5); }
+.frente {
+  display: flex; flex-direction: column;
+  background: var(--c-card); border: 1px solid var(--c-border);
+  border-radius: var(--r-lg); overflow: hidden;
+  transition: transform var(--t-base) var(--ease), box-shadow var(--t-base) var(--ease),
+              border-color var(--t-base) var(--ease);
+}
+.frente:hover { transform: translateY(-4px); box-shadow: var(--sh-xl); border-color: var(--c-ink-400); }
+.frente img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; }
+.frente__txt { padding: var(--s-5); display: flex; flex-direction: column; gap: var(--s-2); flex: 1; }
+.frente__txt h3 { margin: 0; }
+.frente__txt p { font-size: .9375rem; color: var(--c-muted-fg); margin: 0; flex: 1; }
+.frente__link {
+  display: inline-flex; align-items: center; gap: var(--s-2);
+  margin-top: var(--s-3); font-family: var(--f-display); font-weight: 600;
+  font-size: .9375rem; color: var(--c-accent-ink);
+}
+.frente__link::after {
+  content: ""; width: 18px; height: 2px; background: currentColor;
+  transition: width var(--t-base) var(--ease);
+}
+.frente:hover .frente__link::after { width: 28px; }
+
+@media (max-width: 900px) { .frentes { grid-template-columns: 1fr; } .frente img { aspect-ratio: 2 / 1; } }
+
+/* — Cabeçalho das páginas internas: compacto de propósito. A home tem hero;
+     aqui o trabalho é dizer em uma linha onde o visitante está. — */
+.pagina-topo {
+  background: var(--c-ink-900); color: var(--c-on-primary);
+  padding-top: calc(var(--header-h) + var(--s-7));
+  padding-bottom: var(--s-7);
+  border-bottom: 3px solid var(--c-accent);
+}
+.pagina-topo h1 { font-size: clamp(2rem, 4.5vw, 3rem); margin: var(--s-4) 0 var(--s-3); }
+.pagina-topo .lead { color: var(--c-ink-300); max-width: 58ch; }
+
+/* a primeira seção depois do cabeçalho de página não precisa do respiro cheio */
+.pagina-topo + .section { padding-top: clamp(var(--s-6), 4vw, var(--s-7)); }
