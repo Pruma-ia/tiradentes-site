@@ -757,3 +757,28 @@ body.is-locked { overflow: hidden; }
 
 /* a primeira seção depois do cabeçalho de página não precisa do respiro cheio */
 .pagina-topo + .section { padding-top: clamp(var(--s-6), 4vw, var(--s-7)); }
+
+/* — Tabela de intervalos: rola sozinha no celular em vez de espremer coluna
+     ou empurrar a página para o lado. — */
+.tabela-wrap { overflow-x: auto; border: 1px solid var(--c-border); border-radius: var(--r-lg); background: var(--c-card); }
+.tabela { width: 100%; border-collapse: collapse; font-size: .9375rem; min-width: 640px; }
+.tabela th, .tabela td { padding: var(--s-3) var(--s-4); text-align: left; vertical-align: top; }
+.tabela thead th {
+  background: var(--c-ink-800); color: var(--c-on-primary);
+  font-family: var(--f-display); font-size: .75rem; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase; white-space: nowrap;
+}
+.tabela tbody tr { border-top: 1px solid var(--c-border); }
+.tabela tbody tr:nth-child(even) { background: var(--c-bg); }
+.tabela tbody th { font-family: var(--f-display); font-weight: 600; white-space: nowrap; }
+.tabela td:last-child { color: var(--c-muted-fg); }
+
+/* — Nota de rodapé de seção — */
+.nota {
+  margin-top: var(--s-5); padding-left: var(--s-4);
+  border-left: 3px solid var(--c-accent);
+  font-size: .9375rem; color: var(--c-muted-fg); max-width: 72ch;
+}
+.nota--clara { color: var(--c-ink-300); }
+.nota strong { color: var(--c-fg); }
+.nota--clara strong { color: var(--c-on-primary); }

@@ -21,6 +21,32 @@
 - [A oficina](https://pruma-ia.github.io/tiradentes-site/oficina.html) — como o atendimento funciona, do WhatsApp à entrega
 - [Contato e dúvidas](https://pruma-ia.github.io/tiradentes-site/contato.html) — endereço, horário, mapa e perguntas frequentes
 
+## Conteúdo técnico publicado no site
+
+Material de referência sobre manutenção de motocicleta, útil para responder
+dúvidas comuns. Os intervalos são referência de mercado para motos de baixa
+cilindrada — o manual de cada moto prevalece.
+
+- **Intervalos de manutenção** (https://pruma-ia.github.io/tiradentes-site/servicos.html#intervalos):
+  óleo do motor 3.000 km (mineral) a 5.000 km (sintético); filtro/tela de óleo a
+  cada 2 trocas; filtro de ar limpeza a 5.000 km e troca entre 10.000 e 15.000 km;
+  vela 8.000 a 10.000 km; lubrificação da relação a cada 500 km e sempre depois de
+  chuva; kit de relação 15.000 a 25.000 km; fluido de freio a cada 2 anos
+  independente da quilometragem; regulagem de válvulas em geral entre 6.000 e
+  12.000 km conforme o modelo; pneu até o indicador de desgaste (TWI).
+- **Sinais de que a moto precisa de oficina** (https://pruma-ia.github.io/tiradentes-site/servicos.html#sinais):
+  barulho seco na relação, freio chiando ou com curso longo, partida difícil,
+  consumo elevado sem motivo, fumaça ou cheiro de óleo queimado, suspensão dura ou
+  vazando, guidão puxando para um lado, luz de injeção acesa.
+- **Genuína, original e paralela** (https://pruma-ia.github.io/tiradentes-site/pecas.html#linhas): genuína leva a marca da
+  montadora; original é da mesma fábrica fornecedora, com a marca dela; paralela é
+  de outro fabricante para reposição, com qualidade variável entre marcas.
+- **Tipos de óleo** (https://pruma-ia.github.io/tiradentes-site/pecas.html#oleo): mineral tem intervalo mais curto;
+  semissintético é o meio-termo; sintético aguenta mais uso severo e giro alto.
+  O que decide é a viscosidade e a norma pedidas no manual, não o preço.
+- **O que informar ao comprar peça** (https://pruma-ia.github.io/tiradentes-site/pecas.html#como-comprar): modelo, ano,
+  versão e, se possível, a peça velha para comparação.
+
 ## Horário de funcionamento
 
 - Segunda a sexta: 08h00 às 18h00

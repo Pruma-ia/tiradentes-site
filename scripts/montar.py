@@ -40,29 +40,29 @@ PAGINAS = {
  },
  'servicos.html': {
    'titulo': 'Serviços e revisão de moto — Tiradentes Moto Peças, Contagem/MG',
-   'desc': 'Revisão programada por checklist, troca de óleo, relação, freios, suspensão, '
-           'elétrica, pneus, regulagem de válvulas e diagnóstico. Orçamento antes de executar.',
+   'desc': 'Revisão por checklist, óleo, relação, freios, suspensão, elétrica, pneus e '
+           'válvulas. Tabela de intervalos de manutenção e os sinais de que a moto pede oficina.',
    'h1': 'Serviços e revisão',
    'h1sub': 'O que a oficina faz, e o que entra numa revisão programada.',
-   'secoes': ['servicos', 'revisao', 'cta'],
+   'secoes': ['servicos', 'revisao', 'intervalos', 'sinais', 'cta'],
    'schema': [],
  },
  'pecas.html': {
    'titulo': 'Loja de peças de moto em Contagem/MG — Tiradentes Moto Peças',
-   'desc': 'Peça de moto no balcão, original e paralela, com a aplicação conferida por '
-           'modelo, ano e versão. A oficina instala na hora, sem marcar outro dia.',
+   'desc': 'Peça de moto no balcão em Contagem/MG. Diferença entre genuína, original e '
+           'paralela, qual óleo usar na sua moto e o que ter em mãos para comprar certo.',
    'h1': 'Loja de peças',
    'h1sub': 'Peça de moto no balcão, com a aplicação conferida antes da venda.',
-   'secoes': ['pecas', 'cta'],
+   'secoes': ['pecas', 'original-paralela', 'oleo', 'como-comprar', 'cta'],
    'schema': [],
  },
  'oficina.html': {
    'titulo': 'A oficina — Tiradentes Moto Peças, Bairro Industrial, Contagem/MG',
-   'desc': 'Oficina de moto feita para quem depende dela para trabalhar. Preço e prazo '
-           'ditos na entrada, e o prazo combinado é o que vale.',
+   'desc': 'Oficina de moto para quem depende dela para trabalhar. Como funciona o '
+           'atendimento, o que perguntamos na entrada e o serviço que sai daqui.',
    'h1': 'A oficina',
    'h1sub': 'Como a gente trabalha, e o serviço que sai daqui todo dia.',
-   'secoes': ['oficina', 'galeria', 'cta'],
+   'secoes': ['oficina', 'na-entrada', 'galeria', 'cta'],
    'schema': [],
  },
  'contato.html': {
@@ -123,6 +123,16 @@ def schemas(quais):
 
 
 def montar():
+    faltando = [(a, s) for a, c in PAGINAS.items() for s in c['secoes']
+                if not (SRC / '_secoes' / f'{s}.html').exists()]
+    if faltando:
+        print('Seção declarada em PAGINAS que não existe em src/_secoes/:')
+        for a, s in faltando:
+            print(f'  {a}  ->  {s}.html')
+        print('\nArquivos disponíveis:',
+              ', '.join(sorted(p.stem for p in (SRC / '_secoes').glob('*.html'))))
+        return 1
+
     gabarito = ler('_layout.html')
     for arquivo, cfg in PAGINAS.items():
         url = BASE + ('' if arquivo == 'index.html' else arquivo)
@@ -159,7 +169,8 @@ def montar():
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
         f'{urls}\n</urlset>\n')
     print(f'  sitemap.xml      {len(PAGINAS)} URLs')
+    return 0
 
 
 if __name__ == '__main__':
-    montar()
+    sys.exit(montar())

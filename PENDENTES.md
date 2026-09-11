@@ -81,6 +81,20 @@ todas precisam do aval do Thales antes de virar verdade na internet.
 Se algum for não, é troca de uma frase — todos estão na seção
 `#porque` e no hero.
 
+## ⚠️ A tabela de intervalos precisa do aval técnico
+
+A página de serviços publica uma **tabela de intervalos de manutenção** (óleo,
+relação, vela, válvula, fluido de freio…). Os números são **referência de mercado
+para motos de baixa cilindrada**, e a seção diz isso na abertura — mas eles saem
+publicados sob o nome da oficina.
+
+Pedir ao Thales uma passada de olho. Se a prática dele diferir em algum item, é
+editar uma linha em `src/_secoes/intervalos.html` e rodar `montar.py`.
+
+O mesmo vale, em menor grau, para a seção de **sinais** e para a explicação de
+**genuína/original/paralela** — são conhecimento técnico geral, não afirmações
+sobre a oficina, mas quem assina é ela.
+
 ## Confirmar com o Thales
 
 Horário de sábado: **Instagram diz 08h–13h** (é o que está no site); a base da
