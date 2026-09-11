@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://pruma-ia.github.io/tiradentes-site/</loc>
-    <lastmod>2026-09-09</lastmod>
+    <lastmod>2026-09-11</lastmod>
     <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://pruma-ia.github.io/tiradentes-site/assets/img/balcao.jpg</image:loc>
+      <image:caption>Balcao da Tiradentes Moto Pecas, em Contagem/MG</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://pruma-ia.github.io/tiradentes-site/assets/img/oficina.jpg</image:loc>
+      <image:caption>Mecanico atendendo uma moto no elevador da oficina</image:caption>
+    </image:image>
   </url>
 </urlset>

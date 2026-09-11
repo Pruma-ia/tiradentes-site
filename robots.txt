@@ -1,4 +1,56 @@
+# Tiradentes Moto Peças — https://pruma-ia.github.io/tiradentes-site/
+
+# Buscadores tradicionais
 User-agent: *
+Allow: /
+
+# Robôs de IA — liberados de propósito.
+# Estes são os agentes que alimentam ChatGPT, Claude, Perplexity, Gemini e o
+# AI Overview do Google. Bloquear qualquer um deles tira a oficina das
+# respostas geradas por IA, que é onde parte da busca local acontece hoje.
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: meta-externalagent
+Allow: /
+
+User-agent: Amazonbot
 Allow: /
 
 Sitemap: https://pruma-ia.github.io/tiradentes-site/sitemap.xml

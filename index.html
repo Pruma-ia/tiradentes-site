@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Tiradentes Moto Peças — Oficina e peças de moto em Contagem/MG</title>
-<meta name="description" content="Oficina de motos e loja de peças na Rua Tiradentes, 2980 — Bairro Industrial, Contagem/MG. Revisão, troca de óleo, relação, freio, suspensão, elétrica, pneu e bateria. Orçamento pelo WhatsApp.">
+<meta name="description" content="Oficina de moto e loja de peças no mesmo balcão, no Bairro Industrial, em Contagem/MG. Revisão por checklist, relação, freio, suspensão, elétrica e válvula. Orçamento e prazo antes de encostar na moto.">
 <meta name="theme-color" content="#0F172A">
 <link rel="canonical" href="https://pruma-ia.github.io/tiradentes-site/">
 
@@ -18,8 +18,14 @@
 <meta property="og:image" content="https://pruma-ia.github.io/tiradentes-site/assets/img/og-cover.jpg">
 <meta property="og:image:alt" content="Balcão da Tiradentes Moto Peças, em Contagem/MG">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Tiradentes Moto Peças — oficina e peças em Contagem/MG">
+<meta name="twitter:description" content="Peça e serviço no mesmo balcão, no Bairro Industrial. Preço e prazo antes de encostar na moto.">
+<meta name="twitter:image" content="https://pruma-ia.github.io/tiradentes-site/assets/img/og-cover.jpg">
+<meta name="geo.region" content="BR-MG">
+<meta name="geo.placename" content="Contagem, Minas Gerais">
 
 <link rel="icon" href="assets/img/favicon.png" type="image/png">
+<link rel="preload" as="image" href="assets/img/balcao.jpg" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <script type="application/ld+json">
@@ -38,13 +44,187 @@
     "addressRegion": "MG",
     "addressCountry": "BR"
   },
-  "sameAs": ["https://www.instagram.com/tiradentesmotopecas"],
+  "sameAs": [
+    "https://www.instagram.com/tiradentesmotopecas"
+  ],
   "openingHoursSpecification": [
-    { "@type": "OpeningHoursSpecification",
-      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
-      "opens": "08:00", "closes": "18:00" },
-    { "@type": "OpeningHoursSpecification",
-      "dayOfWeek": "Saturday", "opens": "08:00", "closes": "13:00" }
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday"
+      ],
+      "opens": "08:00",
+      "closes": "18:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": "Saturday",
+      "opens": "08:00",
+      "closes": "13:00"
+    }
+  ],
+  "areaServed": [
+    {
+      "@type": "City",
+      "name": "Contagem",
+      "addressRegion": "MG"
+    },
+    {
+      "@type": "City",
+      "name": "Belo Horizonte",
+      "addressRegion": "MG"
+    }
+  ],
+  "currenciesAccepted": "BRL",
+  "knowsAbout": [
+    "manutenção de motocicletas",
+    "peças de moto",
+    "revisão de moto",
+    "óleo lubrificante para moto"
+  ],
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Serviços da oficina",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Revisão programada de moto"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Troca de óleo"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Relação — corrente, coroa e pinhão"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Freios — pastilha, lona, disco e sangria"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Suspensão — bengala, retentor e amortecedor"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Elétrica e bateria"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Troca e montagem de pneus"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Regulagem de válvulas"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Diagnóstico"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Venda de peças de moto"
+        }
+      }
+    ]
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Onde fica a Tiradentes Moto Peças?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Na Rua Tiradentes, 2980 — Bairro Industrial, em Contagem, Minas Gerais."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Qual é o horário de funcionamento?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "De segunda a sexta, das 8h às 18h. Aos sábados, das 8h às 13h. Domingo não abre."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "A oficina faz orçamento antes de executar o serviço?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sim. O preço e o prazo são passados antes de qualquer coisa ser feita na moto, e nada é executado sem a sua aprovação do valor."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Vocês vendem peça avulsa ou só junto com o serviço?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Vendemos peça avulsa no balcão. A aplicação é conferida pelo modelo, ano e versão antes da venda. Se quiser, a oficina instala na hora, sem marcar outro dia."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Trabalham com peça original ou paralela?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Com as duas linhas. O orçamento padrão usa peça paralela de boa procedência; peça original é orçada sob pedido."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quanto custa uma revisão?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Depende do modelo da moto e da faixa de quilometragem. Mande o modelo pelo WhatsApp (31) 98324-7256 que a gente responde com o preço e o prazo."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quais serviços a oficina faz?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Revisão programada por checklist, troca de óleo, relação (corrente, coroa e pinhão), freios, suspensão, elétrica e bateria, pneus, regulagem de válvulas e diagnóstico, além da venda de peças no balcão."
+      }
+    }
   ]
 }
 </script>
@@ -69,7 +249,9 @@
       <a class="nav__link" href="#servicos">Serviços</a>
       <a class="nav__link" href="#revisao">Revisão</a>
       <a class="nav__link" href="#pecas">Peças</a>
+      <a class="nav__link" href="#porque">Por que aqui</a>
       <a class="nav__link" href="#oficina">A oficina</a>
+      <a class="nav__link" href="#duvidas">Dúvidas</a>
       <a class="nav__link" href="#contato">Onde estamos</a>
     </nav>
 
@@ -89,7 +271,9 @@
   <a class="mobile-nav__link" href="#servicos">Serviços</a>
   <a class="mobile-nav__link" href="#revisao">Revisão</a>
   <a class="mobile-nav__link" href="#pecas">Peças</a>
+  <a class="mobile-nav__link" href="#porque">Por que aqui</a>
   <a class="mobile-nav__link" href="#oficina">A oficina</a>
+  <a class="mobile-nav__link" href="#duvidas">Dúvidas</a>
   <a class="mobile-nav__link" href="#contato">Onde estamos</a>
   <a class="btn btn--primary btn--lg btn--block mobile-nav__cta" data-wa href="#contato">Chamar no WhatsApp</a>
 </nav>
@@ -102,16 +286,16 @@
     <div class="hero__split">
       <div class="hero__content">
         <span class="rastro" aria-hidden="true"><span></span><span></span><span></span></span>
-        <h1 style="margin-top:1.25rem;">Oficina de moto no <em>Bairro Industrial</em>, em Contagem.</h1>
+        <h1 style="margin-top:1.25rem;">A oficina de quem <em>trabalha</em> em cima da moto.</h1>
         <p class="hero__sub">
-          Revisão, peça e serviço no mesmo lugar. Você chega, a gente olha, passa o preço
-          e o prazo — e a moto volta pra rua.
+          Peça e serviço no mesmo balcão, no Bairro Industrial. Você diz o que está
+          acontecendo; a gente passa o preço e o prazo <strong>antes de encostar na moto</strong>.
         </p>
         <div class="hero__actions">
           <a class="btn btn--primary btn--lg" data-wa data-wa-msg="Olá! Vim pelo site e quero agendar uma revisão." href="#contato">
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.2-1.7-.9-2-1-.3-.1-.5-.2-.7.1-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-1.7-.9-2.9-1.6-4-3.5-.3-.5.3-.5.9-1.6.1-.2 0-.4 0-.6s-.7-1.6-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.1-1.2 2.8s1.2 3.2 1.4 3.5c.2.2 2.4 3.7 5.9 5.2 2.2.9 3 1 4.1.8.7-.1 2.1-.8 2.4-1.7.3-.9.3-1.6.2-1.7-.1-.2-.3-.3-.6-.4Z"/><path d="M12 2A10 10 0 0 0 3.5 17.2L2 22l4.9-1.5A10 10 0 1 0 12 2Zm0 18.1c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3 .9.9-2.9-.2-.3A8.1 8.1 0 1 1 12 20.1Z"/></svg> Agendar revisão
           </a>
-          <a class="btn btn--ghost btn--lg" href="#servicos">Ver os serviços</a>
+          <a class="btn btn--ghost btn--lg" href="#servicos">O que fazemos</a>
         </div>
         <p style="margin-top:1.75rem;color:var(--c-ink-400);font-size:.9375rem;">
           Rua Tiradentes, 2980 &nbsp;·&nbsp; Seg a sex 8h–18h &nbsp;·&nbsp; Sáb 8h–13h
@@ -119,7 +303,7 @@
       </div>
 
       <div class="hero__foto moldura">
-        <img src="assets/img/oficina.jpg" width="900" height="1125"
+        <img src="assets/img/oficina.jpg" width="360" height="640"
              alt="Mecânico da Tiradentes trabalhando em uma moto no elevador da oficina"
              fetchpriority="high">
         <div class="hero__selo">
@@ -142,15 +326,15 @@
     </div>
     <div class="fatos__item">
       <span class="fatos__num"><em>2.588</em></span>
-      <span class="fatos__label">Seguidores no Instagram</span>
+      <span class="fatos__label">Acompanham a oficina no Instagram</span>
     </div>
     <div class="fatos__item">
       <span class="fatos__num">Seg a <em>sáb</em></span>
       <span class="fatos__label">Aberto seis dias por semana</span>
     </div>
     <div class="fatos__item">
-      <span class="fatos__num">Orçamento <em>antes</em></span>
-      <span class="fatos__label">Nada é feito sem você aprovar</span>
+      <span class="fatos__num">Você <em>aprova</em></span>
+      <span class="fatos__label">Nada é feito sem o seu OK no valor</span>
     </div>
   </div>
 </section>
@@ -161,26 +345,26 @@
     <div class="dupla">
       <div>
         <span class="rastro" aria-hidden="true"><span></span><span></span><span></span></span>
-        <h2 style="margin-top:1.25rem;">O que a gente faz</h2>
+        <h2 style="margin-top:1.25rem;">Da troca de óleo ao motor aberto</h2>
         <p class="lead" style="margin-bottom:2rem;">
-          Serviço de oficina e peça no balcão. Não precisa procurar a peça num lugar
-          e o mecânico em outro.
+          Oficina completa e loja de peças na mesma porta. Você não sai daqui com uma
+          lista de peças para procurar em outro lugar.
         </p>
         <div class="servicos">
-        <div class="servico"><span class="servico__num">01</span><span class="servico__nome">Revisão programada<span class="servico__desc">Faixa de quilometragem, por checklist</span></span></div>
-        <div class="servico"><span class="servico__num">02</span><span class="servico__nome">Troca de óleo<span class="servico__desc">Óleo, tela e filtro conforme o modelo</span></span></div>
-        <div class="servico"><span class="servico__num">03</span><span class="servico__nome">Relação<span class="servico__desc">Corrente, coroa e pinhão — kit completo</span></span></div>
-        <div class="servico"><span class="servico__num">04</span><span class="servico__nome">Freios<span class="servico__desc">Pastilha, lona, disco e sangria</span></span></div>
-        <div class="servico"><span class="servico__num">05</span><span class="servico__nome">Suspensão<span class="servico__desc">Bengala, retentor e amortecedor</span></span></div>
-        <div class="servico"><span class="servico__num">06</span><span class="servico__nome">Elétrica e bateria<span class="servico__desc">Moto que não pega, farol, seta, chicote</span></span></div>
-        <div class="servico"><span class="servico__num">07</span><span class="servico__nome">Pneus<span class="servico__desc">Troca, montagem e calibragem</span></span></div>
-        <div class="servico"><span class="servico__num">08</span><span class="servico__nome">Regulagem de válvulas<span class="servico__desc">Serviço de faixa que decide a vida do motor</span></span></div>
-        <div class="servico"><span class="servico__num">09</span><span class="servico__nome">Diagnóstico<span class="servico__desc">Chegou com um barulho? A moto entra para avaliação</span></span></div>
-        <div class="servico"><span class="servico__num">10</span><span class="servico__nome">Venda de peças<span class="servico__desc">Original e paralela, com aplicação conferida</span></span></div>
+        <div class="servico"><span class="servico__num">01</span><span class="servico__nome">Revisão programada<span class="servico__desc">Checklist por faixa de quilometragem — não “o que der pra ver”</span></span></div>
+        <div class="servico"><span class="servico__num">02</span><span class="servico__nome">Troca de óleo<span class="servico__desc">Óleo, tela e filtro conforme o sistema da sua moto</span></span></div>
+        <div class="servico"><span class="servico__num">03</span><span class="servico__nome">Relação<span class="servico__desc">Corrente, coroa e pinhão. Limpeza, regulagem e kit completo</span></span></div>
+        <div class="servico"><span class="servico__num">04</span><span class="servico__nome">Freios<span class="servico__desc">Pastilha, lona, disco e sangria do sistema</span></span></div>
+        <div class="servico"><span class="servico__num">05</span><span class="servico__nome">Suspensão<span class="servico__desc">Bengala, retentor, óleo de bengala e amortecedor</span></span></div>
+        <div class="servico"><span class="servico__num">06</span><span class="servico__nome">Elétrica e bateria<span class="servico__desc">Moto que não pega, farol, seta, chicote e teste de carga</span></span></div>
+        <div class="servico"><span class="servico__num">07</span><span class="servico__nome">Pneus<span class="servico__desc">Troca, montagem e calibragem — com a moto no elevador</span></span></div>
+        <div class="servico"><span class="servico__num">08</span><span class="servico__nome">Regulagem de válvulas<span class="servico__desc">A folga certa decide partida, consumo e vida do motor</span></span></div>
+        <div class="servico"><span class="servico__num">09</span><span class="servico__nome">Diagnóstico<span class="servico__desc">Chegou com barulho e não com pedido? A moto entra para avaliação</span></span></div>
+        <div class="servico"><span class="servico__num">10</span><span class="servico__nome">Venda de peças<span class="servico__desc">Original e paralela, com a aplicação conferida no ato</span></span></div>
         </div>
       </div>
       <div class="dupla__foto moldura moldura--esq">
-        <img src="assets/img/motor.jpg" width="900" height="1125" loading="lazy"
+        <img src="assets/img/motor.jpg" width="360" height="640" loading="lazy"
              alt="Motor de uma Yamaha XTZ aberto na bancada da oficina">
       </div>
     </div>
@@ -192,15 +376,16 @@
   <div class="wrap">
     <div class="dupla dupla--invertida">
       <div class="dupla__foto moldura">
-        <img src="assets/img/revisao.jpg" width="900" height="1125" loading="lazy"
+        <img src="assets/img/revisao.jpg" width="361" height="640" loading="lazy"
              alt="Honda XRE 300 vermelha depois da revisão geral feita na oficina">
       </div>
       <div>
         <span class="rastro rastro--claro" aria-hidden="true"><span></span><span></span><span></span></span>
-        <h2 style="margin-top:1.25rem;">Moto de trabalho pede revisão de verdade</h2>
+        <h2 style="margin-top:1.25rem;">Revisão não é só trocar o óleo</h2>
         <p class="lead">
-          Quem roda o dia inteiro faz em um mês o que outro faz em um ano. A revisão de
-          faixa existe para uma peça barata não levar junto uma cara.
+          Quem roda o dia inteiro faz em um mês o que uma moto de passeio faz em um ano.
+          A revisão de faixa existe para achar a peça no fim da vida <strong>antes</strong>
+          que ela leve outra junto — é aí que a conta fica cara.
         </p>
         <div class="pacote" style="margin-top:1.75rem;">
           <div class="pacote__topo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 13 4 4L19 7"/></svg> O que entra na revisão</div>
@@ -210,7 +395,7 @@
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 13 4 4L19 7"/></svg><span>Limpeza, lubrificação e regulagem da relação</span></li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 13 4 4L19 7"/></svg><span>Conferência de freio e pneu</span></li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 13 4 4L19 7"/></svg><span>Conferência de suspensão e elétrica</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 13 4 4L19 7"/></svg><span>Relatório do que está no ponto de troca</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 13 4 4L19 7"/></svg><span>Relatório do que está no ponto de troca e do que ainda aguenta</span></li>
           </ul>
         </div>
         <a class="btn btn--primary btn--lg" data-wa data-wa-msg="Olá! Vim pelo site e quero agendar uma revisão." href="#contato" style="margin-top:1.5rem;">
@@ -226,15 +411,15 @@
   <div class="wrap">
     <div class="dupla">
       <div class="dupla__foto moldura moldura--esq">
-        <img src="assets/img/balcao.jpg" width="900" height="1125" loading="lazy"
+        <img src="assets/img/balcao.jpg" width="360" height="640" loading="lazy"
              alt="Prateleiras de peças e óleos atrás do balcão da Tiradentes">
       </div>
       <div>
         <span class="rastro" aria-hidden="true"><span></span><span></span><span></span></span>
-        <h2 style="margin-top:1.25rem;">Peça de moto no balcão</h2>
+        <h2 style="margin-top:1.25rem;">A peça certa, conferida antes de sair da loja</h2>
         <p class="lead">
           A pergunta que mais custa dinheiro no balcão é <em>“será que serve?”</em>.
-          Diz o modelo e o ano — a gente confere antes de vender.
+          Diz o modelo, o ano e a versão — a gente confere a aplicação antes de vender.
         </p>
         <ul class="checklist" style="margin-top:1.75rem;gap:var(--s-4);">
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 13 4 4L19 7"/></svg><div><strong style="color:var(--c-fg);font-family:var(--f-display);">Original e paralela</strong><br><span style="color:var(--c-muted-fg);">As duas linhas. O orçamento padrão usa paralela de boa procedência.</span></div></li>
@@ -247,12 +432,40 @@
   </div>
 </section>
 
+<section class="section section--dark textura" id="porque">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="rastro rastro--claro" aria-hidden="true"><span></span><span></span><span></span></span>
+      <h2 style="margin-top:1.25rem;">Por que trazer sua moto aqui</h2>
+      <p class="lead">Quatro coisas que a gente combina com você logo na entrada — e que dá para cobrar depois.</p>
+    </div>
+    <div class="motivos">
+      <div class="motivo">
+        <h3>Peça e serviço na mesma porta</h3>
+        <p>Não existe “compra a peça e traz depois”. A loja e a oficina são o mesmo lugar, com o mesmo responsável.</p>
+      </div>
+      <div class="motivo">
+        <h3>Orçamento antes de encostar</h3>
+        <p>Você aprova o valor antes de qualquer coisa ser feita. Sem surpresa na hora de retirar.</p>
+      </div>
+      <div class="motivo">
+        <h3>Prazo dito na entrada</h3>
+        <p>Você sabe quando a moto fica pronta antes de deixá-la aqui. Quem trabalha em cima da moto precisa se programar.</p>
+      </div>
+      <div class="motivo">
+        <h3>Óleo de marca no balcão</h3>
+        <p>Motul, Mobil e Ipiranga — e a gente explica a diferença entre mineral, semissintético e sintético antes de você escolher.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ══════════════════════════ A OFICINA ══════════════════════════ -->
 <section class="section" id="oficina">
   <div class="wrap">
     <div class="dupla dupla--invertida">
       <div class="dupla__foto moldura">
-        <img src="assets/img/trabalho.jpg" width="900" height="1125" loading="lazy"
+        <img src="assets/img/trabalho.jpg" width="360" height="640" loading="lazy"
              alt="Detalhe da traseira e da suspensão de uma moto em manutenção">
       </div>
       <div>
@@ -261,7 +474,7 @@
         <p class="lead">
           No Bairro Industrial, boa parte de quem entra aqui trabalha em cima da moto —
           entregador, motoboy, quem usa para ir e voltar do serviço. Moto parada é dia
-          sem ganhar, e é assim que a gente organiza o atendimento.
+          sem ganhar — e é por isso que a gente fala prazo na entrada e cumpre o que falou.
         </p>
         <div style="margin-top:1.75rem;">
         <div class="servico" style="align-items:flex-start;">
@@ -290,13 +503,53 @@
     <div class="section-head">
       <span class="eyebrow">Bastidor</span>
       <h2>Motos que saíram daqui</h2>
-      <p class="lead">O dia a dia no <a href="https://www.instagram.com/tiradentesmotopecas" target="_blank" rel="noopener" style="color:var(--c-accent);text-decoration:underline;">@tiradentesmotopecas</a>.</p>
+      <p class="lead">Serviço do dia a dia, publicado no <a href="https://www.instagram.com/tiradentesmotopecas" target="_blank" rel="noopener" style="color:var(--c-accent);text-decoration:underline;">@tiradentesmotopecas</a>.</p>
     </div>
 
     <div class="gallery">
-      <figure class="gallery__item"><img src="assets/img/ninja.jpg" alt="Kawasaki Ninja verde pronta, na porta da oficina" loading="lazy" width="800" height="1000"></figure>
-      <figure class="gallery__item"><img src="assets/img/moto-pronta.jpg" alt="Moto vermelha e cinza com o serviço concluído" loading="lazy" width="800" height="1000"></figure>
-      <figure class="gallery__item"><img src="assets/img/moto-entregue.jpg" alt="Moto entregue, com o adesivo da Tiradentes na placa" loading="lazy" width="800" height="1000"></figure>
+      <figure class="gallery__item"><img src="assets/img/ninja.jpg" alt="Kawasaki Ninja verde pronta, na porta da oficina" loading="lazy" width="480" height="640"></figure>
+      <figure class="gallery__item"><img src="assets/img/moto-pronta.jpg" alt="Moto vermelha e cinza com o serviço concluído" loading="lazy" width="480" height="640"></figure>
+      <figure class="gallery__item"><img src="assets/img/moto-entregue.jpg" alt="Moto entregue, com o adesivo da Tiradentes na placa" loading="lazy" width="640" height="640"></figure>
+    </div>
+  </div>
+</section>
+
+<section class="section section--muted" id="duvidas">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="rastro" aria-hidden="true"><span></span><span></span><span></span></span>
+      <h2 style="margin-top:1.25rem;">Perguntas que a gente mais ouve</h2>
+      <p class="lead">Se a sua não estiver aqui, chama no WhatsApp que a gente responde.</p>
+    </div>
+    <div class="faq">
+        <div class="faq__item">
+          <h3 class="faq__q">Onde fica a Tiradentes Moto Peças?</h3>
+          <p class="faq__a">Na Rua Tiradentes, 2980 — Bairro Industrial, em Contagem, Minas Gerais.</p>
+        </div>
+        <div class="faq__item">
+          <h3 class="faq__q">Qual é o horário de funcionamento?</h3>
+          <p class="faq__a">De segunda a sexta, das 8h às 18h. Aos sábados, das 8h às 13h. Domingo não abre.</p>
+        </div>
+        <div class="faq__item">
+          <h3 class="faq__q">A oficina faz orçamento antes de executar o serviço?</h3>
+          <p class="faq__a">Sim. O preço e o prazo são passados antes de qualquer coisa ser feita na moto, e nada é executado sem a sua aprovação do valor.</p>
+        </div>
+        <div class="faq__item">
+          <h3 class="faq__q">Vocês vendem peça avulsa ou só junto com o serviço?</h3>
+          <p class="faq__a">Vendemos peça avulsa no balcão. A aplicação é conferida pelo modelo, ano e versão antes da venda. Se quiser, a oficina instala na hora, sem marcar outro dia.</p>
+        </div>
+        <div class="faq__item">
+          <h3 class="faq__q">Trabalham com peça original ou paralela?</h3>
+          <p class="faq__a">Com as duas linhas. O orçamento padrão usa peça paralela de boa procedência; peça original é orçada sob pedido.</p>
+        </div>
+        <div class="faq__item">
+          <h3 class="faq__q">Quanto custa uma revisão?</h3>
+          <p class="faq__a">Depende do modelo da moto e da faixa de quilometragem. Mande o modelo pelo WhatsApp (31) 98324-7256 que a gente responde com o preço e o prazo.</p>
+        </div>
+        <div class="faq__item">
+          <h3 class="faq__q">Quais serviços a oficina faz?</h3>
+          <p class="faq__a">Revisão programada por checklist, troca de óleo, relação (corrente, coroa e pinhão), freios, suspensão, elétrica e bateria, pneus, regulagem de válvulas e diagnóstico, além da venda de peças no balcão.</p>
+        </div>
     </div>
   </div>
 </section>
@@ -355,7 +608,7 @@
 <!-- ══════════════════════════ CTA FINAL ══════════════════════════ -->
 <section class="section section--tight cta-band">
   <div class="wrap">
-    <h2>Sua moto precisa de serviço hoje?</h2>
+    <h2>Sua moto está parada agora?</h2>
     <p>Manda o modelo e o que está acontecendo. A gente responde com preço e prazo.</p>
     <a class="btn btn--primary btn--lg" data-wa href="#" style="margin-top:1.5rem;">
       <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.2-1.7-.9-2-1-.3-.1-.5-.2-.7.1-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-1.7-.9-2.9-1.6-4-3.5-.3-.5.3-.5.9-1.6.1-.2 0-.4 0-.6s-.7-1.6-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.1-1.2 2.8s1.2 3.2 1.4 3.5c.2.2 2.4 3.7 5.9 5.2 2.2.9 3 1 4.1.8.7-.1 2.1-.8 2.4-1.7.3-.9.3-1.6.2-1.7-.1-.2-.3-.3-.6-.4Z"/><path d="M12 2A10 10 0 0 0 3.5 17.2L2 22l4.9-1.5A10 10 0 1 0 12 2Zm0 18.1c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3 .9.9-2.9-.2-.3A8.1 8.1 0 1 1 12 20.1Z"/></svg>
@@ -395,7 +648,9 @@
           <li><a href="#servicos">Serviços</a></li>
           <li><a href="#revisao">Revisão</a></li>
           <li><a href="#pecas">Peças</a></li>
+          <li><a href="#porque">Por que aqui</a></li>
           <li><a href="#oficina">A oficina</a></li>
+          <li><a href="#duvidas">Dúvidas</a></li>
           <li><a href="#contato">Onde estamos</a></li>
         </ul>
       </div>
