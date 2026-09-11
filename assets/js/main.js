@@ -233,12 +233,163 @@
     if (el) el.textContent = String(new Date().getFullYear());
   }
 
+
+  /* ═══════════════════════════════════════════════════════════════════════
+     MOVIMENTO
+     Ordem de chegada dentro de cada seção: rastro -> título -> texto ->
+     itens -> foto. É UMA sequência orquestrada por seção, não um efeito
+     solto em cada elemento — a skill de UI trata "animar tudo que se mexe"
+     como anti-padrão de severidade alta, e é isso que dá cara de template.
+     ═══════════════════════════════════════════════════════════════════════ */
+
+  var SEM_MOVIMENTO = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ── marca os alvos e liga o esconder-antes-de-revelar ─────────────────── */
+  function prepararMovimento() {
+    if (SEM_MOVIMENTO || !('IntersectionObserver' in window)) return false;
+
+    $$('section').forEach(function (sec) {
+      var fila = [];
+      var cab = sec.querySelector('.section-head, .hero__content, .pagina-topo .wrap, .dupla > div:not(.dupla__foto)');
+
+      var rastro = sec.querySelector('.rastro');
+      if (rastro) { rastro.setAttribute('data-mov', 'rastro'); fila.push(rastro); }
+
+      ['h1', 'h2', '.lead', '.hero__sub'].forEach(function (sel) {
+        var el = cab ? cab.querySelector(sel) : sec.querySelector(sel);
+        if (el && !el.hasAttribute('data-mov')) { el.setAttribute('data-mov', 'sobe'); fila.push(el); }
+      });
+
+      // listas e grades: entram em cascata curta
+      var itens = $$('.servico, .motivo, .card, .frente, .faq__item, .checklist li, .pacote li, .info-item, .fatos__item', sec);
+      itens.forEach(function (el) { el.setAttribute('data-mov', 'sobe'); fila.push(el); });
+
+      // a foto é fundo: chega por último e mais devagar
+      $$('.janela, .gallery__item', sec).forEach(function (el) {
+        el.setAttribute('data-mov', 'foto'); fila.push(el);
+      });
+
+      if (fila.length) sec.__fila = fila;
+    });
+
+    document.documentElement.classList.add('mov');
+    return true;
+  }
+
+  /* ── dispara a sequência quando a seção entra ──────────────────────────── */
+  function sequenciaSecoes() {
+    var obs = new IntersectionObserver(function (entradas) {
+      entradas.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        var fila = e.target.__fila || [];
+        fila.forEach(function (el, i) {
+          // 34ms por item, teto de 8 passos: lista longa não pode ficar lenta
+          setTimeout(function () { el.classList.add('mov-in'); }, Math.min(i, 8) * 34);
+        });
+        obs.unobserve(e.target);
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -8% 0px' });
+
+    $$('section').forEach(function (s) { if (s.__fila) obs.observe(s); });
+
+    // a primeira dobra não espera scroll nenhum
+    var primeira = $('main section');
+    if (primeira && primeira.__fila) {
+      primeira.__fila.forEach(function (el, i) {
+        setTimeout(function () { el.classList.add('mov-in'); }, 80 + Math.min(i, 8) * 46);
+      });
+      obs.unobserve(primeira);
+    }
+  }
+
+  /* ── barra de progresso ────────────────────────────────────────────────── */
+  function barraProgresso() {
+    if (SEM_MOVIMENTO) return;
+    var barra = document.createElement('div');
+    barra.className = 'progresso';
+    barra.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(barra);
+
+    var pronto = false;
+    function pintar() {
+      var alcance = document.documentElement.scrollHeight - window.innerHeight;
+      var p = alcance > 0 ? window.scrollY / alcance : 0;
+      barra.style.transform = 'scaleX(' + Math.min(1, Math.max(0, p)) + ')';
+      pronto = false;
+    }
+    window.addEventListener('scroll', function () {
+      if (!pronto) { window.requestAnimationFrame(pintar); pronto = true; }
+    }, { passive: true });
+    pintar();
+  }
+
+  /* ── parallax: 8% de deslocamento, só na imagem ────────────────────────── */
+  function parallax() {
+    if (SEM_MOVIMENTO) return;
+    var camadas = $$('.janela img, .frente img');
+    if (!camadas.length) return;
+
+    camadas.forEach(function (img) { img.classList.add('parallax'); });
+
+    var pronto = false, parado;
+    function mover() {
+      var altura = window.innerHeight;
+      camadas.forEach(function (img) {
+        var pai = img.parentNode;
+        var r = pai.getBoundingClientRect();
+        if (r.bottom < -200 || r.top > altura + 200) return;
+        // -1 a 1 conforme o elemento cruza a tela
+        var t = ((r.top + r.height / 2) - altura / 2) / (altura / 2);
+        img.style.transform = 'scale(1.12) translate3d(0,' + (t * -4).toFixed(2) + '%,0)';
+      });
+      pronto = false;
+    }
+    window.addEventListener('scroll', function () {
+      if (!pronto) { window.requestAnimationFrame(mover); pronto = true; }
+      // a skill pede tirar o will-change quando o scroll para, para liberar GPU
+      clearTimeout(parado);
+      parado = setTimeout(function () {
+        camadas.forEach(function (i) { i.style.willChange = 'auto'; });
+      }, 220);
+      camadas.forEach(function (i) { i.style.willChange = 'transform'; });
+    }, { passive: true });
+    window.addEventListener('resize', mover, { passive: true });
+    mover();
+  }
+
+  /* ── o número da faixa de fatos conta até o valor ──────────────────────── */
+  function contador() {
+    var alvo = $('.fatos__num em');
+    if (!alvo || SEM_MOVIMENTO || !('IntersectionObserver' in window)) return;
+    var texto = alvo.textContent.trim();
+    var limite = parseInt(texto.replace(/\D/g, ''), 10);
+    if (!limite) return;
+
+    var obs = new IntersectionObserver(function (ent) {
+      if (!ent[0].isIntersecting) return;
+      obs.disconnect();
+      var inicio = null, dur = 1100;
+      function passo(agora) {
+        if (!inicio) inicio = agora;
+        var p = Math.min(1, (agora - inicio) / dur);
+        var eased = 1 - Math.pow(1 - p, 3);
+        alvo.textContent = Math.round(limite * eased).toLocaleString('pt-BR');
+        if (p < 1) requestAnimationFrame(passo); else alvo.textContent = texto;
+      }
+      requestAnimationFrame(passo);
+    }, { threshold: 0.5 });
+    obs.observe(alvo);
+  }
+
   /* ── boot ───────────────────────────────────────────────────────────────── */
   function iniciar() {
     montarLinksWhatsApp();
     headerScroll();
     menuMobile();
-    revelar();
+    if (prepararMovimento()) sequenciaSecoes();
+    barraProgresso();
+    parallax();
+    contador();
     statusHorario();
     navAtiva();
     whatsappFlutuante();

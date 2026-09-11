@@ -782,3 +782,66 @@ body.is-locked { overflow: hidden; }
 .nota--clara { color: var(--c-ink-300); }
 .nota strong { color: var(--c-fg); }
 .nota--clara strong { color: var(--c-on-primary); }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   MOVIMENTO
+   Regra que governa tudo aqui: o conteúdo é visível SEM JavaScript. Nada
+   nasce em opacity:0 no CSS — quem esconde é a classe .mov, que só existe
+   depois que o JS provou que está vivo e que o visitante não pediu menos
+   movimento. Mesma lógica do .js-anim de antes, pelo mesmo motivo.
+
+   Parâmetros vindos da skill de UI: parallax entre 5-15% e só em camada
+   decorativa; stagger de 20-40ms por item; duração de 250-350ms para lista.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* — janela que recorta a foto para o parallax não vazar da moldura — */
+.janela { display: block; position: relative; overflow: hidden; border-radius: var(--r-lg); height: 100%; }
+.janela img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.moldura .janela { height: 100%; }
+
+/* — barra de progresso da leitura — */
+.progresso {
+  position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 120;
+  background: var(--c-accent); transform: scaleX(0); transform-origin: left;
+  will-change: transform; pointer-events: none;
+}
+
+/* ── estados iniciais: só com .mov no <html> ─────────────────────────────── */
+.mov [data-mov] { opacity: 0; }
+
+.mov [data-mov="sobe"]   { transform: translateY(26px); }
+.mov [data-mov="lado"]   { transform: translateX(-22px); }
+.mov [data-mov="foto"]   { transform: scale(1.04); }
+.mov [data-mov="rastro"] > span { transform: scaleX(0); transform-origin: left; }
+.mov [data-mov="rastro"] { opacity: 1; }
+
+.mov [data-mov].mov-in {
+  opacity: 1; transform: none;
+  transition: opacity 620ms cubic-bezier(.16,1,.3,1),
+              transform 720ms cubic-bezier(.16,1,.3,1);
+}
+.mov [data-mov="rastro"].mov-in > span {
+  transform: scaleX(1);
+  transition: transform 520ms cubic-bezier(.16,1,.3,1);
+}
+.mov [data-mov="rastro"].mov-in > span:nth-child(2) { transition-delay: 90ms; }
+.mov [data-mov="rastro"].mov-in > span:nth-child(3) { transition-delay: 180ms; }
+
+/* a foto ganha um tempo mais longo: é a camada de fundo, deve chegar por último */
+.mov [data-mov="foto"].mov-in {
+  transition: opacity 900ms cubic-bezier(.16,1,.3,1),
+              transform 1100ms cubic-bezier(.16,1,.3,1);
+}
+
+/* — parallax: só a imagem, nunca o texto — */
+.parallax { will-change: transform; }
+
+/* — micro-interação nos botões: some sob movimento reduzido — */
+.btn { will-change: auto; }
+
+@media (prefers-reduced-motion: reduce) {
+  .mov [data-mov],
+  .mov [data-mov="rastro"] > span { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .progresso { display: none; }
+  .parallax { transform: none !important; }
+}
