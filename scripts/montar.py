@@ -21,13 +21,18 @@ SRC  = RAIZ / 'src'
 BASE = 'https://pruma-ia.github.io/tiradentes-site/'
 
 # ─────────────────────────────────────────────────────────────────────────
-# Menu: 4 itens. A regra da skill de UI é nav ≤ 5 — a versão de página única
-# tinha 7 e foi o que motivou esta separação.
+# Menu: 4 itens, todos ÂNCORAS da home. A v2 voltou para página única porque
+# a navegação entre cinco arquivos não era fluida (cada clique recarregava a
+# página e perdia o lugar). O que é consulta longa — tabela de intervalos,
+# original × paralela, óleo — ficou em dois GUIAS, ligados a partir da seção
+# correspondente: conteúdo de referência, que segura busca e IA sem pesar a home.
+#
+#   (âncora, rótulo, guia que acende este item)
 MENU = [
-    ('servicos.html', 'Serviços'),
-    ('pecas.html',    'Peças'),
-    ('oficina.html',  'A oficina'),
-    ('contato.html',  'Contato'),
+    ('servicos', 'Serviços',  'servicos.html'),
+    ('oficina',  'A oficina', None),
+    ('pecas',    'Peças',     'pecas.html'),
+    ('contato',  'Contato',   None),
 ]
 
 PAGINAS = {
@@ -35,44 +40,27 @@ PAGINAS = {
    'titulo': 'Tiradentes Moto Peças — oficina de moto e loja de peças em Contagem/MG',
    'desc': 'Oficina de moto e loja de peças no mesmo balcão, no Bairro Industrial, em '
            'Contagem/MG. Preço e prazo antes de encostar na moto. WhatsApp (31) 98324-7256.',
-   'secoes': ['hero', 'fatos', 'frentes', 'porque', 'cta'],
-   'schema': ['negocio'],
+   'secoes': ['hero', 'fatos', 'faixa', 'servicos', 'oficina', 'galeria', 'pecas',
+              'porque', 'banda', 'duvidas', 'contato', 'cta'],
+   'schema': ['negocio', 'faq'],
  },
  'servicos.html': {
-   'titulo': 'Serviços e revisão de moto — Tiradentes Moto Peças, Contagem/MG',
-   'desc': 'Revisão por checklist, óleo, relação, freios, suspensão, elétrica, pneus e '
-           'válvulas. Tabela de intervalos de manutenção e os sinais de que a moto pede oficina.',
-   'h1': 'Serviços e revisão',
-   'h1sub': 'O que a oficina faz, e o que entra numa revisão programada.',
-   'secoes': ['servicos', 'revisao', 'intervalos', 'sinais', 'cta'],
+   'titulo': 'Guia de manutenção da moto — Tiradentes Moto Peças, Contagem/MG',
+   'desc': 'O que entra numa revisão, a tabela de intervalos de manutenção, os sinais '
+           'de que a moto pede oficina e o que perguntamos na entrada.',
+   'h1': 'Guia de manutenção',
+   'h1sub': 'O que entra numa revisão, quando trocar cada item e os sinais de que a moto pede oficina.',
+   'secoes': ['revisao', 'intervalos', 'sinais', 'na-entrada', 'cta'],
    'schema': [],
  },
  'pecas.html': {
-   'titulo': 'Loja de peças de moto em Contagem/MG — Tiradentes Moto Peças',
-   'desc': 'Peça de moto no balcão em Contagem/MG. Diferença entre genuína, original e '
-           'paralela, qual óleo usar na sua moto e o que ter em mãos para comprar certo.',
-   'h1': 'Loja de peças',
-   'h1sub': 'Peça de moto no balcão, com a aplicação conferida antes da venda.',
-   'secoes': ['pecas', 'original-paralela', 'oleo', 'como-comprar', 'cta'],
+   'titulo': 'Guia de peças de moto: original, paralela e óleo — Tiradentes Moto Peças',
+   'desc': 'Diferença entre peça genuína, original e paralela, qual óleo usar na sua moto '
+           'e o que ter em mãos para comprar a peça certa no balcão.',
+   'h1': 'Guia de peças',
+   'h1sub': 'Genuína, original ou paralela, qual óleo usar e como comprar a peça certa de primeira.',
+   'secoes': ['original-paralela', 'oleo', 'como-comprar', 'cta'],
    'schema': [],
- },
- 'oficina.html': {
-   'titulo': 'A oficina — Tiradentes Moto Peças, Bairro Industrial, Contagem/MG',
-   'desc': 'Oficina de moto para quem depende dela para trabalhar. Como funciona o '
-           'atendimento, o que perguntamos na entrada e o serviço que sai daqui.',
-   'h1': 'A oficina',
-   'h1sub': 'Como a gente trabalha, e o serviço que sai daqui todo dia.',
-   'secoes': ['oficina', 'na-entrada', 'galeria', 'cta'],
-   'schema': [],
- },
- 'contato.html': {
-   'titulo': 'Contato, endereço e horário — Tiradentes Moto Peças, Contagem/MG',
-   'desc': 'Rua Tiradentes, 2980 — Bairro Industrial, Contagem/MG. Seg a sex 8h–18h, '
-           'sáb 8h–13h. WhatsApp (31) 98324-7256. Dúvidas frequentes respondidas.',
-   'h1': 'Contato e dúvidas',
-   'h1sub': 'Onde fica, que horas abre e as perguntas que a gente mais ouve.',
-   'secoes': ['contato', 'duvidas', 'cta'],
-   'schema': ['negocio', 'faq'],
  },
 }
 # ─────────────────────────────────────────────────────────────────────────
@@ -82,11 +70,17 @@ def ler(p):
     return (SRC / p).read_text()
 
 
+def ancora(atual, id_):
+    """Na home, o link só rola a página; nos guias, volta para a home já na seção."""
+    return f'#{id_}' if atual == 'index.html' else f'index.html#{id_}'
+
+
 def menu_html(atual, mobile=False):
     linhas = []
-    for href, rotulo in MENU:
-        ativo = ' is-active' if href == atual else ''
-        aria = ' aria-current="page"' if href == atual else ''
+    for id_, rotulo, guia in MENU:
+        href = ancora(atual, id_)
+        ativo = ' is-active' if guia == atual else ''
+        aria = ' aria-current="page"' if guia == atual else ''
         if mobile:
             linhas.append(f'  <a class="mobile-nav__link{ativo}" href="{href}"{aria}>{rotulo}</a>')
         else:
@@ -105,7 +99,10 @@ def cabecalho(atual):
 
 def rodape(atual):
     r = ler('_footer.html')
-    itens = '\n'.join(f'          <li><a href="{h}">{t}</a></li>' for h, t in MENU)
+    itens = [f'          <li><a href="{ancora(atual, i)}">{r}</a></li>' for i, r, _ in MENU]
+    itens += ['          <li><a href="servicos.html">Guia de manutenção</a></li>',
+              '          <li><a href="pecas.html">Guia de peças</a></li>']
+    itens = '\n'.join(itens)
     r = re.sub(r'(<h4>Navegação</h4>\n\s*<ul class="footer__links">\n).*?(\n\s*</ul>)',
                lambda m: m.group(1) + itens + m.group(2), r, flags=re.S)
     return r
@@ -147,7 +144,10 @@ def montar():
                      f'    <p class="lead">{cfg["h1sub"]}</p>\n'
                      f'  </div>\n'
                      f'</section>\n\n') + corpo
-        html = (gabarito
+        pagina = gabarito
+        if arquivo != 'index.html':   # só a home tem a capa com vídeo
+            pagina = re.sub(r'<link rel="preload" as="image" href="assets/img/capa-poster[^>]*>\n', '', pagina)
+        html = (pagina
                 .replace('{{TITULO}}', cfg['titulo'])
                 .replace('{{DESC}}', cfg['desc'])
                 .replace('{{URL}}', url)

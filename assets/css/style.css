@@ -848,3 +848,175 @@ body.is-locked { overflow: hidden; }
   .progresso { display: none; }
   .parallax { transform: none !important; }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   v3 — página única, vídeo na capa, mais movimento
+   O que mudou de direção, e por quê:
+   1. Capa em tela cheia com o vídeo da própria oficina atrás do título. Foto
+      parada numa moldura dizia "site"; o vídeo diz "oficina funcionando".
+   2. Letreiro corrido com os serviços, em diagonal — o rastro do logo em
+      escala de página.
+   3. Foto entra com corte de cortina, não com fade. Fade é o padrão de
+      qualquer template; o corte tem peso de oficina.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* — capa com vídeo ——————————————————————————————————————————————————————— */
+.hero--video {
+  min-height: 100svh; align-items: flex-end;
+  padding-top: calc(var(--header-h) + var(--s-8));
+  padding-bottom: clamp(var(--s-8), 12vh, 8rem);
+}
+.hero--video .hero__media {
+  background: var(--c-ink-900) url('../img/capa-poster-desktop.jpg') center / cover no-repeat;
+}
+@media (max-aspect-ratio: 1/1) {
+  .hero--video .hero__media { background-image: url('../img/capa-poster-mobile.jpg'); }
+}
+.hero__video {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+  opacity: 0; transition: opacity 1.4s var(--ease);
+}
+.hero__video.is-playing { opacity: 1; }
+/* escurece o vídeo onde o texto mora: da esquerda e de baixo */
+.hero--video .hero__media::after {
+  background:
+    linear-gradient(90deg, rgba(11,11,12,.94) 0%, rgba(11,11,12,.74) 38%, rgba(11,11,12,.28) 100%),
+    linear-gradient(0deg, rgba(11,11,12,.92) 0%, transparent 42%),
+    linear-gradient(180deg, rgba(11,11,12,.7) 0%, transparent 22%);
+}
+@media (max-aspect-ratio: 1/1) {
+  .hero--video .hero__media::after {
+    background:
+      linear-gradient(0deg, rgba(11,11,12,.96) 18%, rgba(11,11,12,.62) 58%, rgba(11,11,12,.4) 100%);
+  }
+}
+.hero--video .hero__content { max-width: 760px; }
+.hero__titulo {
+  font-size: clamp(2.6rem, 7.2vw, 5.75rem); line-height: 1.0; letter-spacing: -.035em;
+  margin: var(--s-5) 0 var(--s-5);
+}
+.hero__titulo em { font-style: normal; color: var(--c-accent); }
+/* cada palavra numa janela própria: o texto sobe de dentro dela */
+.palavra { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: .1em; margin-bottom: -.1em; }
+.palavra > * { display: inline-block; }
+.hero__onde { margin-top: var(--s-6); color: var(--c-ink-400); font-size: .9375rem; }
+.hero--video .hero__actions { margin-bottom: 0; }
+
+/* cabeçalho transparente sobre o vídeo; ganha fundo assim que a página rola */
+body:has(.hero--video) .header:not(.is-scrolled) {
+  background: transparent; border-bottom-color: transparent; box-shadow: none;
+  backdrop-filter: none; -webkit-backdrop-filter: none;
+}
+
+/* indicador de rolagem */
+.hero__rolar {
+  position: absolute; left: 50%; bottom: var(--s-5); z-index: 2; translate: -50% 0;
+  width: 28px; height: 44px; border: 2px solid rgba(255,255,255,.45); border-radius: 14px;
+  display: flex; justify-content: center; padding-top: 7px;
+}
+.hero__rolar span { width: 4px; height: 8px; border-radius: 2px; background: var(--c-accent); animation: rolar 1.8s var(--ease) infinite; }
+@keyframes rolar { 0% { transform: translateY(0); opacity: 1; } 70% { transform: translateY(14px); opacity: 0; } 100% { opacity: 0; } }
+@media (max-width: 640px) { .hero__rolar { display: none; } .hero--video { padding-bottom: var(--s-7); } }
+
+/* — letreiro corrido ————————————————————————————————————————————————————— */
+.faixa {
+  position: relative; z-index: 3; overflow: hidden;
+  margin: -1.1rem -4vw; padding: 0;
+  background: var(--c-accent); color: var(--c-on-accent);
+  transform: rotate(-1.6deg);
+  box-shadow: 0 12px 30px -12px rgba(0,0,0,.45);
+}
+.faixa__trilho { display: flex; width: max-content; animation: corre 38s linear infinite; }
+.faixa:hover .faixa__trilho { animation-play-state: paused; }
+.faixa__texto {
+  margin: 0; padding: 1rem 0; display: flex; align-items: center; gap: 1.5rem; padding-right: 1.5rem;
+  font-family: var(--f-display); font-weight: 800; text-transform: uppercase; white-space: nowrap;
+  font-size: clamp(1.15rem, 2.4vw, 1.9rem); letter-spacing: .01em;
+}
+/* o triângulo do logo como separador */
+.faixa__texto i {
+  display: inline-block; width: .6em; height: .55em; background: var(--c-ink-900);
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+@keyframes corre { to { transform: translateX(-50%); } }
+
+/* — link para os guias ——————————————————————————————————————————————————— */
+.link-guia {
+  display: inline-flex; align-items: center; gap: var(--s-3);
+  margin-top: var(--s-6); max-width: 46ch;
+  font-family: var(--f-display); font-weight: 600; color: var(--c-accent-ink);
+  border-bottom: 2px solid currentColor; padding-bottom: 4px;
+}
+.link-guia::after { content: "→"; transition: transform var(--t-base) var(--ease); }
+.link-guia:hover::after { transform: translateX(5px); }
+
+/* — galeria: legenda que sobe no hover ———————————————————————————————————— */
+.section--dark .gallery__item { border-color: rgba(255,255,255,.08); background: var(--c-ink-700); }
+.gallery__item figcaption {
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 1;
+  padding: var(--s-6) var(--s-4) var(--s-3);
+  background: linear-gradient(0deg, rgba(11,11,12,.85), transparent);
+  font-family: var(--f-display); font-weight: 600; font-size: .875rem; color: var(--c-on-primary);
+  transform: translateY(100%); transition: transform var(--t-slow) cubic-bezier(.16,1,.3,1);
+}
+.gallery__item:hover figcaption, .gallery__item:focus-within figcaption { transform: none; }
+@media (hover: none) { .gallery__item figcaption { transform: none; } }
+
+/* — banda de foto ———————————————————————————————————————————————————————— */
+.banda {
+  position: relative; overflow: hidden; isolation: isolate;
+  min-height: clamp(380px, 70vh, 640px); display: flex; align-items: center;
+  background: var(--c-ink-900); color: var(--c-on-primary);
+}
+.banda__foto { position: absolute; inset: 0; z-index: -1; overflow: hidden; }
+.banda__foto img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 45%; filter: saturate(.85) brightness(.42); }
+.banda__frase {
+  font-family: var(--f-display); font-weight: 800; letter-spacing: -.03em; line-height: 1.02;
+  font-size: clamp(2.4rem, 6.5vw, 5.25rem); margin: 0 0 var(--s-4); max-width: 13ch; text-wrap: balance;
+}
+.banda__frase em { font-style: normal; color: var(--c-accent); }
+.banda__apoio { font-size: clamp(1rem, 1.6vw, 1.25rem); color: var(--c-ink-300); max-width: 44ch; }
+
+/* — botão principal: um brilho que passa no hover —————————————————————— */
+.btn--primary { position: relative; overflow: hidden; isolation: isolate; }
+.btn--primary::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(110deg, transparent 30%, rgba(255,255,255,.28) 50%, transparent 70%);
+  transform: translateX(-120%); transition: transform 700ms var(--ease);
+}
+.btn--primary:hover::before { transform: translateX(120%); }
+
+/* — lista de serviços: o item anda um passo no hover ——————————————————— */
+.servico { transition: padding-left var(--t-base) var(--ease); }
+.servico:hover { padding-left: 6px; }
+
+/* — movimento novo (só existe com .mov, ver bloco MOVIMENTO) ——————————— */
+.mov [data-mov="palavras"] { opacity: 1; }
+.mov [data-mov="palavras"] .palavra > * { transform: translateY(140%); }
+.mov [data-mov="palavras"].mov-in .palavra > * {
+  transform: none;
+  transition: transform 950ms cubic-bezier(.16,1,.3,1);
+  transition-delay: calc(var(--i, 0) * 75ms);
+}
+/* foto: corte de cortina de baixo para cima, com a imagem assentando */
+.mov [data-mov="foto"] { opacity: 1; clip-path: inset(100% 0 0 0); transform: none; }
+.mov [data-mov="foto"] img, .mov [data-mov="foto"] video { scale: 1.18; }
+.mov [data-mov="foto"].mov-in {
+  clip-path: inset(0 0 0 0);
+  transition: clip-path 1100ms cubic-bezier(.77,0,.18,1);
+}
+.mov [data-mov="foto"].mov-in img, .mov [data-mov="foto"].mov-in video {
+  scale: 1; transition: scale 1600ms cubic-bezier(.16,1,.3,1), transform var(--t-slow) var(--ease);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .faixa__trilho, .hero__rolar span { animation: none !important; }
+  .mov [data-mov="palavras"] .palavra > * { transform: none !important; }
+  .mov [data-mov="foto"] { clip-path: none !important; }
+  .mov [data-mov="foto"] img, .mov [data-mov="foto"] video { scale: 1 !important; }
+  .hero__video { display: none; }
+}
+
+/* o letreiro inclinado sobe ~20px na ponta direita: a faixa de fatos ganha
+   esse respiro embaixo para o letreiro não cobrir o rótulo do último fato */
+.fatos { padding-bottom: 1.6rem; }

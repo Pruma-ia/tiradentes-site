@@ -11,8 +11,8 @@ No ar: **https://pruma-ia.github.io/tiradentes-site/**
 
 ## ⚠️ O site é MONTADO — não edite os .html da raiz
 
-`index.html`, `servicos.html`, `pecas.html`, `oficina.html` e `contato.html`
-são **gerados**. Qualquer coisa escrita neles é perdida na próxima montagem.
+`index.html` (a página única, com o menu rolando até cada parte),
+`servicos.html` e `pecas.html` (os dois guias de consulta) são **gerados**. Qualquer coisa escrita neles é perdida na próxima montagem.
 
 Edite em `src/` e rode:
 
@@ -41,6 +41,18 @@ git add -A && git commit -m "o que mudou" && git push
 ```
 
 O GitHub Pages atualiza em 1 a 2 minutos.
+
+## Vídeo da capa
+
+Montado a partir do material bruto em `assets/incoming/thales-v2/`:
+
+```bash
+python3 scripts/montar-video-capa.py
+```
+
+As cenas (qual arquivo, de que segundo, por quanto tempo) ficam na lista
+`CENAS`, no topo do script. Saem duas versões: larga para computador e em pé
+para celular — o site escolhe sozinho.
 
 ## Colocar fotos e vídeos novos
 

@@ -15,11 +15,9 @@
 
 ## Páginas
 
-- [Início](https://pruma-ia.github.io/tiradentes-site/) — apresentação, o que a oficina faz e como trabalha
-- [Serviços e revisão](https://pruma-ia.github.io/tiradentes-site/servicos.html) — os 10 serviços e o que entra numa revisão
-- [Loja de peças](https://pruma-ia.github.io/tiradentes-site/pecas.html) — venda de peça no balcão
-- [A oficina](https://pruma-ia.github.io/tiradentes-site/oficina.html) — como o atendimento funciona, do WhatsApp à entrega
-- [Contato e dúvidas](https://pruma-ia.github.io/tiradentes-site/contato.html) — endereço, horário, mapa e perguntas frequentes
+- [Início](https://pruma-ia.github.io/tiradentes-site/) — página única: serviços, como a oficina trabalha, peças, fotos, perguntas frequentes, endereço e horário
+- [Guia de manutenção](https://pruma-ia.github.io/tiradentes-site/servicos.html) — o que entra numa revisão, tabela de intervalos, sinais de que a moto pede oficina
+- [Guia de peças](https://pruma-ia.github.io/tiradentes-site/pecas.html) — genuína × original × paralela, qual óleo usar, o que levar para comprar a peça certa
 
 ## Conteúdo técnico publicado no site
 

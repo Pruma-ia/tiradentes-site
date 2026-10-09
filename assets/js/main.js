@@ -255,7 +255,14 @@
       var rastro = sec.querySelector('.rastro');
       if (rastro) { rastro.setAttribute('data-mov', 'rastro'); fila.push(rastro); }
 
-      ['h1', 'h2', '.lead', '.hero__sub'].forEach(function (sel) {
+      // título da capa: palavra por palavra, cada uma sobe de dentro da sua janela
+      var titulo = sec.querySelector('.hero__titulo');
+      if (titulo) {
+        $$('.palavra > *', titulo).forEach(function (w, i) { w.style.setProperty('--i', i); });
+        titulo.setAttribute('data-mov', 'palavras'); fila.push(titulo);
+      }
+
+      ['h1', 'h2', '.lead', '.hero__sub', '.banda__frase', '.banda__apoio', '.hero__actions', '.hero__onde', '.link-guia'].forEach(function (sel) {
         var el = cab ? cab.querySelector(sel) : sec.querySelector(sel);
         if (el && !el.hasAttribute('data-mov')) { el.setAttribute('data-mov', 'sobe'); fila.push(el); }
       });
@@ -282,9 +289,14 @@
       entradas.forEach(function (e) {
         if (!e.isIntersecting) return;
         var fila = e.target.__fila || [];
+        var f = 0;
         fila.forEach(function (el, i) {
-          // 34ms por item, teto de 8 passos: lista longa não pode ficar lenta
-          setTimeout(function () { el.classList.add('mov-in'); }, Math.min(i, 8) * 34);
+          // 34ms por item, teto de 8 passos: lista longa não pode ficar lenta.
+          // Foto tem passo próprio e mais largo: a cortina de uma por vez é o efeito.
+          var atraso = el.getAttribute('data-mov') === 'foto'
+            ? 120 + Math.min(f++, 8) * 90
+            : Math.min(i, 8) * 34;
+          setTimeout(function () { el.classList.add('mov-in'); }, atraso);
         });
         obs.unobserve(e.target);
       });
@@ -326,7 +338,7 @@
   /* ── parallax: 8% de deslocamento, só na imagem ────────────────────────── */
   function parallax() {
     if (SEM_MOVIMENTO) return;
-    var camadas = $$('.janela img, .frente img');
+    var camadas = $$('.janela img, .banda__foto img');
     if (!camadas.length) return;
 
     camadas.forEach(function (img) { img.classList.add('parallax'); });
@@ -381,6 +393,38 @@
     obs.observe(alvo);
   }
 
+  /* ── vídeo da capa ─────────────────────────────────────────────────────────
+     Duas versões: larga (computador) e em pé (celular), porque o material veio
+     gravado em pé. Troca se a tela girar. Não baixa nada com "menos movimento"
+     nem com economia de dados ligada — aí fica o pôster, que já é do CSS.    */
+  function videoCapa() {
+    var v = $('.hero__video');
+    if (!v || SEM_MOVIMENTO) return;
+    var con = navigator.connection;
+    if (con && con.saveData) return;
+
+    var alta = window.matchMedia('(max-aspect-ratio: 1/1)');
+    function escolher() {
+      var src = alta.matches ? v.getAttribute('data-src-alta') : v.getAttribute('data-src-larga');
+      if (v.getAttribute('src') === src) return;
+      v.classList.remove('is-playing');
+      v.setAttribute('src', src);
+      var p = v.play();
+      if (p && p.catch) p.catch(function () {});
+    }
+    v.addEventListener('playing', function () { v.classList.add('is-playing'); });
+    if (alta.addEventListener) alta.addEventListener('change', escolher);
+    escolher();
+
+    // fora da tela, pausa: não gasta bateria tocando o que ninguém vê
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (e) {
+        if (e[0].isIntersecting) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+        else v.pause();
+      }).observe(v);
+    }
+  }
+
   /* ── vídeos da galeria: tocam sem som só enquanto estão na tela ───────── */
   // preload="none" no HTML: nada é baixado até o vídeo aparecer. Quem pede
   // menos movimento fica com a foto de capa e o controle para tocar se quiser.
@@ -411,6 +455,7 @@
     parallax();
     contador();
     videosGaleria();
+    videoCapa();
     statusHorario();
     navAtiva();
     whatsappFlutuante();
