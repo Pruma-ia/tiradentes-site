@@ -399,6 +399,7 @@ body.is-locked { overflow: hidden; }
 .gallery:has(> :nth-child(3):last-child) { max-width: 980px; margin-inline: auto; }
 .gallery__item {
   position: relative; aspect-ratio: 4 / 5;   /* o material do Instagram é vertical */
+  margin: 0;                                /* <figure> traz 40px de margem do navegador */
   border-radius: var(--r-md); overflow: hidden;
   background: var(--c-muted);
   border: 1px solid var(--c-border);
@@ -526,6 +527,8 @@ body.is-locked { overflow: hidden; }
   :root { --header-h: 64px; }
   .grid--2, .grid--3, .grid--4 { grid-template-columns: 1fr; }
   .gallery { grid-template-columns: repeat(2, 1fr); gap: var(--s-3); }
+  /* número ímpar de itens: o último ocupa a linha inteira em vez de ficar sozinho */
+  .gallery__item:last-child:nth-child(odd) { grid-column: 1 / -1; aspect-ratio: 4 / 3; }
   .footer__grid { grid-template-columns: 1fr; }
   .hero { min-height: auto; padding-top: calc(var(--header-h) + var(--s-6)); }
   .hero__actions .btn { width: 100%; }

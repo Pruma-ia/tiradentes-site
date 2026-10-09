@@ -381,6 +381,26 @@
     obs.observe(alvo);
   }
 
+  /* ── vídeos da galeria: tocam sem som só enquanto estão na tela ───────── */
+  // preload="none" no HTML: nada é baixado até o vídeo aparecer. Quem pede
+  // menos movimento fica com a foto de capa e o controle para tocar se quiser.
+  function videosGaleria() {
+    var videos = $$('video[data-autoplay]');
+    if (!videos.length) return;
+    if (SEM_MOVIMENTO || !('IntersectionObserver' in window)) {
+      videos.forEach(function (v) { v.controls = true; });
+      return;
+    }
+    var obs = new IntersectionObserver(function (entradas) {
+      entradas.forEach(function (e) {
+        var v = e.target;
+        if (e.isIntersecting) { var p = v.play(); if (p && p.catch) p.catch(function () { v.controls = true; }); }
+        else v.pause();
+      });
+    }, { threshold: 0.35 });
+    videos.forEach(function (v) { obs.observe(v); });
+  }
+
   /* ── boot ───────────────────────────────────────────────────────────────── */
   function iniciar() {
     montarLinksWhatsApp();
@@ -390,6 +410,7 @@
     barraProgresso();
     parallax();
     contador();
+    videosGaleria();
     statusHorario();
     navAtiva();
     whatsappFlutuante();
