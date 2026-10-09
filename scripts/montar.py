@@ -24,7 +24,7 @@ BASE = 'https://pruma-ia.github.io/tiradentes-site/'
 # Menu: 4 itens, todos ÂNCORAS da home. A v2 voltou para página única porque
 # a navegação entre cinco arquivos não era fluida (cada clique recarregava a
 # página e perdia o lugar). O que é consulta longa — tabela de intervalos,
-# original × paralela, óleo — ficou em dois GUIAS, ligados a partir da seção
+# original × alternativa, óleo — ficou em dois GUIAS, ligados a partir da seção
 # correspondente: conteúdo de referência, que segura busca e IA sem pesar a home.
 #
 #   (âncora, rótulo, guia que acende este item)
@@ -54,12 +54,12 @@ PAGINAS = {
    'schema': [],
  },
  'pecas.html': {
-   'titulo': 'Guia de peças de moto: original, paralela e óleo — Tiradentes Moto Peças',
-   'desc': 'Diferença entre peça genuína, original e paralela, qual óleo usar na sua moto '
+   'titulo': 'Guia de peças de moto: original, alternativa e óleo — Tiradentes Moto Peças',
+   'desc': 'Diferença entre peça genuína, original e alternativa, qual óleo usar na sua moto '
            'e o que ter em mãos para comprar a peça certa no balcão.',
    'h1': 'Guia de peças',
-   'h1sub': 'Genuína, original ou paralela, qual óleo usar e como comprar a peça certa de primeira.',
-   'secoes': ['original-paralela', 'oleo', 'como-comprar', 'cta'],
+   'h1sub': 'Genuína, original ou alternativa, qual óleo usar e como comprar a peça certa de primeira.',
+   'secoes': ['original-alternativa', 'oleo', 'como-comprar', 'cta'],
    'schema': [],
  },
 }

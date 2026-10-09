@@ -192,7 +192,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .header__inner { display: flex; align-items: center; justify-content: space-between; gap: var(--s-5); width: 100%; }
 
 .brand { display: flex; align-items: center; gap: var(--s-3); flex-shrink: 0; min-height: 44px; }
-.brand__mark { width: 42px; height: 42px; flex-shrink: 0; display: block; }
+.brand__mark { width: auto; height: 42px; flex-shrink: 0; display: block; }
 .brand__text { display: flex; flex-direction: column; line-height: 1; }
 .brand__name {
   font-family: var(--f-display); font-weight: 800; font-size: 1.0625rem;

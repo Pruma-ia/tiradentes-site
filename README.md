@@ -53,13 +53,16 @@ Direção gerada e verificada com a skill [ui-ux-pro-max](https://github.com/nex
 | Tipografia | Outfit (títulos) / Rubik (texto) |
 | Estrutura | hero em duas colunas, blocos foto+texto alternando lado |
 
-Duas regras que nasceram de erro real e valem manter:
+Regras que valem manter:
 
 - **Cada foto aparece uma vez só.** A primeira versão repetiu a mesma imagem do
   balcão em três lugares.
 - **Vermelho tem dois tokens.** `--c-accent` (`#E02826`) para preenchimento e
   `--c-accent-ink` (`#C81E1E`) para texto sobre fundo claro — o tom de
   preenchimento como texto dava 4,43:1 e reprovava no contraste mínimo.
+
+- **Peça "alternativa", nunca "paralela".** Pedido do Thales (09/10/2026): é o
+  termo que o mercado usa. Vale para todo texto do site, inclusive FAQ e `llms.txt`.
 
 O conteúdo é visível sem JavaScript: a animação de entrada só esconde depois que
 o próprio JS marca `<html class="js-anim">`.

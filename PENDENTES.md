@@ -69,7 +69,7 @@ certificado", porque não sabemos), mas estes quatro pontos precisam de um sim:
 | "prazo dito na entrada e **cumpre o que falou**" | mesma origem | é promessa forte; o Thales assina? |
 | "Motul, Mobil e **Ipiranga**" | post do próprio Instagram (27/08) sobre tipos de óleo | são as marcas que ele realmente mantém? |
 | "a loja e a oficina são o mesmo lugar, **com o mesmo responsável**" | bio do Instagram ("Peças • Manutenção • Oficina") | confere? |
-| "peça **original e paralela**, original sob pedido" | base da POC do agente, montada **sem dado do cliente** | é a política real? |
+| "peça **original e alternativa**, original sob pedido" | base da POC do agente, montada **sem dado do cliente** | é a política real? |
 | FAQ: "peça avulsa no balcão, instalada na hora" | derivado das afirmações acima | confere? |
 
 ⚠️ **O FAQ agora é resposta de IA.** As 7 perguntas viraram dado estruturado
@@ -92,7 +92,7 @@ Pedir ao Thales uma passada de olho. Se a prática dele diferir em algum item, �
 editar uma linha em `src/_secoes/intervalos.html` e rodar `montar.py`.
 
 O mesmo vale, em menor grau, para a seção de **sinais** e para a explicação de
-**genuína/original/paralela** — são conhecimento técnico geral, não afirmações
+**genuína/original/alternativa** — são conhecimento técnico geral, não afirmações
 sobre a oficina, mas quem assina é ela.
 
 ## Confirmar com o Thales

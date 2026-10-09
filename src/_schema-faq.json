@@ -36,10 +36,10 @@
     },
     {
       "@type": "Question",
-      "name": "Trabalham com peça original ou paralela?",
+      "name": "Trabalham com peça original ou alternativa?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Com as duas linhas. O orçamento padrão usa peça paralela de boa procedência; peça original é orçada sob pedido."
+        "text": "Com as duas linhas. O orçamento padrão usa peça alternativa de boa procedência; peça original é orçada sob pedido."
       }
     },
     {
