@@ -8,7 +8,7 @@ Gera o logo do cabeçalho e o favicon a partir do logo completo (fundo branco).
 O recorte (crop) é do arquivo logo1.jpeg de 09/10/2026: só o triângulo, sem a
 faixa TIRADENTES — o nome vai em texto no HTML, que fica nítido em qualquer tela.
 """
-# branco de fora: o fundo é achado por preenchimento a partir dos cantos, então
+# Só o branco de FORA vira transparente: o fundo é achado por preenchimento a partir dos cantos, então
 # o branco de dentro do desenho (faixas de velocidade, capacete) continua branco.
 # Na borda, o alfa sai de quanto o pixel se afasta do branco — sem halo claro.
 from PIL import Image, ImageDraw
