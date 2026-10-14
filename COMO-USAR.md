@@ -7,7 +7,7 @@ cd ~/pruma_dev/tiradentes-site
 python3 -m http.server 4173      # http://localhost:4173
 ```
 
-No ar: **https://pruma-ia.github.io/tiradentes-site/**
+No ar: **https://www.tiradentesmoto.com.br/**
 
 ## ⚠️ O site é MONTADO — não edite os .html da raiz
 

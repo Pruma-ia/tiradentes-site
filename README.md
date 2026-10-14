@@ -3,7 +3,7 @@
 Site institucional da **Tiradentes Moto Peças**, oficina de motos e loja de peças
 na Rua Tiradentes, 2980 — Bairro Industrial, Contagem/MG.
 
-🔗 **https://pruma-ia.github.io/tiradentes-site/**
+🔗 **https://www.tiradentesmoto.com.br/**
 
 Site estático: HTML, CSS e JavaScript, sem build e sem dependência. Publicar =
 subir a pasta. O GitHub Pages serve direto da branch `main`.

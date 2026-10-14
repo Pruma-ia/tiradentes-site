@@ -18,7 +18,7 @@ import json, pathlib, re, sys
 
 RAIZ = pathlib.Path(__file__).resolve().parent.parent
 SRC  = RAIZ / 'src'
-BASE = 'https://pruma-ia.github.io/tiradentes-site/'
+BASE = 'https://www.tiradentesmoto.com.br/'
 
 # ─────────────────────────────────────────────────────────────────────────
 # Menu: 4 itens, todos ÂNCORAS da home. A v2 voltou para página única porque

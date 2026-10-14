@@ -3,9 +3,9 @@
   "@type": "AutoRepair",
   "name": "Tiradentes Moto Peças",
   "description": "Oficina de motos e loja de peças no Bairro Industrial, em Contagem/MG.",
-  "url": "https://pruma-ia.github.io/tiradentes-site/",
+  "url": "https://www.tiradentesmoto.com.br/",
   "telephone": "+5531983247256",
-  "image": "https://pruma-ia.github.io/tiradentes-site/assets/img/og-cover.jpg",
+  "image": "https://www.tiradentesmoto.com.br/assets/img/og-cover.jpg",
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "Rua Tiradentes, 2980",

@@ -1,4 +1,4 @@
-# Tiradentes Moto Peças — https://pruma-ia.github.io/tiradentes-site/
+# Tiradentes Moto Peças — https://www.tiradentesmoto.com.br/
 
 # Buscadores tradicionais
 User-agent: *
@@ -53,4 +53,4 @@ Allow: /
 User-agent: Amazonbot
 Allow: /
 
-Sitemap: https://pruma-ia.github.io/tiradentes-site/sitemap.xml
+Sitemap: https://www.tiradentesmoto.com.br/sitemap.xml
