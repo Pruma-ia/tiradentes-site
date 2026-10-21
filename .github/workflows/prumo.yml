@@ -1,0 +1,55 @@
+# Prumo Gates — kit satélite (instalado/atualizado pelo bootstrap.sh da plataforma;
+# não editar à mão — mudança se perde no próximo bootstrap).
+# É a camada que alcança qualquer máquina, com ou sem hook local. Sem válvula.
+name: Prumo Gates
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, edited]
+
+jobs:
+  prumo:
+    name: Prumo — commit-check + sensitive-data
+    if: >
+      github.event.action != 'edited' || github.event.changes.base
+    runs-on: ubuntu-latest
+    steps:
+      # `fetch-depth: 0` NÃO é excesso de zelo: com o padrão (profundidade 1) o
+      # repo fica com `.git/shallow`, e os DOIS gates leem história — o
+      # commit-check percorre o range de commits, o sensitive-data-check lê os
+      # BLOBS de cada um. Sob graft o range trunca ou falha, os scripts saem 2, e
+      # o step trata 2 como aviso: o PR fica verde sem gate nenhum. O caso é o do
+      # incidente de origem — CSV de 200 linhas no commit 1, apagado no commit 3,
+      # que o UAT da plataforma exige que bloqueie.
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+      # Exit 2 NUNCA é reprovação — em todo script do prumo ele significa "não
+      # consegui avaliar" (base inalcançável, git indisponível). Tratar `!= 0`
+      # como vermelho deixaria os satélites reprovando PR com a mensagem
+      # "não é reprovação" no log. `--depth` fora: o checkout já traz o que
+      # precisa, e um fetch raso RE-ENCOLHE a história que os gates leem.
+      - name: commit-check
+        run: |
+          git fetch origin "${{ github.base_ref }}" || true
+          git fetch origin "${{ github.event.pull_request.head.sha }}" || true
+          set +e
+          node scripts/prumo/commit-check.cjs --range "origin/${{ github.base_ref }}..${{ github.event.pull_request.head.sha }}"
+          rc=$?
+          set -e
+          case "$rc" in
+            0) ;;
+            1) echo "::error::commit-check reprovou (formato ou tamanho de commit)."; exit 1 ;;
+            *) echo "::warning::commit-check não conseguiu avaliar (exit $rc) — sem veredito, não é reprovação." ;;
+          esac
+      - name: sensitive-data-check
+        run: |
+          set +e
+          node scripts/prumo/sensitive-data-check.cjs --base "origin/${{ github.base_ref }}"
+          rc=$?
+          set -e
+          case "$rc" in
+            0) ;;
+            1) echo "::error::sensitive-data-check reprovou (segredo, dump ou PII no diff)."; exit 1 ;;
+            *) echo "::warning::sensitive-data-check não conseguiu avaliar (exit $rc) — sem veredito, não é reprovação." ;;
+          esac

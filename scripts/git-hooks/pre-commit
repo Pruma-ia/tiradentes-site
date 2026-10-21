@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+#
+# prumo pre-commit — a trava de branch compartilhada, no lugar certo.
+#
+# POR QUE AQUI, e não lendo o comando. A trava viveu quatro gerações dentro do
+# hook do Claude Code, tentando decidir "isto é um `git commit`?" a partir do
+# TEXTO da linha. Cada geração vazou de um jeito diferente, e todas foram
+# medidas:
+#
+#   `git commit`                        casava
+#   `git -C ../outro commit`            não casava — o `-C` separava as palavras
+#   `git -c user.name="A B" commit`     não casava — valor de opção com espaço
+#   `git commit -m "titulo\n\ncorpo"`   não casava — o corpo fatiava a linha
+#   `bash -lc "git commit"`             não casava — bypass de UM caractere
+#
+# É problema conhecido e sem solução boa: quem tentou antes acabou voltando para
+# um regex largo, e as bibliotecas que parseiam shell de verdade (bashlex,
+# tree-sitter-bash) são dependência de terceiro — num hook que roda em 19 repos
+# com o python do sistema, dependência ausente vira gate desligado em silêncio.
+#
+# O git resolve isso de graça: aqui dentro a branch NÃO é ambígua. `-C`, alias,
+# `$GIT`, heredoc, `bash -lc`, mensagem multilinha — nada disso importa, porque
+# não há texto para ler. E vale para qualquer cliente, não só o Claude Code.
+#
+# Escape: `git commit --no-verify` (explícito, e o reflog registra o commit na
+# branch protegida). Sem PRUMO_SKIP: a doc promete a válvula para "os gates
+# locais (pre-push e portão de PR)", não para esta trava.
+
+set -uo pipefail
+
+GIT_DIR="$(git rev-parse --git-dir)"
+
+# Commit conduzido pelo git (conclusão de merge com conflito, rebase,
+# cherry-pick, revert) não é autoria nova: bloquear aqui trancaria o dono no
+# meio de uma release `master` → `production` sem saída que não fosse
+# --no-verify. O que a trava existe para impedir é começar trabalho novo na
+# branch compartilhada.
+for estado in MERGE_HEAD CHERRY_PICK_HEAD REVERT_HEAD BISECT_LOG rebase-merge rebase-apply; do
+  if [ -e "$GIT_DIR/$estado" ]; then
+    exit 0
+  fi
+done
+
+BRANCH="$(git branch --show-current)"
+
+# master/production = plataforma; main = satélites (lá main É produção).
+case "$BRANCH" in
+  master|main|production)
+    echo ""
+    echo "[prumo] BLOQUEADO: commit direto em '$BRANCH'."
+    echo "[prumo] Branch compartilhada não recebe commit direto — plataforma ou satélite."
+    echo ""
+    echo "  git stash push -u -m wip     # guarda o que já está aqui"
+    echo "  git checkout -b feat/<nome>"
+    echo "  git stash pop"
+    echo ""
+    echo "[prumo] Emergência consciente: git commit --no-verify (fica no reflog)."
+    exit 1
+    ;;
+esac
+
+exit 0
