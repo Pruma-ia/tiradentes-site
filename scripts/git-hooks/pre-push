@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+# prumo pre-push (kit satélite — instalado/atualizado por bootstrap.sh da plataforma)
+# Bypass consciente: PRUMO_SKIP=1 git push — e o motivo vai escrito no PR.
+set -uo pipefail
+ROOT="$(git rev-parse --show-toplevel)"
+ZERO="0000000000000000000000000000000000000000"
+
+if [ "${PRUMO_SKIP:-}" = "1" ]; then
+  echo "[pre-push] PRUMO_SKIP=1 — gates pulados. ESCREVA O MOTIVO NO PR."
+  exit 0
+fi
+
+# Árvore vazia do git — base do PRIMEIRO push de um repo novo: sem origin ainda,
+# a comparação certa é contra o nada (checa todos os commits e todos os arquivos).
+EMPTY_TREE="4b825dc642cb6eb9a060e54bf8d69288fbee4904"
+DIFF_BASE=""
+
+# commits novos do push: formato conventional + teto de tamanho
+while read -r _l local_sha _r remote_sha; do
+  [ -z "${local_sha:-}" ] && continue
+  [ "$local_sha" = "$ZERO" ] && continue
+  if [ "$remote_sha" = "$ZERO" ]; then
+    BASE="$(git rev-parse --verify -q origin/main || git rev-parse --verify -q origin/master || echo '')"
+    if [ -n "$BASE" ]; then RANGE="$BASE..$local_sha"; DIFF_BASE="$BASE"; else RANGE="$local_sha"; DIFF_BASE="$EMPTY_TREE"; fi
+  else
+    RANGE="$remote_sha..$local_sha"; DIFF_BASE="$remote_sha"
+  fi
+  node "$ROOT/scripts/prumo/commit-check.cjs" --range "$RANGE"
+  [ $? -eq 1 ] && { echo "[pre-push] BLOQUEADO pelo commit-check (válvula: linha 'prumo:bulk <motivo>' na mensagem)."; exit 1; }
+done
+
+# dado real / segredo no diff (base explícita — repo novo compara com a árvore vazia)
+node "$ROOT/scripts/prumo/sensitive-data-check.cjs" ${DIFF_BASE:+--base "$DIFF_BASE"}
+rc=$?
+if [ "$rc" = "1" ]; then
+  echo "[pre-push] BLOQUEADO pelo sensitive-data-check — dado real fora do git; fixture legítimo em scripts/prumo/sensitive-allowlist."
+  exit 1
+elif [ "$rc" != "0" ]; then
+  echo "[pre-push] sensitive-data-check não conseguiu avaliar (exit $rc) — NÃO é reprovação. Push segue."
+fi
+exit 0
