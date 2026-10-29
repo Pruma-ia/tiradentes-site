@@ -50,10 +50,28 @@ entram na galeria pelo mesmo importador.
 - **garantia** — prazo de garantia de mão de obra e de peça
 - **pagamento** — formas de pagamento e parcelamento
 
+## ✅ Revisões com preço (28/10/2026)
+
+Página `revisoes.html` + chamada na home, a partir do PDF "NOVOS_PREÇOS_REVISAO"
+do Thales (14/08). O Gabriel confirmou em 28/10: é a tabela atual, o preço é **só
+mão de obra** (peça à parte) e os valores seguem o documento como está — inclusive
+o grupo 9 (CB 500X, Hornet, MT-07…) mais barato que os grupos 7 e 8.
+
+Os dados ficam em `src/_revisoes.json`; o `montar.py` gera a página, o resumo da
+home, o schema e o bloco do `llms.txt`. Mudou preço? Edita o JSON e monta.
+
+**Confirmar com o Thales:** "tempo médio na oficina de 1 a 2 dias" — veio do
+Gabriel (28/10), não está no PDF de revisões nem no POP de entrada. Aparece na
+janela de agendamento e no "como funciona" de `revisoes.html`.
+
+**Falta:** foto real para os grupos sem foto (MT-03/Z400…, CB 500X/Hornet…,
+scooters) — hoje aparece a arte da marca no lugar. O Thales vai mandar.
+
 ## ❌ Fora de propósito
 
-- **Preço.** A tabela da POC é pesquisa de mercado (27 confirmados, ~55 de
-  snippet, resto estimativa sem fonte), não a tabela da Tiradentes.
+- **Preço de peça e de outros serviços.** A tabela da POC é pesquisa de mercado
+  (27 confirmados, ~55 de snippet, resto estimativa sem fonte), não a tabela da
+  Tiradentes. O único preço publicado é a tabela de revisões acima.
 - **Avaliações do Google** e **anos de mercado** — nada confirmado.
 
 ## ⚠️ Confirmar com o Thales — a copy virou promessa

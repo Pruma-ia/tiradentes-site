@@ -12,7 +12,8 @@ No ar: **https://www.tiradentesmoto.com.br/**
 ## ⚠️ O site é MONTADO — não edite os .html da raiz
 
 `index.html` (a página única, com o menu rolando até cada parte),
-`servicos.html` e `pecas.html` (os dois guias de consulta) são **gerados**. Qualquer coisa escrita neles é perdida na próxima montagem.
+`servicos.html` e `pecas.html` (os dois guias de consulta) e `revisoes.html`
+(o catálogo de revisões) são **gerados**. Qualquer coisa escrita neles é perdida na próxima montagem.
 
 Edite em `src/` e rode:
 
@@ -29,6 +30,7 @@ python3 scripts/montar.py
 | Quais seções cada página tem | `PAGINAS`, no mesmo lugar |
 | Endereço, horário, telefone nos dados de busca | `src/_schema-negocio.json` |
 | Perguntas frequentes | `src/_schema-faq.json` **e** `src/_secoes/duvidas.html` |
+| Preço ou item de revisão, modelo de moto | `src/_revisoes.json` (gera a página Revisões, a faixa da home, o schema e o `llms.txt`) |
 | WhatsApp e horário do selo "aberto agora" | `CONFIG`, no topo de `assets/js/main.js` |
 | Cores e tipografia | bloco `:root` em `assets/css/style.css` |
 
