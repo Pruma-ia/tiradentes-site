@@ -1,0 +1,402 @@
+{
+  "_fonte": "NOVOS_PREÇOS_REVISAO.pdf do Thales (14/08/2026), confirmado como a tabela atual em 28/10/2026. Preço = só mão de obra; peça à parte. Mudou preço ou item? Edite aqui e rode scripts/montar.py.",
+  "niveis": [
+    {"id": "preventiva",    "nome": "Revisão Preventiva",         "curto": "Preventiva",
+     "resumo": "O básico em dia: filtro, vela, óleo, freios, rodas e cabos.",
+     "foto": "mecanico-bancada.jpg", "foto_alt": "Mecânico da Tiradentes trabalhando na bancada da oficina"},
+    {"id": "intermediaria", "nome": "Revisão Intermediária",      "curto": "Intermediária",
+     "resumo": "Tudo da Preventiva + direção, suspensão, balança e reaperto geral.",
+     "foto": "mecanico-suspensao.jpg", "foto_alt": "Mecânico conferindo a suspensão dianteira de uma moto"},
+    {"id": "premium",       "nome": "Revisão Premium Tiradentes", "curto": "Premium Tiradentes",
+     "resumo": "Tudo da Intermediária + elétrica, bateria, injeção e lavagem técnica.",
+     "foto": "moto-lavada.jpg", "foto_alt": "Moto preta recém-lavada na oficina, depois da lavagem técnica"}
+  ],
+  "grupos": [
+    {
+      "id": "cg-carburada",
+      "titulo": "CG, YBR e Bros carburadas",
+      "modelos": ["CG 125", "CG 150 (carburada)", "YBR 125 (carburada)", "YBR 150 (carburada)", "NXR 150 Bros (carburada)"],
+      "foto": "cg-pronta-poster.jpg", "foto_alt": "Honda CG pronta na oficina da Tiradentes",
+      "preventiva": {"preco": 110, "itens": [
+        "Filtro de ar e caixa de ar",
+        "Vela, cachimbo e bobina",
+        "Óleo do motor",
+        "Filtro de óleo (quando houver)",
+        "Pastilhas de freio, conferência e lubrificação",
+        "Fluido de freio, substituição e limpeza",
+        "Filtro de combustível (quando houver)",
+        "Lona de freio, limpeza e lubrificação do sistema",
+        "Lubrificação e conferência de rolamentos e eixos das rodas",
+        "Lubrificação e conferência dos cabos",
+        "Conferência e regulagem de válvulas"
+      ]},
+      "intermediaria": {"preco": 280, "itens": [
+        "Limpeza do carburador e regulagem",
+        "Rolamento de direção, conferência, higienização e lubrificação (caixa de direção)",
+        "Suspensão dianteira, conferência, higienização e substituição do fluido",
+        "Articulação da balança (bucha), conferência, limpeza e lubrificação",
+        "Eixos de câmbio, conferência e reaperto",
+        "Eixos dos cavaletes, limpeza e lubrificação",
+        "Pedais, alavancas e hastes, limpeza e lubrificação",
+        "Conferência dos pneus",
+        "Reaperto geral de toda a motocicleta",
+        "Conferência completa dos componentes da motocicleta"
+      ]},
+      "premium": {"preco": 360, "itens": [
+        "Abertura da tampa da embreagem para limpeza da peneira de óleo e do filtro centrífugo",
+        "Conferência completa dos sistemas elétricos, luzes, sinalizadores e sistema de ignição",
+        "Verificação do sistema de carga",
+        "Conferência do motor de partida",
+        "Lavagem técnica e higienização do chassi completo",
+        "Limpeza dos conectores elétricos de todo o chicote",
+        "Teste da bateria",
+        "Instalação de parafusos faltantes (sem custo adicional)"
+      ]}
+    },
+    {
+      "id": "cg-160",
+      "titulo": "CG 160, Fazer 150, Factor e trail a tambor",
+      "modelos": ["CG 160", "Fazer 150", "Factor 150", "Bros 150 (freio a tambor)", "Crosser (freio a tambor)"],
+      "foto": "roda-cg.jpg", "foto_alt": "Roda traseira e suspensão de uma Honda CG 160",
+      "preventiva": {"preco": 180, "itens": [
+        "Filtro de ar e caixa de ar",
+        "Vela de ignição e cachimbo",
+        "Óleo do motor",
+        "Pastilhas de freio dianteiras, conferência e lubrificação das guias",
+        "Lona de freio traseira, limpeza e lubrificação do sistema",
+        "Fluido de freio, substituição, higienização e sangria do sistema",
+        "Filtro de combustível",
+        "Lubrificação e conferência de rolamentos e eixos das rodas",
+        "Lubrificação e conferência dos cabos de comando",
+        "Conferência e regulagem de folga de válvulas"
+      ]},
+      "intermediaria": {"preco": 350, "itens": [
+        "Regulagem e equalização do sistema de aceleração",
+        "Rolamento de direção, conferência, higienização e lubrificação (caixa de direção)",
+        "Suspensão dianteira, conferência, higienização e substituição do fluido",
+        "Articulação da balança (bucha/rolamento), conferência, limpeza e lubrificação",
+        "Eixos de câmbio, conferência e reaperto",
+        "Eixos dos cavaletes (central e lateral), limpeza e lubrificação",
+        "Pedais, alavancas e hastes de acionamento, limpeza e lubrificação",
+        "Conferência de pressão, desgaste e alinhamento dos pneus",
+        "Reaperto geral de torque em toda a motocicleta",
+        "Conferência e inspeção completa dos componentes da motocicleta"
+      ]},
+      "premium": {"preco": 620, "itens": [
+        "Lavagem técnica detalhada e higienização do chassi completo",
+        "Limpeza do corpo de injeção (TBI) e do bico, descarbonização completa",
+        "Abertura da tampa da embreagem para limpeza da peneira de óleo e do filtro centrífugo",
+        "Limpeza e descontaminação dos conectores elétricos de todo o chicote principal e sensores",
+        "Teste e análise de capacidade e saúde da bateria",
+        "Conferência do motor de partida",
+        "Teste e medição do sistema de carga (estator e retificador)",
+        "Conferência completa dos sistemas elétricos, luzes, sinalizadores e ignição",
+        "Diagnóstico eletrônico com scanner profissional e relatório completo dos sistemas eletrônicos da moto",
+        "Instalação de parafusos faltantes (sem custo adicional)"
+      ]}
+    },
+    {
+      "id": "bros-160",
+      "titulo": "Bros 160, Crosser ABS e XRE 190",
+      "modelos": ["Bros 160 ESDD", "Crosser ABS", "XRE 190", "SHI 175i", "NH 190i"],
+      "foto": "motor.jpg", "foto_alt": "Yamaha XTZ na bancada da oficina",
+      "preventiva": {"preco": 180, "itens": [
+        "Filtro de ar e caixa de ar",
+        "Vela de ignição e cachimbo",
+        "Óleo do motor",
+        "Pastilhas de freio dianteiras e traseiras, conferência e lubrificação das guias",
+        "Fluido de freio, substituição, higienização e sangria do sistema de freio (CBS/ABS)",
+        "Filtro de combustível",
+        "Lubrificação e conferência de rolamentos e eixos das rodas",
+        "Lubrificação e conferência dos cabos de comando"
+      ]},
+      "intermediaria": {"preco": 400, "itens": [
+        "Regulagem e equalização do sistema de aceleração",
+        "Rolamento de direção, conferência, higienização e lubrificação (caixa de direção)",
+        "Suspensão dianteira, conferência, higienização e substituição do fluido",
+        "Articulação da balança (bucha/rolamento), conferência, limpeza e lubrificação",
+        "Conferência de pressão, desgaste e alinhamento dos pneus",
+        "Reaperto geral de torque em toda a motocicleta",
+        "Conferência e inspeção completa dos componentes da motocicleta"
+      ]},
+      "premium": {"preco": 620, "itens": [
+        "Lavagem técnica detalhada e higienização do chassi completo",
+        "Limpeza do corpo de injeção (TBI) e do bico, descarbonização completa",
+        "Abertura da tampa da embreagem para limpeza da peneira de óleo e do filtro centrífugo",
+        "Limpeza e descontaminação dos conectores elétricos de todo o chicote principal e sensores",
+        "Teste e análise de capacidade e saúde da bateria",
+        "Conferência do motor de partida",
+        "Teste e medição do sistema de carga (estator e retificador)",
+        "Conferência completa dos sistemas elétricos, luzes, sinalizadores e ignição",
+        "Diagnóstico eletrônico com scanner profissional e relatório completo dos sistemas eletrônicos da moto",
+        "Instalação de parafusos faltantes (sem custo adicional)"
+      ]}
+    },
+    {
+      "id": "250-street",
+      "titulo": "Fazer 250, Twister 250 e CB 300R",
+      "modelos": ["Fazer 250", "CBX 250 Twister", "CB 300R"],
+      "foto": "moto-vermelha-rua.jpg", "foto_alt": "Moto vermelha estacionada na porta da loja",
+      "preventiva": {"preco": 220, "itens": [
+        "Filtro de ar e caixa de ar",
+        "Vela de ignição e cachimbo",
+        "Óleo do motor",
+        "Filtro de óleo do motor",
+        "Pastilhas de freio dianteiras e traseiras, conferência e lubrificação das guias",
+        "Fluido de freio, substituição, higienização e sangria do sistema",
+        "Filtro de combustível",
+        "Lubrificação e conferência de rolamentos e eixos das rodas",
+        "Lubrificação e conferência dos cabos de comando",
+        "Conferência do pastilhamento de válvulas"
+      ]},
+      "intermediaria": {"preco": 440, "itens": [
+        "Regulagem e equalização do sistema de aceleração",
+        "Rolamento de direção, conferência, higienização e lubrificação (caixa de direção)",
+        "Suspensão dianteira, conferência, higienização e substituição do fluido",
+        "Articulação da balança (bucha/rolamento), conferência, limpeza e lubrificação",
+        "Conferência de pressão, desgaste e alinhamento dos pneus",
+        "Reaperto geral de torque em toda a motocicleta",
+        "Conferência e inspeção completa dos componentes da motocicleta"
+      ]},
+      "premium": {"preco": 650, "itens": [
+        "Lavagem técnica detalhada e higienização do chassi completo",
+        "Limpeza do corpo de injeção (TBI) e do bico, descarbonização completa",
+        "Abertura da tampa da embreagem para limpeza da peneira de óleo e do filtro centrífugo",
+        "Limpeza e descontaminação dos conectores elétricos de todo o chicote principal e sensores",
+        "Teste e análise de capacidade e saúde da bateria",
+        "Conferência do motor de partida",
+        "Teste e medição do sistema de carga (estator e retificador)",
+        "Conferência completa dos sistemas elétricos, luzes, sinalizadores e ignição",
+        "Diagnóstico eletrônico com scanner profissional e relatório completo dos sistemas eletrônicos da moto",
+        "Instalação de parafusos faltantes (sem custo adicional)"
+      ]}
+    },
+    {
+      "id": "fz-twister",
+      "titulo": "FZ15, FZ25 e Twister 250F / 300F",
+      "modelos": ["FZ15", "FZ25", "CB 250F Twister", "CB 300F Twister"],
+      "foto": "capa-oficina.jpg", "foto_alt": "Honda CB 300F Twister vermelha dentro da oficina",
+      "preventiva": {"preco": 255, "itens": [
+        "Filtro de ar e caixa de ar",
+        "Vela de ignição e cachimbo",
+        "Óleo do motor",
+        "Filtro de óleo do motor",
+        "Pastilhas de freio dianteiras e traseiras, conferência e lubrificação das guias",
+        "Fluido de freio, substituição, higienização e sangria do sistema",
+        "Filtro de combustível",
+        "Lubrificação e conferência de rolamentos e eixos das rodas",
+        "Lubrificação e conferência dos cabos de comando"
+      ]},
+      "intermediaria": {"preco": 490, "itens": [
+        "Regulagem e equalização do sistema de aceleração",
+        "Rolamento de direção, conferência, higienização e lubrificação (caixa de direção)",
+        "Suspensão dianteira, conferência, higienização e substituição do fluido",
+        "Articulação da balança (bucha/rolamento), conferência, limpeza e lubrificação",
+        "Conferência de pressão, desgaste e alinhamento dos pneus",
+        "Reaperto geral de torque em toda a motocicleta",
+        "Conferência e inspeção completa dos componentes da motocicleta"
+      ]},
+      "premium": {"preco": 700, "itens": [
+        "Lavagem técnica detalhada e higienização do chassi completo",
+        "Limpeza do corpo de injeção (TBI) e do bico, descarbonização completa",
+        "Abertura da tampa da embreagem para limpeza da peneira de óleo e do filtro centrífugo",
+        "Limpeza e descontaminação dos conectores elétricos de todo o chicote principal e sensores",
+        "Teste e análise de capacidade e saúde da bateria",
+        "Conferência do motor de partida",
+        "Teste e medição do sistema de carga (estator e retificador)",
+        "Conferência completa dos sistemas elétricos, luzes, sinalizadores e ignição",
+        "Diagnóstico eletrônico com scanner profissional e relatório completo dos sistemas eletrônicos da moto",
+        "Instalação de parafusos faltantes (sem custo adicional)"
+      ]}
+    },
+    {
+      "id": "trail-300",
+      "titulo": "XRE 300, Lander, Ténéré e Sahara",
+      "modelos": ["XRE 300", "Lander", "Ténéré", "Sahara", "Falcon"],
+      "foto": "lander-pronta-poster.jpg", "foto_alt": "Yamaha Lander pronta na oficina da Tiradentes",
+      "preventiva": {"preco": 260, "itens": [
+        "Filtro de ar e caixa de ar",
+        "Vela de ignição e cachimbo",
+        "Óleo do motor",
+        "Filtro de óleo do motor",
+        "Pastilhas de freio dianteiras e traseiras, conferência e lubrificação das guias",
+        "Fluido de freio, substituição, higienização e sangria do sistema",
+        "Filtro de combustível",
+        "Lubrificação e conferência de rolamentos e eixos das rodas",
+        "Lubrificação e conferência dos cabos de comando",
+        "Conferência do pastilhamento de válvulas"
+      ]},
+      "intermediaria": {"preco": 650, "itens": [
+        "Regulagem e equalização do sistema de aceleração",
+        "Rolamento de direção, conferência, higienização e lubrificação (caixa de direção)",
+        "Suspensão dianteira, conferência, higienização e substituição do fluido",
+        "Articulação da balança (bucha/rolamento/link), conferência, limpeza e lubrificação",
+        "Conferência de pressão, desgaste e alinhamento dos pneus",
+        "Reaperto geral de torque em toda a motocicleta",
+        "Conferência e inspeção completa dos componentes da motocicleta"
+      ]},
+      "premium": {"preco": 800, "itens": [
+        "Lavagem técnica detalhada e higienização do chassi completo",
+        "Limpeza do corpo de injeção (TBI) e do bico, descarbonização completa",
+        "Abertura da tampa da embreagem para limpeza da peneira de óleo e do filtro centrífugo",
+        "Limpeza e descontaminação dos conectores elétricos de todo o chicote principal e sensores",
+        "Teste e análise de capacidade e saúde da bateria",
+        "Conferência do motor de partida",
+        "Teste e medição do sistema de carga (estator e retificador)",
+        "Conferência completa dos sistemas elétricos, luzes, sinalizadores e ignição",
+        "Diagnóstico eletrônico com scanner profissional e relatório completo dos sistemas eletrônicos da moto",
+        "Instalação de parafusos faltantes (sem custo adicional)"
+      ]}
+    },
+    {
+      "id": "naked-300-500",
+      "titulo": "MT-03, Z300 a Z500, Next e G 310",
+      "modelos": ["MT-03", "Z300", "Z400", "Z500", "Next 250", "Next 300", "CB 500F", "Versys-X 300", "BMW G 310"],
+      "preventiva": {"preco": 290, "itens": [
+        "Filtro de ar e caixa de ar",
+        "Velas de ignição",
+        "Óleo do motor",
+        "Filtro de óleo do motor",
+        "Pastilhas de freio dianteiras e traseiras, conferência e lubrificação das guias",
+        "Fluido de freio, substituição, higienização e sangria do sistema",
+        "Filtro de combustível",
+        "Lubrificação e conferência de rolamentos e eixos das rodas",
+        "Fluido de arrefecimento, substituição e higienização do sistema de arrefecimento"
+      ]},
+      "intermediaria": {"preco": 800, "itens": [
+        "Conferência do pastilhamento de válvulas",
+        "Regulagem e equalização do sistema de aceleração",
+        "Rolamento de direção, conferência, higienização e lubrificação (caixa de direção)",
+        "Suspensão dianteira, conferência, higienização e substituição do fluido",
+        "Articulação da balança (bucha/rolamento/link), conferência, limpeza e lubrificação",
+        "Conferência de pressão, desgaste e alinhamento dos pneus",
+        "Reaperto geral de torque em toda a motocicleta",
+        "Conferência e inspeção completa dos componentes da motocicleta"
+      ]},
+      "premium": {"preco": 1200, "itens": [
+        "Lavagem técnica detalhada e higienização do chassi completo",
+        "Limpeza do corpo de injeção (TBI) e do bico, descarbonização completa",
+        "Limpeza e descontaminação dos conectores elétricos de todo o chicote principal e sensores",
+        "Teste e análise de capacidade e saúde da bateria",
+        "Conferência do motor de partida",
+        "Teste e medição do sistema de carga (estator e retificador)",
+        "Conferência completa dos sistemas elétricos, luzes, sinalizadores e ignição",
+        "Diagnóstico eletrônico com scanner profissional e relatório completo dos sistemas eletrônicos da moto",
+        "Instalação de parafusos faltantes (sem custo adicional)"
+      ]}
+    },
+    {
+      "id": "esportivas",
+      "titulo": "Ninja, R3, R15 e CB 250R",
+      "modelos": ["Ninja 250R", "Ninja 300", "Ninja 400", "Ninja 500", "R3", "R15", "CB 250R"],
+      "foto": "ninja.jpg", "foto_alt": "Kawasaki Ninja verde na porta da oficina",
+      "preventiva": {"preco": 350, "itens": [
+        "Filtro de ar e caixa de ar",
+        "Velas de ignição",
+        "Óleo do motor",
+        "Filtro de óleo do motor",
+        "Pastilhas de freio dianteiras e traseiras, conferência e lubrificação das guias",
+        "Fluido de freio, substituição, higienização e sangria do sistema",
+        "Filtro de combustível",
+        "Lubrificação e conferência de rolamentos e eixos das rodas",
+        "Fluido de arrefecimento, substituição e higienização do sistema de arrefecimento",
+        "Conferência do pastilhamento de válvulas"
+      ]},
+      "intermediaria": {"preco": 900, "itens": [
+        "Regulagem e equalização do sistema de aceleração",
+        "Rolamento de direção, conferência, higienização e lubrificação (caixa de direção)",
+        "Suspensão dianteira, conferência, higienização e substituição do fluido",
+        "Articulação da balança (bucha/rolamento/link), conferência, limpeza e lubrificação",
+        "Conferência de pressão, desgaste e alinhamento dos pneus",
+        "Reaperto geral de torque em toda a motocicleta",
+        "Conferência e inspeção completa dos componentes da motocicleta"
+      ]},
+      "premium": {"preco": 1200, "itens": [
+        "Lavagem técnica detalhada e higienização do chassi completo",
+        "Limpeza do corpo de injeção (TBI) e do bico, descarbonização completa",
+        "Limpeza e descontaminação dos conectores elétricos de todo o chicote principal e sensores",
+        "Teste e análise de capacidade e saúde da bateria",
+        "Conferência do motor de partida",
+        "Teste e medição do sistema de carga (estator e retificador)",
+        "Conferência completa dos sistemas elétricos, luzes, sinalizadores e ignição",
+        "Diagnóstico eletrônico com scanner profissional e relatório completo dos sistemas eletrônicos da moto",
+        "Instalação de parafusos faltantes (sem custo adicional)"
+      ]}
+    },
+    {
+      "id": "media-alta",
+      "titulo": "CB 500X, Hornet, MT-07 e as 600–700",
+      "modelos": ["CB 500X", "Hornet", "MT-07", "XJ6", "FZ6", "Z650", "CB 650F", "XT 660", "Ténéré 660", "XL 700"],
+      "preventiva": {"preco": 270, "itens": [
+        "Filtro de ar e caixa de ar",
+        "Velas de ignição",
+        "Óleo do motor",
+        "Filtro de óleo do motor",
+        "Pastilhas de freio dianteiras e traseiras, conferência e lubrificação das guias",
+        "Fluido de freio, substituição, higienização e sangria do sistema",
+        "Filtro de combustível",
+        "Lubrificação e conferência de rolamentos e eixos das rodas",
+        "Fluido de arrefecimento, substituição e higienização do sistema de arrefecimento"
+      ]},
+      "intermediaria": {"preco": 840, "itens": [
+        "Conferência do pastilhamento de válvulas",
+        "Regulagem e equalização do sistema de aceleração",
+        "Rolamento de direção, conferência, higienização e lubrificação (caixa de direção)",
+        "Suspensão dianteira, conferência, higienização e substituição do fluido",
+        "Articulação da balança (bucha/rolamento/link), conferência, limpeza e lubrificação",
+        "Conferência de pressão, desgaste e alinhamento dos pneus",
+        "Reaperto geral de torque em toda a motocicleta",
+        "Conferência e inspeção completa dos componentes da motocicleta"
+      ]},
+      "premium": {"preco": 1090, "itens": [
+        "Lavagem técnica detalhada e higienização do chassi completo",
+        "Limpeza do corpo de injeção (TBI) e do bico, descarbonização completa",
+        "Limpeza e descontaminação dos conectores elétricos de todo o chicote principal e sensores",
+        "Teste e análise de capacidade e saúde da bateria",
+        "Conferência do motor de partida",
+        "Teste e medição do sistema de carga (estator e retificador)",
+        "Conferência completa dos sistemas elétricos, luzes, sinalizadores e ignição",
+        "Diagnóstico eletrônico com scanner profissional e relatório completo dos sistemas eletrônicos da moto",
+        "Instalação de parafusos faltantes (sem custo adicional)"
+      ]}
+    },
+    {
+      "id": "scooters",
+      "titulo": "Scooters",
+      "modelos": ["PCX 150", "PCX 160", "NMAX", "Elite", "Neo 125", "AN Burgman", "XMAX", "Lead"],
+      "preventiva": {"preco": 280, "itens": [
+        "Filtro de ar e caixa de ar",
+        "Vela de ignição e cachimbo",
+        "Óleo do motor",
+        "Filtro de óleo (quando houver)",
+        "Pastilhas de freio, conferência e lubrificação das guias",
+        "Fluido de freio, substituição, higienização e sangria do sistema",
+        "Fluido de arrefecimento, substituição e higienização (quando houver)",
+        "Lubrificação e conferência de rolamentos e eixos das rodas",
+        "Teste de capacidade da bateria e do sistema de carga"
+      ]},
+      "intermediaria": {"preco": 800, "itens": [
+        "Limpeza e higienização técnica completa do sistema de transmissão CVT",
+        "Inspeção detalhada de desgaste da correia de transmissão",
+        "Inspeção, higienização e medição dos roletes",
+        "Inspeção e conferência completa de desgaste do sistema CVT",
+        "Rolamento de direção, conferência, higienização e lubrificação (caixa de direção)",
+        "Suspensão dianteira, conferência, higienização e substituição do fluido",
+        "Reaperto geral de torque em toda a scooter",
+        "Conferência e inspeção completa dos componentes da scooter",
+        "Regulagem de válvulas (se for por pastilha, apenas conferência)"
+      ]},
+      "premium": {"preco": 1120, "itens": [
+        "Lavagem técnica detalhada e higienização do chassi completo",
+        "Limpeza do corpo de injeção (TBI) e do bico, descarbonização completa",
+        "Limpeza e descontaminação dos conectores elétricos de todo o chicote principal e sensores",
+        "Teste e análise de capacidade e saúde da bateria",
+        "Conferência do motor de partida",
+        "Teste e medição do sistema de carga (estator e retificador)",
+        "Conferência completa dos sistemas elétricos, luzes, sinalizadores e ignição",
+        "Diagnóstico eletrônico com scanner profissional e relatório completo dos sistemas eletrônicos da scooter",
+        "Instalação de parafusos faltantes (sem custo adicional)"
+      ]}
+    }
+  ]
+}

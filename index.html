@@ -214,7 +214,7 @@
       "name": "Quanto custa uma revisão?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Depende do modelo da moto e da faixa de quilometragem. Mande o modelo pelo WhatsApp (31) 98324-7256 que a gente responde com o preço e o prazo."
+        "text": "Depende da moto e do nível: Preventiva, Intermediária ou Premium Tiradentes. A tabela com o preço da mão de obra para cada modelo está em tiradentesmoto.com.br/revisoes.html; as peças são cobradas à parte."
       }
     },
     {
@@ -247,6 +247,7 @@
 
     <nav class="nav" aria-label="Navegação principal">
       <a class="nav__link" href="#servicos">Serviços</a>
+      <a class="nav__link nav__link--destaque" href="revisoes.html">Revisões</a>
       <a class="nav__link" href="#oficina">A oficina</a>
       <a class="nav__link" href="#pecas">Peças</a>
       <a class="nav__link" href="#contato">Contato</a>
@@ -266,6 +267,7 @@
 
 <nav class="mobile-nav" id="mobile-nav" aria-label="Navegação">
   <a class="mobile-nav__link" href="#servicos">Serviços</a>
+  <a class="mobile-nav__link mobile-nav__link--destaque" href="revisoes.html">Revisões</a>
   <a class="mobile-nav__link" href="#oficina">A oficina</a>
   <a class="mobile-nav__link" href="#pecas">Peças</a>
   <a class="mobile-nav__link" href="#contato">Contato</a>
@@ -302,8 +304,8 @@
         acontecendo; a gente passa o preço e o prazo <strong>antes de encostar na moto</strong>.
       </p>
       <div class="hero__actions">
-        <a class="btn btn--primary btn--lg" data-wa data-wa-msg="Olá! Vim pelo site e quero agendar uma revisão." href="#contato">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.2-1.7-.9-2-1-.3-.1-.5-.2-.7.1-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-1.7-.9-2.9-1.6-4-3.5-.3-.5.3-.5.9-1.6.1-.2 0-.4 0-.6s-.7-1.6-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.1-1.2 2.8s1.2 3.2 1.4 3.5c.2.2 2.4 3.7 5.9 5.2 2.2.9 3 1 4.1.8.7-.1 2.1-.8 2.4-1.7.3-.9.3-1.6.2-1.7-.1-.2-.3-.3-.6-.4Z"/><path d="M12 2A10 10 0 0 0 3.5 17.2L2 22l4.9-1.5A10 10 0 1 0 12 2Zm0 18.1c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3 .9.9-2.9-.2-.3A8.1 8.1 0 1 1 12 20.1Z"/></svg> Agendar revisão
+        <a class="btn btn--primary btn--lg" href="revisoes.html">
+          Monte sua revisão
         </a>
         <a class="btn btn--ghost btn--lg" href="#servicos">O que fazemos</a>
       </div>
@@ -350,6 +352,55 @@
   </div>
 </div>
 
+<!-- ══════════════════════════ CHAMADA DAS REVISÕES ══════════════════════════
+     Revisão é o carro-chefe da loja: fica logo depois da capa e leva para
+     revisoes.html. Os preços "a partir de" saem de src/_revisoes.json
+     (        <li class="rev-nivel">
+          <span class="rev-nivel__txt"><strong>Revisão Preventiva</strong><span>O básico em dia: filtro, vela, óleo, freios, rodas e cabos.</span></span>
+          <span class="rev-nivel__preco"><small>a partir de</small>R$ 110</span>
+        </li>
+        <li class="rev-nivel">
+          <span class="rev-nivel__txt"><strong>Revisão Intermediária</strong><span>Tudo da Preventiva + direção, suspensão, balança e reaperto geral.</span></span>
+          <span class="rev-nivel__preco"><small>a partir de</small>R$ 280</span>
+        </li>
+        <li class="rev-nivel rev-nivel--premium">
+          <span class="rev-nivel__txt"><strong>Revisão Premium Tiradentes</strong><span class="rev-nivel__selo">A mais completa</span><span>Tudo da Intermediária + elétrica, bateria, injeção e lavagem técnica.</span></span>
+          <span class="rev-nivel__preco"><small>a partir de</small>R$ 360</span>
+        </li> é trocado pelo montar.py) — não escreva valor à mão aqui. -->
+<section class="section section--dark textura rev-chamada" id="revisao-chamada">
+  <div class="rev-chamada__brilho" aria-hidden="true"></div>
+  <div class="wrap rev-chamada__grid">
+    <div class="section-head">
+      <span class="rastro" aria-hidden="true"><span></span><span></span><span></span></span>
+      <p class="passo" style="margin-top:1.25rem;">Revisão Tiradentes</p>
+      <h2>Escolha a revisão da sua moto. <em>O preço já está na tela.</em></h2>
+      <p class="lead">
+        Três níveis, do básico ao completo, com a tabela de mão de obra para cada
+        modelo — da CG às 700 cilindradas, scooter incluída. Você escolhe aqui e
+        agenda pelo WhatsApp.
+      </p>
+      <a class="btn btn--primary btn--lg rev-chamada__cta" href="revisoes.html">
+        Monte sua revisão
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+    <ul class="rev-niveis">
+        <li class="rev-nivel">
+          <span class="rev-nivel__txt"><strong>Revisão Preventiva</strong><span>O básico em dia: filtro, vela, óleo, freios, rodas e cabos.</span></span>
+          <span class="rev-nivel__preco"><small>a partir de</small>R$ 110</span>
+        </li>
+        <li class="rev-nivel">
+          <span class="rev-nivel__txt"><strong>Revisão Intermediária</strong><span>Tudo da Preventiva + direção, suspensão, balança e reaperto geral.</span></span>
+          <span class="rev-nivel__preco"><small>a partir de</small>R$ 280</span>
+        </li>
+        <li class="rev-nivel rev-nivel--premium">
+          <span class="rev-nivel__txt"><strong>Revisão Premium Tiradentes</strong><span class="rev-nivel__selo">A mais completa</span><span>Tudo da Intermediária + elétrica, bateria, injeção e lavagem técnica.</span></span>
+          <span class="rev-nivel__preco"><small>a partir de</small>R$ 360</span>
+        </li>
+    </ul>
+  </div>
+</section>
+
 <!-- ══════════════════════════ SERVIÇOS ══════════════════════════ -->
 <section class="section" id="servicos">
   <div class="wrap">
@@ -362,7 +413,7 @@
           lista de peças para procurar em outro lugar.
         </p>
         <div class="servicos">
-        <div class="servico"><span class="servico__num">01</span><span class="servico__nome">Revisão programada<span class="servico__desc">Checklist por faixa de quilometragem — não “o que der pra ver”</span></span></div>
+        <div class="servico"><span class="servico__num">01</span><span class="servico__nome">Revisão<span class="servico__desc">Preventiva, Intermediária ou Premium — <a class="link-inline" href="revisoes.html">preço por modelo</a></span></span></div>
         <div class="servico"><span class="servico__num">02</span><span class="servico__nome">Troca de óleo<span class="servico__desc">Óleo, tela e filtro conforme o sistema da sua moto</span></span></div>
         <div class="servico"><span class="servico__num">03</span><span class="servico__nome">Relação<span class="servico__desc">Corrente, coroa e pinhão. Limpeza, regulagem e kit completo</span></span></div>
         <div class="servico"><span class="servico__num">04</span><span class="servico__nome">Freios<span class="servico__desc">Pastilha, lona, disco e sangria do sistema</span></span></div>
@@ -538,7 +589,7 @@
         </div>
         <div class="faq__item">
           <h3 class="faq__q">Quanto custa uma revisão?</h3>
-          <p class="faq__a">Depende do modelo da moto e da faixa de quilometragem. Mande o modelo pelo WhatsApp (31) 98324-7256 que a gente responde com o preço e o prazo.</p>
+          <p class="faq__a">Depende da moto e do nível: Preventiva, Intermediária ou Premium Tiradentes. A <a class="link-inline" href="revisoes.html">tabela com o preço da mão de obra para cada modelo</a> está na página de revisões; as peças são cobradas à parte.</p>
         </div>
         <div class="faq__item">
           <h3 class="faq__q">Quais serviços a oficina faz?</h3>
@@ -640,6 +691,7 @@
         <h4>Navegação</h4>
         <ul class="footer__links">
           <li><a href="#servicos">Serviços</a></li>
+          <li><a href="revisoes.html">Revisões</a></li>
           <li><a href="#oficina">A oficina</a></li>
           <li><a href="#pecas">Peças</a></li>
           <li><a href="#contato">Contato</a></li>

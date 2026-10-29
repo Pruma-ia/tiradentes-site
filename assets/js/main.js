@@ -234,6 +234,212 @@
   }
 
 
+  /* ── 9. Catálogo de revisões (revisoes.html) ─────────────────────────────
+     Sem JS a página mostra a tabela inteira, grupo por grupo, e cada cartão
+     de moto é âncora para o seu. Com JS a tabela some e a escolha acontece
+     numa janela: nível, modelo e dia, sem rolar a página. A janela lê os
+     dados dos próprios cartões gerados pelo montar.py — preço só existe lá.  */
+  function catalogoRevisoes() {
+    var cartoes = $$('.moto-grupo');
+    var modal   = $('#rev-modal');
+    if (!cartoes.length || !modal || typeof modal.showModal !== 'function') return;
+
+    var busca  = $('[data-busca]');
+    var campo  = $('#busca-moto');
+    var saida  = $('#busca-resultados');
+    var opcoes = $('[data-opcoes]', modal);
+    var selModelo = $('[data-modelo]', modal);
+    var inOutro = $('[data-outro]', modal);
+    var notaOutro = $('[data-outro-nota]', modal);
+    var inData = $('[data-data]', modal);
+    var erro   = $('[data-erro]', modal);
+    var enviar = $('[data-enviar]', modal);
+    var DIAS = ['domingo', 'segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado'];
+
+    // "MT-03", "mt 03" e "mt03" são a mesma moto; "Ténéré" e "tenere" também
+    function chave(t) {
+      return t.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]/g, '');
+    }
+
+    var modelos = [];
+    cartoes.forEach(function (c) {
+      c.getAttribute('data-modelos').split('|').forEach(function (m) {
+        modelos.push({ nome: m, chave: chave(m), grupo: c.getAttribute('data-grupo') });
+      });
+    });
+
+    function iso(d) {
+      return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2);
+    }
+    var hoje = new Date();
+    var limite = new Date(); limite.setDate(limite.getDate() + 60);
+    inData.min = iso(hoje);
+    inData.max = iso(limite);
+
+    var atual = { planos: [], nivel: null };
+
+    function escolherNivel(i) {
+      var pl = atual.planos[i];
+      atual.nivel = i;
+      $$('input', opcoes).forEach(function (r, k) { r.checked = k === i; });
+      $('[data-inclui-titulo]', modal).textContent = 'O que é feito na ' + pl.curto;
+      $('[data-inclui-base]', modal).textContent = $('.rev-plano__base', pl.el).textContent;
+      $('[data-inclui-itens]', modal).innerHTML = $('.rev-plano__itens', pl.el).innerHTML;
+      $('[data-resumo-nome]', modal).textContent = pl.curto;
+      $('[data-resumo-valor]', modal).textContent = pl.valor;
+    }
+
+    function abrir(id, modelo) {
+      var painel = document.getElementById('grupo-' + id);
+      var cartao = $('.moto-grupo[data-grupo="' + id + '"]');
+      if (!painel || !cartao) return;
+
+      $('#rev-modal-titulo').textContent = modelo || $('.moto-grupo__titulo', cartao).textContent;
+
+      selModelo.innerHTML = '';
+      var vazio = document.createElement('option');
+      vazio.value = ''; vazio.textContent = 'Selecione';
+      selModelo.appendChild(vazio);
+      cartao.getAttribute('data-modelos').split('|').forEach(function (m) {
+        var o = document.createElement('option');
+        o.value = m; o.textContent = m;
+        selModelo.appendChild(o);
+      });
+      var outro = document.createElement('option');
+      outro.value = 'outro'; outro.textContent = 'Outro modelo';
+      selModelo.appendChild(outro);
+      selModelo.value = modelo || '';
+      inOutro.value = '';
+      mostrarOutro();
+      atual.grupo = $('.moto-grupo__titulo', cartao).textContent;
+
+      atual.planos = $$('.rev-plano', painel).map(function (el) {
+        return { el: el, curto: el.getAttribute('data-curto'), resumo: el.getAttribute('data-resumo'),
+                 valor: el.getAttribute('data-valor'), premium: el.classList.contains('rev-plano--premium') };
+      });
+      opcoes.innerHTML = '';
+      atual.planos.forEach(function (pl, i) {
+        var l = document.createElement('label');
+        l.className = 'rev-opcao' + (pl.premium ? ' rev-opcao--premium' : '');
+        l.innerHTML = '<input type="radio" name="rev-nivel">' +
+          '<span class="rev-opcao__txt"><strong></strong><small></small></span>' +
+          '<span class="rev-opcao__valor"></span>' +
+          (pl.premium ? '<span class="rev-opcao__selo">A mais completa</span>' : '');
+        $('strong', l).textContent = pl.curto;
+        $('small', l).textContent = pl.resumo;
+        $('.rev-opcao__valor', l).textContent = pl.valor.replace(',00', '');
+        $('input', l).addEventListener('change', function () { escolherNivel(i); });
+        opcoes.appendChild(l);
+      });
+      escolherNivel(1);   // começa no meio; o cliente sobe ou desce
+      erro.textContent = '';
+      $('.rev-modal__corpo', modal).scrollTop = 0;
+
+      document.body.classList.add('is-locked');
+      modal.showModal();
+      if (window.history && history.replaceState) history.replaceState(null, '', '#grupo-' + id);
+    }
+
+    // "Outro modelo": a moto não está na lista, o cliente escreve qual é
+    function mostrarOutro() {
+      var ligado = selModelo.value === 'outro';
+      inOutro.hidden = !ligado;
+      notaOutro.hidden = !ligado;
+      if (ligado) inOutro.focus();
+    }
+    selModelo.addEventListener('change', mostrarOutro);
+
+    function fechar() { modal.close(); }
+    modal.addEventListener('close', function () {
+      document.body.classList.remove('is-locked');
+      if (window.history && history.replaceState) history.replaceState(null, '', location.pathname);
+    });
+    $('.rev-modal__fechar', modal).addEventListener('click', fechar);
+    // clique no fundo escuro fecha; clique dentro da caixa não
+    modal.addEventListener('click', function (e) { if (e.target === modal) fechar(); });
+
+    function validar() {
+      if (!selModelo.value) { erro.textContent = 'Escolha o modelo da sua moto.'; selModelo.focus(); return null; }
+      if (selModelo.value === 'outro' && !inOutro.value.trim()) {
+        erro.textContent = 'Escreva o modelo da sua moto.'; inOutro.focus(); return null;
+      }
+      if (!inData.value)    { erro.textContent = 'Escolha a data da revisão.'; inData.focus(); return null; }
+      var d = new Date(inData.value + 'T12:00:00');
+      if (!CONFIG.horario[d.getDay()]) {
+        erro.textContent = 'A loja não abre ' + (d.getDay() === 0 ? 'no domingo' : 'nesse dia') + '. Escolha outro dia.';
+        inData.focus(); return null;
+      }
+      if (inData.value < inData.min) { erro.textContent = 'Escolha um dia a partir de hoje.'; inData.focus(); return null; }
+      erro.textContent = '';
+      return d;
+    }
+    [selModelo, inOutro, inData].forEach(function (el) { el.addEventListener('change', function () { erro.textContent = ''; }); });
+
+    enviar.addEventListener('click', function (e) {
+      var d = validar();
+      if (!d) { e.preventDefault(); return; }
+      var pl = atual.planos[atual.nivel];
+      var moto = selModelo.value === 'outro'
+        ? inOutro.value.trim() + ' (fora da lista; tabela ' + atual.grupo + ')'
+        : selModelo.value;
+      // Mesmo formato da mensagem gerada pelo montar.py (msg_revisao), com o dia
+      var msg = 'Olá! Vim pelo site e quero agendar uma revisão.\n' +
+        '• Revisão: ' + pl.curto + '\n' +
+        '• Moto: ' + moto + '\n' +
+        '• Mão de obra: ' + pl.valor + '\n' +
+        '• Data da revisão: ' + DIAS[d.getDay()] + ', ' + ('0' + d.getDate()).slice(-2) + '/' + ('0' + (d.getMonth() + 1)).slice(-2) + '\n' +
+        'Pode confirmar?';
+      enviar.href = 'https://wa.me/' + CONFIG.whatsapp + '?text=' + encodeURIComponent(msg);
+    });
+
+    function sugerir() {
+      var q = chave(campo.value);
+      saida.innerHTML = '';
+      if (!q) return;
+
+      var achados = modelos.filter(function (m) { return m.chave.indexOf(q) !== -1; }).slice(0, 12);
+      if (!achados.length) {
+        var p = document.createElement('p');
+        p.className = 'moto-busca__vazio';
+        p.textContent = 'Não achamos “' + campo.value.trim() + '”. Toque no grupo mais parecido abaixo ou pergunte no WhatsApp.';
+        saida.appendChild(p);
+        return;
+      }
+      achados.forEach(function (m) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'moto-sugestao';
+        b.textContent = m.nome;
+        b.addEventListener('click', function () { abrir(m.grupo, m.nome); });
+        saida.appendChild(b);
+      });
+    }
+
+    $('#revisoes').hidden = true;
+    busca.hidden = false;
+    campo.addEventListener('input', sugerir);
+    campo.addEventListener('keydown', function (e) {
+      if (e.key !== 'Enter') return;
+      e.preventDefault();
+      var primeira = $('.moto-sugestao', saida);
+      if (primeira) primeira.click();
+    });
+
+    cartoes.forEach(function (c) {
+      c.addEventListener('click', function (e) {
+        e.preventDefault();
+        abrir(c.getAttribute('data-grupo'), null);
+      });
+    });
+
+    // Link de campanha: revisoes.html#grupo-cg-160 ou revisoes.html?moto=CG%20160
+    var pedido = new URLSearchParams(location.search).get('moto');
+    var doPedido = pedido && modelos.filter(function (m) { return m.chave === chave(pedido); })[0];
+    var hash = location.hash.replace('#grupo-', '');
+    if (doPedido) abrir(doPedido.grupo, doPedido.nome);
+    else if (hash && document.getElementById('grupo-' + hash)) abrir(hash, null);
+  }
+
   /* ═══════════════════════════════════════════════════════════════════════
      MOVIMENTO
      Ordem de chegada dentro de cada seção: rastro -> título -> texto ->
@@ -268,7 +474,7 @@
       });
 
       // listas e grades: entram em cascata curta
-      var itens = $$('.servico, .motivo, .card, .frente, .faq__item, .checklist li, .pacote li, .info-item, .fatos__item', sec);
+      var itens = $$('.servico, .motivo, .card, .frente, .faq__item, .checklist li, .pacote li, .info-item, .fatos__item, .rev-nivel, .moto-grupo', sec);
       itens.forEach(function (el) { el.setAttribute('data-mov', 'sobe'); fila.push(el); });
 
       // a foto é fundo: chega por último e mais devagar
@@ -458,6 +664,7 @@
     videoCapa();
     statusHorario();
     navAtiva();
+    catalogoRevisoes();
     whatsappFlutuante();
     ano();
   }

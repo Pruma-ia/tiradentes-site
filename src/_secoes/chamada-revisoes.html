@@ -1,0 +1,26 @@
+<!-- ══════════════════════════ CHAMADA DAS REVISÕES ══════════════════════════
+     Revisão é o carro-chefe da loja: fica logo depois da capa e leva para
+     revisoes.html. Os preços "a partir de" saem de src/_revisoes.json
+     ({{REV_NIVEIS}} é trocado pelo montar.py) — não escreva valor à mão aqui. -->
+<section class="section section--dark textura rev-chamada" id="revisao-chamada">
+  <div class="rev-chamada__brilho" aria-hidden="true"></div>
+  <div class="wrap rev-chamada__grid">
+    <div class="section-head">
+      <span class="rastro" aria-hidden="true"><span></span><span></span><span></span></span>
+      <p class="passo" style="margin-top:1.25rem;">Revisão Tiradentes</p>
+      <h2>Escolha a revisão da sua moto. <em>O preço já está na tela.</em></h2>
+      <p class="lead">
+        Três níveis, do básico ao completo, com a tabela de mão de obra para cada
+        modelo — da CG às 700 cilindradas, scooter incluída. Você escolhe aqui e
+        agenda pelo WhatsApp.
+      </p>
+      <a class="btn btn--primary btn--lg rev-chamada__cta" href="revisoes.html">
+        Monte sua revisão
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+    <ul class="rev-niveis">
+{{REV_NIVEIS}}
+    </ul>
+  </div>
+</section>

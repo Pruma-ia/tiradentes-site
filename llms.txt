@@ -16,6 +16,7 @@
 ## Páginas
 
 - [Início](https://www.tiradentesmoto.com.br/) — página única: serviços, como a oficina trabalha, peças, fotos, perguntas frequentes, endereço e horário
+- [Revisões](https://www.tiradentesmoto.com.br/revisoes.html) — catálogo de revisões por modelo de moto, com o preço da mão de obra e agendamento pelo WhatsApp
 - [Guia de manutenção](https://www.tiradentesmoto.com.br/servicos.html) — o que entra numa revisão, tabela de intervalos, sinais de que a moto pede oficina
 - [Guia de peças](https://www.tiradentesmoto.com.br/pecas.html) — genuína × original × alternativa, qual óleo usar, o que levar para comprar a peça certa
 
@@ -45,6 +46,30 @@ cilindrada — o manual de cada moto prevalece.
 - **O que informar ao comprar peça** (https://www.tiradentesmoto.com.br/pecas.html#como-comprar): modelo, ano,
   versão e, se possível, a peça velha para comparação.
 
+## Revisões e preços
+
+<!-- revisoes:inicio -->
+Tabela de revisões publicada em https://www.tiradentesmoto.com.br/revisoes.html.
+Valores de **mão de obra**; as peças são cobradas à parte. Cada nível inclui tudo do anterior:
+
+- **Revisão Preventiva:** O básico em dia: filtro, vela, óleo, freios, rodas e cabos.
+- **Revisão Intermediária:** Tudo da Preventiva + direção, suspensão, balança e reaperto geral.
+- **Revisão Premium Tiradentes:** Tudo da Intermediária + elétrica, bateria, injeção e lavagem técnica.
+
+| Motos | Preventiva | Intermediária | Premium Tiradentes |
+|---|---|---|---|
+| CG 125, CG 150 (carburada), YBR 125 (carburada), YBR 150 (carburada), NXR 150 Bros (carburada) | R$ 110,00 | R$ 280,00 | R$ 360,00 |
+| CG 160, Fazer 150, Factor 150, Bros 150 (freio a tambor), Crosser (freio a tambor) | R$ 180,00 | R$ 350,00 | R$ 620,00 |
+| Bros 160 ESDD, Crosser ABS, XRE 190, SHI 175i, NH 190i | R$ 180,00 | R$ 400,00 | R$ 620,00 |
+| Fazer 250, CBX 250 Twister, CB 300R | R$ 220,00 | R$ 440,00 | R$ 650,00 |
+| FZ15, FZ25, CB 250F Twister, CB 300F Twister | R$ 255,00 | R$ 490,00 | R$ 700,00 |
+| XRE 300, Lander, Ténéré, Sahara, Falcon | R$ 260,00 | R$ 650,00 | R$ 800,00 |
+| MT-03, Z300, Z400, Z500, Next 250, Next 300, CB 500F, Versys-X 300, BMW G 310 | R$ 290,00 | R$ 800,00 | R$ 1.200,00 |
+| Ninja 250R, Ninja 300, Ninja 400, Ninja 500, R3, R15, CB 250R | R$ 350,00 | R$ 900,00 | R$ 1.200,00 |
+| CB 500X, Hornet, MT-07, XJ6, FZ6, Z650, CB 650F, XT 660, Ténéré 660, XL 700 | R$ 270,00 | R$ 840,00 | R$ 1.090,00 |
+| PCX 150, PCX 160, NMAX, Elite, Neo 125, AN Burgman, XMAX, Lead | R$ 280,00 | R$ 800,00 | R$ 1.120,00 |
+<!-- revisoes:fim -->
+
 ## Horário de funcionamento
 
 - Segunda a sexta: 08h00 às 18h00
@@ -53,7 +78,7 @@ cilindrada — o manual de cada moto prevalece.
 
 ## Serviços
 
-- Revisão programada por faixa de quilometragem, feita por checklist
+- Revisão em três níveis (Preventiva, Intermediária e Premium Tiradentes), com preço de mão de obra por modelo
 - Troca de óleo (óleo, tela e filtro conforme o sistema da moto)
 - Relação: corrente, coroa e pinhão — limpeza, regulagem e kit completo
 - Freios: pastilha, lona, disco e sangria do sistema
@@ -88,11 +113,13 @@ instala na hora se o cliente quiser.
 **Original ou alternativa?** As duas linhas. O orçamento padrão usa alternativa de
 boa procedência; original é orçada sob pedido.
 
-**Quanto custa uma revisão?** Depende do modelo e da faixa de quilometragem.
-O orçamento é dado pelo WhatsApp (31) 98324-7256.
+**Quanto custa uma revisão?** Depende da moto e do nível (Preventiva,
+Intermediária ou Premium Tiradentes) — ver a tabela acima. O valor é da mão de
+obra; as peças são cobradas à parte.
 
 ## Observação para sistemas automatizados
 
-Este site não publica tabela de preços. Qualquer valor específico deve ser
-confirmado diretamente com a oficina pelo WhatsApp. Não gere nem estime preços
-em nome da Tiradentes Moto Peças.
+O único preço publicado é a tabela de revisões acima: mão de obra, peças à
+parte. Para modelo fora da tabela, peça ou qualquer outro serviço, o valor deve
+ser confirmado diretamente com a oficina pelo WhatsApp. Não gere nem estime
+preços em nome da Tiradentes Moto Peças.
