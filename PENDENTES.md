@@ -67,6 +67,30 @@ janela de agendamento e no "como funciona" de `revisoes.html`.
 **Falta:** foto real para os grupos sem foto (MT-03/Z400…, CB 500X/Hornet…,
 scooters) — hoje aparece a arte da marca no lugar. O Thales vai mandar.
 
+## ✅ Blog (05/11/2026)
+
+`/blog/` com o primeiro post, "Qual óleo usar na moto"; faixa "Do blog" na home,
+link no menu e no rodapé. Cada post é um JSON em `src/_blog/`. Os outros quatro
+(revisão, CG × Biz × Pop, gasolina, moto elétrica) esperam o aval do Thales sobre
+o primeiro, que foi ao ar **antes** desse aval por decisão do Gabriel (05/11): o
+Thales revisa em produção.
+
+**Confirmar com o Thales** (lista completa no campo `conferir` do JSON e na nota da
+versão para compartilhar):
+
+- todos os números da tabela de óleo (tirados dos manuais do proprietário);
+- assinatura "Thales e Denis": grafia (Denis ou Dennis) e sobrenome;
+- "troca de óleo no mesmo dia, sem agendar";
+- uma frase dele sobre óleo, para citar com o nome, e uma linha sobre a experiência
+  dos dois;
+- se algum manual traz prazo menor para uso severo.
+
+**Divergência a resolver:** a tabela de intervalos (`servicos.html#intervalos`) e o
+`llms.txt` dizem "óleo 3.000 km (mineral) a 5.000 km (sintético)"; o post, pelo
+manual, diz 6.000 km ou 1 ano na CG 160, Biz, Pop e Bros, com qualquer base. A
+referência de mercado é mais conservadora, mas o Google e as IAs leem as duas. Decidir
+com o Thales se a tabela passa a apontar o manual.
+
 ## ❌ Fora de propósito
 
 - **Preço de peça e de outros serviços.** A tabela da POC é pesquisa de mercado

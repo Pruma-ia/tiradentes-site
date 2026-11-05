@@ -12,6 +12,8 @@ trocar o telefone significaria editar cinco arquivos e esquecer um.
   src/_secoes/*.html    cada seção da página
   src/_revisoes.json    tabela de revisões do Thales (vira a página revisoes.html,
                         o resumo da home, o schema e o bloco do llms.txt)
+  src/_blog/*.json      um arquivo por post (vira blog/<slug>/, o índice blog/,
+                        a faixa da home, o schema, o sitemap e o bloco do llms.txt)
   PAGINAS (abaixo)      qual página tem quais seções
 
 Rodar de novo é seguro: as páginas na raiz são sempre reescritas do zero.
@@ -21,6 +23,9 @@ import html, json, pathlib, re, sys
 RAIZ = pathlib.Path(__file__).resolve().parent.parent
 SRC  = RAIZ / 'src'
 BASE = 'https://www.tiradentesmoto.com.br/'
+# <lastmod> das páginas fixas no sitemap. Mudou texto, menu ou rodapé delas? Atualize.
+# (Post usa a própria data, ou 'atualizado', do JSON.)
+PAGINAS_ATUALIZADAS = '2026-11-05'
 
 # ─────────────────────────────────────────────────────────────────────────
 # Menu: 4 itens, todos ÂNCORAS da home. A v2 voltou para página única porque
@@ -33,11 +38,14 @@ BASE = 'https://www.tiradentesmoto.com.br/'
 # Exceção: Revisões é PÁGINA, não âncora — é o carro-chefe da loja e o catálogo
 # (10 grupos de moto × 3 revisões) não cabe na home. Alvo terminado em .html
 # vira link direto, e DESTAQUE pinta o item de vermelho no menu.
+# Blog também é página: alvo terminado em / é a pasta blog/, e o item acende
+# em qualquer página dentro dela (índice e posts).
 MENU = [
     ('servicos',      'Serviços',  'servicos.html'),
     ('revisoes.html', 'Revisões',  'revisoes.html'),
     ('oficina',       'A oficina', None),
     ('pecas',         'Peças',     'pecas.html'),
+    ('blog/',         'Blog',      'blog/'),
     ('contato',       'Contato',   None),
 ]
 DESTAQUE = {'revisoes.html'}
@@ -48,7 +56,7 @@ PAGINAS = {
    'desc': 'Oficina de moto e loja de peças no mesmo balcão, no Bairro Industrial, em '
            'Contagem/MG. Preço e prazo antes de encostar na moto. WhatsApp (31) 98324-7256.',
    'secoes': ['hero', 'fatos', 'faixa', 'chamada-revisoes', 'servicos', 'oficina', 'galeria', 'pecas',
-              'porque', 'banda', 'duvidas', 'contato', 'cta'],
+              'porque', 'banda', 'blog-recentes', 'duvidas', 'contato', 'cta'],
    'schema': ['negocio', 'faq'],
  },
  'servicos.html': {
@@ -90,17 +98,23 @@ def ler(p):
 
 def ancora(atual, id_):
     """Na home, o link só rola a página; nos guias, volta para a home já na seção."""
-    if id_.endswith('.html'):
+    if id_.endswith(('.html', '/')):
         return id_
     return f'#{id_}' if atual == 'index.html' else f'index.html#{id_}'
+
+
+def acende(guia, atual):
+    if guia and guia.endswith('/'):
+        return atual.startswith(guia)
+    return guia == atual
 
 
 def menu_html(atual, mobile=False):
     linhas = []
     for id_, rotulo, guia in MENU:
         href = ancora(atual, id_)
-        ativo = ' is-active' if guia == atual else ''
-        aria = ' aria-current="page"' if guia == atual else ''
+        ativo = ' is-active' if acende(guia, atual) else ''
+        aria = ' aria-current="page"' if guia and atual in (guia, f'{guia}index.html') else ''
         if mobile:
             dest = ' mobile-nav__link--destaque' if id_ in DESTAQUE else ''
             linhas.append(f'  <a class="mobile-nav__link{dest}{ativo}" href="{href}"{aria}>{rotulo}</a>')
@@ -130,9 +144,9 @@ def rodape(atual):
     return r
 
 
-def schemas(quais):
+def schemas(quais, extra=()):
     dados = json.loads((SRC / '_schema-negocio.json').read_text())
-    out = []
+    out = [json.dumps(b, ensure_ascii=False, indent=2) for b in extra]
     if 'negocio' in quais:
         out.append(json.dumps(dados, ensure_ascii=False, indent=2))
     if 'faq' in quais:
@@ -412,7 +426,289 @@ def llms_revisoes():
     return '\n'.join(linhas)
 
 
-GERADAS = {'catalogo-revisoes': catalogo_revisoes}
+# ─────────────────────────────────────────────────────────────────────────
+# Blog. Um post = um arquivo em src/_blog/<slug>.json. Daqui saem a página do
+# post (blog/<slug>/index.html, URL limpa), o índice (blog/), a faixa da home,
+# o schema BlogPosting/FAQPage, o sitemap e o bloco do llms.txt. O formato é
+# dado, não HTML, para a tela de gestão do painel poder escrever nele depois.
+# Diagramas desenhados à mão ficam em src/_blog/_diagramas/<nome>.html.
+# ─────────────────────────────────────────────────────────────────────────
+BLOG = SRC / '_blog'
+MESES = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho',
+         'agosto', 'setembro', 'outubro', 'novembro', 'dezembro']
+SETA = ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" '
+        'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>')
+
+
+def posts():
+    """Todos os posts, do mais novo para o mais antigo."""
+    lista = [json.loads(p.read_text()) for p in sorted(BLOG.glob('*.json'))]
+    return sorted(lista, key=lambda p: p['data'], reverse=True)
+
+
+def data_br(iso):
+    a, m, d = iso.split('-')
+    return f'{int(d)} de {MESES[int(m) - 1]} de {a}'
+
+
+def sem_tags(s):
+    return re.sub(r'<[^>]+>', '', s)
+
+
+def texto_corrido(post):
+    partes = [post['resposta']]
+    for b in post['corpo']:
+        partes += [b.get('texto', ''), b.get('html', ''), b.get('nota', ''), *b.get('itens', [])]
+    partes += [f['p'] + ' ' + f['r'] for f in post.get('faq', [])]
+    return sem_tags(' '.join(partes))
+
+
+def sem_quebra(s):
+    """Código de viscosidade (10W-30) não quebra no hífen."""
+    return re.sub(r'\b(\d+W-\d+)\b', r'<span class="sem-quebra">\1</span>', s)
+
+
+def minutos(post):
+    return max(1, round(len(texto_corrido(post).split()) / 200))
+
+
+def autores(post):
+    return ' e '.join(post['autores'])
+
+
+def url_post(post):
+    return f'blog/{post["slug"]}/'
+
+
+def bloco(b):
+    t = b['tipo']
+    if t == 'h2':
+        return f'<h2 id="{b["id"]}">{html.escape(b["texto"])}</h2>'
+    if t == 'p':
+        return f'<p>{b["html"]}</p>'
+    if t == 'lista':
+        return '<ul class="post__lista">\n' + '\n'.join(f'  <li>{i}</li>' for i in b['itens']) + '\n</ul>'
+    if t == 'destaque':
+        return (f'<aside class="post__destaque">\n  <p class="post__destaque-titulo">{html.escape(b["titulo"])}</p>\n'
+                f'  <p>{b["html"]}</p>\n</aside>')
+    if t == 'tabela':
+        cab = ''.join(f'<th scope="col">{html.escape(c)}</th>' for c in b['colunas'])
+        linhas = '\n'.join(
+            f'      <tr><th scope="row">{html.escape(l[0])}</th>'
+            + ''.join(f'<td data-rotulo="{html.escape(r)}"><span>{sem_quebra(html.escape(c))}</span></td>' for r, c in zip(b['colunas'][1:], l[1:]))
+            + '</tr>' for l in b['linhas'])
+        nota = f'\n<p class="nota">{b["nota"]}</p>' if b.get('nota') else ''
+        return (f'<div class="tabela-wrap tabela-wrap--post">\n  <table class="tabela tabela--post">\n'
+                f'    <caption class="sr-only">{html.escape(b["legenda"])}</caption>\n'
+                f'    <thead><tr>{cab}</tr></thead>\n    <tbody>\n{linhas}\n    </tbody>\n  </table>\n</div>{nota}')
+    if t == 'foto':
+        return (f'<figure class="post__foto">\n  <img src="assets/img/{b["foto"]}" alt="{html.escape(b["alt"])}" '
+                f'width="{b["w"]}" height="{b["h"]}" loading="lazy">\n'
+                f'  <figcaption>{html.escape(b["legenda"])}</figcaption>\n</figure>')
+    if t == 'diagrama':
+        return (BLOG / '_diagramas' / f'{b["nome"]}.html').read_text().strip()
+    if t == 'chamada':
+        return (f'<div class="post__chamada">\n  <p>{b["html"]}</p>\n'
+                f'  <a class="btn btn--outline" data-wa data-wa-msg="{html.escape(b["wa_msg"])}" '
+                f'href="index.html#contato">{WA_ICONE} {html.escape(b["rotulo"])}</a>\n</div>')
+    raise ValueError(f'bloco de tipo desconhecido no post: {t}')
+
+
+def cartao_post(p, nivel='h3'):
+    return (f'      <a class="frente post-card" href="{url_post(p)}">\n'
+            f'        <img src="assets/img/{p["capa"]}" alt="{html.escape(p["capa_alt"])}" '
+            f'width="{p["capa_w"]}" height="{p["capa_h"]}" loading="lazy">\n'
+            f'        <span class="frente__txt">\n'
+            f'          <span class="passo">{html.escape(p["categoria"])}</span>\n'
+            f'          <{nivel}>{html.escape(p["titulo"])}</{nivel}>\n'
+            f'          <p>{html.escape(p["resumo"])}</p>\n'
+            f'          <span class="post-card__meta">{data_br(p["data"])} · {minutos(p)} min de leitura</span>\n'
+            f'          <span class="frente__link">Ler o post</span>\n'
+            f'        </span>\n'
+            f'      </a>')
+
+
+def pagina_post(p, todos):
+    corpo = '\n\n'.join(bloco(b) for b in p['corpo'])
+    indice = [(b['id'], b['texto']) for b in p['corpo'] if b['tipo'] == 'h2']
+    faq = ''
+    if p.get('faq'):
+        indice.append(('perguntas', 'Perguntas frequentes'))
+        itens = '\n'.join(f'    <div class="faq__item">\n      <h3 class="faq__q">{html.escape(f["p"])}</h3>\n'
+                          f'      <p class="faq__a">{html.escape(f["r"])}</p>\n    </div>' for f in p['faq'])
+        faq = (f'\n\n<section class="post__faq" id="perguntas">\n  <h2>Perguntas frequentes</h2>\n'
+               f'  <div class="faq faq--uma">\n{itens}\n  </div>\n</section>')
+    autoria = ''
+    if p.get('sobre_autores'):
+        autoria = (f'\n\n<aside class="post__autores">\n  <p class="passo">Quem escreve</p>\n'
+                   f'  <p>{html.escape(p["sobre_autores"])}</p>\n</aside>')
+    indice.append(('fontes', 'Fontes'))
+    fontes = '\n'.join(
+        f'    <li><a href="{f["url"]}" target="_blank" rel="noopener">{html.escape(f["nome"])}</a></li>' if f.get('url')
+        else f'    <li>{html.escape(f["nome"])}</li>' for f in p['fontes'])
+    toc = '\n'.join(f'        <li><a href="#{i}">{html.escape(t)}</a></li>' for i, t in indice)
+    outros = [o for o in todos if o['slug'] != p['slug']][:3]
+    leia = ''
+    if outros:
+        leia = (f'\n<section class="section section--muted">\n  <div class="wrap">\n'
+                f'    <div class="section-head">\n      {RASTRO}\n      <h2 style="margin-top:1.25rem;">Leia também</h2>\n    </div>\n'
+                f'    <div class="frentes blog-cards">\n' + '\n'.join(cartao_post(o) for o in outros) +
+                f'\n    </div>\n  </div>\n</section>\n')
+    return f"""<!-- ══════════════════════════ POST ══════════════════════════
+     GERADO por scripts/montar.py a partir de src/_blog/{p["slug"]}.json. -->
+<article class="post">
+<header class="pagina-topo post-topo textura">
+  <div class="wrap">
+    <nav class="migalhas" aria-label="Você está aqui">
+      <a href="index.html">Início</a><span aria-hidden="true">/</span><a href="blog/">Blog</a><span aria-hidden="true">/</span><span>{html.escape(p["categoria"])}</span>
+    </nav>
+    {RASTRO}
+    <h1>{html.escape(p["titulo"])}</h1>
+    <p class="lead">{html.escape(p["resumo"])}</p>
+    <p class="post-meta">Por <strong>{html.escape(autores(p))}</strong>, da Tiradentes Moto Peças
+      <span aria-hidden="true">·</span> <time datetime="{p["data"]}">{data_br(p["data"])}</time>
+      <span aria-hidden="true">·</span> {minutos(p)} min de leitura</p>
+  </div>
+</header>
+
+<div class="section post__secao">
+  <div class="wrap post__grade">
+    <div class="post__corpo">
+<figure class="post__capa moldura">
+  <img src="assets/img/{p["capa"]}" alt="{html.escape(p["capa_alt"])}" width="{p["capa_w"]}" height="{p["capa_h"]}" fetchpriority="high">
+</figure>
+
+<div class="post__resposta">
+  <p class="passo">Resposta rápida</p>
+  <p>{p["resposta"]}</p>
+</div>
+
+{corpo}{autoria}{faq}
+
+<section class="post__fontes" id="fontes">
+  <h2>Fontes</h2>
+  <ol>
+{fontes}
+  </ol>
+  <p>Os números técnicos vêm do manual de cada moto. Se o manual da sua disser outra coisa, vale o da sua.</p>
+</section>
+    </div>
+
+    <aside class="post__lado">
+      <nav class="post__indice" aria-label="Nesta página">
+        <p class="passo">Nesta página</p>
+        <ol>
+{toc}
+        </ol>
+      </nav>
+    </aside>
+  </div>
+</div>
+</article>
+{leia}"""
+
+
+def pagina_blog(todos):
+    cards = '\n'.join(cartao_post(p, 'h2') for p in todos)
+    return f"""<!-- ══════════════════════════ BLOG ══════════════════════════
+     GERADO por scripts/montar.py a partir de src/_blog/*.json. -->
+<section class="section section--muted">
+  <div class="wrap">
+    <div class="frentes blog-cards">
+{cards}
+    </div>
+  </div>
+</section>
+"""
+
+
+def blog_recentes():
+    """Faixa da home: os três posts mais novos."""
+    todos = posts()
+    if not todos:
+        return ''
+    cards = '\n'.join(cartao_post(p) for p in todos[:3])
+    return f"""<!-- ══════════════════════════ DO BLOG ══════════════════════════
+     GERADO por scripts/montar.py: os três posts mais novos de src/_blog/. -->
+<section class="section" id="blog">
+  <div class="wrap">
+    <div class="section-head">
+      {RASTRO}
+      <p class="passo" style="margin-top:1.25rem;">Do blog</p>
+      <h2>Dúvida de moto, respondida por quem conserta</h2>
+      <p class="lead">Óleo, revisão, consumo: o que mais aparece no balcão, explicado sem enrolação.</p>
+    </div>
+    <div class="frentes blog-cards">
+{cards}
+    </div>
+    <p class="nota"><a class="link-inline" href="blog/">Ver todos os posts do blog</a></p>
+  </div>
+</section>
+"""
+
+
+def schema_post(p):
+    url = BASE + url_post(p)
+    negocio = {'@type': 'AutoRepair', 'name': 'Tiradentes Moto Peças', 'url': BASE}
+    out = [{
+        '@context': 'https://schema.org',
+        '@type': 'BlogPosting',
+        'headline': p['titulo'],
+        'description': p['descricao'],
+        'image': BASE + 'assets/img/' + p['capa'],
+        'datePublished': p['data'],
+        'dateModified': p.get('atualizado', p['data']),
+        'inLanguage': 'pt-BR',
+        'articleSection': p['categoria'],
+        'wordCount': len(texto_corrido(p).split()),
+        'author': [{'@type': 'Person', 'name': a, 'worksFor': negocio, 'jobTitle': 'Responsável pela oficina'}
+                   for a in p['autores']],
+        'publisher': {'@type': 'Organization', 'name': 'Tiradentes Moto Peças', 'url': BASE,
+                      'logo': {'@type': 'ImageObject', 'url': BASE + 'assets/img/logo-mark.png'}},
+        'mainEntityOfPage': url,
+        'url': url,
+    }, {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        'itemListElement': [
+            {'@type': 'ListItem', 'position': 1, 'name': 'Início', 'item': BASE},
+            {'@type': 'ListItem', 'position': 2, 'name': 'Blog', 'item': BASE + 'blog/'},
+            {'@type': 'ListItem', 'position': 3, 'name': p['titulo'], 'item': url},
+        ],
+    }]
+    if p.get('faq'):
+        out.append({
+            '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            'mainEntity': [{'@type': 'Question', 'name': f['p'],
+                            'acceptedAnswer': {'@type': 'Answer', 'text': f['r']}} for f in p['faq']],
+        })
+    return out
+
+
+def schema_blog(todos):
+    return [{
+        '@context': 'https://schema.org',
+        '@type': 'Blog',
+        'name': 'Blog da Tiradentes Moto Peças',
+        'url': BASE + 'blog/',
+        'inLanguage': 'pt-BR',
+        'publisher': {'@type': 'Organization', 'name': 'Tiradentes Moto Peças', 'url': BASE},
+        'blogPost': [{'@type': 'BlogPosting', 'headline': p['titulo'], 'url': BASE + url_post(p),
+                      'datePublished': p['data']} for p in todos],
+    }]
+
+
+def llms_blog():
+    linhas = ['Posts publicados em https://www.tiradentesmoto.com.br/blog/. Cada um começa por uma',
+              'resposta curta; os números técnicos vêm do manual do proprietário de cada moto.', '']
+    for p in posts():
+        linhas.append(f'- [{p["titulo"]}]({BASE + url_post(p)}) ({data_br(p["data"])}): {sem_tags(p["resposta"])}')
+    linhas.append('')
+    return '\n'.join(linhas)
+
+
+GERADAS = {'catalogo-revisoes': catalogo_revisoes, 'blog-recentes': blog_recentes}
 
 
 def secao(nome):
@@ -432,57 +728,101 @@ def montar():
               ', '.join(sorted(p.stem for p in (SRC / '_secoes').glob('*.html'))))
         return 1
 
-    gabarito = ler('_layout.html')
+    todos = posts()
+    sitemap = []   # (url, lastmod, prioridade)
     for arquivo, cfg in PAGINAS.items():
-        url = BASE + ('' if arquivo == 'index.html' else arquivo)
         corpo = '\n'.join(secao(s) for s in cfg['secoes'])
         corpo = corpo.replace('{{REV_NIVEIS}}', niveis_resumo())
         # Toda página precisa de exatamente um <h1>. Na home ele vive no hero;
         # nas internas, este cabeçalho é quem o carrega.
         if 'h1' in cfg:
-            corpo = (f'<section class="pagina-topo textura">\n'
-                     f'  <div class="wrap">\n'
-                     f'    <span class="rastro" aria-hidden="true"><span></span><span></span><span></span></span>\n'
-                     f'    <h1>{cfg["h1"]}</h1>\n'
-                     f'    <p class="lead">{cfg["h1sub"]}</p>\n'
-                     f'  </div>\n'
-                     f'</section>\n\n') + corpo
-        pagina = gabarito
-        if arquivo != 'index.html':   # só a home tem a capa com vídeo
-            pagina = re.sub(r'<link rel="preload" as="image" href="assets/img/capa-poster[^>]*>\n', '', pagina)
-        html = (pagina
-                .replace('{{TITULO}}', cfg['titulo'])
-                .replace('{{DESC}}', cfg['desc'])
-                .replace('{{URL}}', url)
-                .replace('{{SCHEMA}}', schemas(cfg['schema']))
-                .replace('{{HEADER}}', cabecalho(arquivo))
-                .replace('{{CORPO}}', corpo)
-                .replace('{{FOOTER}}', rodape(arquivo)))
-        (RAIZ / arquivo).write_text(html)
-        print(f'  {arquivo:16} {len(cfg["secoes"])} seções, {len(html)//1024} KB')
+            corpo = topo(cfg['h1'], cfg['h1sub']) + corpo
+        escrever(arquivo, cfg['titulo'], cfg['desc'], corpo, schemas(cfg['schema']))
+        print(f'  {arquivo:16} {len(cfg["secoes"])} seções')
+        sitemap.append((arquivo, PAGINAS_ATUALIZADAS, '1.0' if arquivo == 'index.html' else '0.8'))
 
-    # sitemap sempre em sincronia com PAGINAS
+    # ── blog: índice + um post por pasta ──
+    if todos:
+        corpo = (topo('Blog da Tiradentes',
+                      'Dúvida de moto, respondida por quem conserta: óleo, revisão, consumo e o que mais '
+                      'aparece no balcão.') + pagina_blog(todos))
+        escrever('blog/index.html', 'Blog da Tiradentes Moto Peças: dúvidas de moto respondidas pela oficina',
+                 'Óleo, revisão, consumo e manutenção de moto explicados pela oficina Tiradentes Moto Peças, '
+                 'de Contagem/MG. Respostas diretas, com o que diz o manual de cada moto.',
+                 corpo, schemas([], schema_blog(todos)))
+        sitemap.append(('blog/index.html', todos[0]['data'], '0.7'))
+        for p in todos:
+            arquivo = url_post(p) + 'index.html'
+            escrever(arquivo, p['titulo_seo'], p['descricao'], pagina_post(p, todos),
+                     schemas([], schema_post(p)), og=(p['capa'], p['capa_alt']), tipo='article')
+            sitemap.append((arquivo, p.get('atualizado', p['data']), '0.7'))
+        print(f'  blog/            índice + {len(todos)} post(s)')
+
+    # sitemap sempre em sincronia com as páginas geradas
     urls = '\n'.join(
-        f'  <url>\n    <loc>{BASE + ("" if a == "index.html" else a)}</loc>\n'
-        f'    <lastmod>2026-09-11</lastmod>\n    <changefreq>monthly</changefreq>\n'
-        f'    <priority>{"1.0" if a == "index.html" else "0.8"}</priority>\n  </url>'
-        for a in PAGINAS)
+        f'  <url>\n    <loc>{BASE + a.removesuffix("index.html")}</loc>\n'
+        f'    <lastmod>{d}</lastmod>\n    <changefreq>monthly</changefreq>\n'
+        f'    <priority>{pr}</priority>\n  </url>'
+        for a, d, pr in sitemap)
     (RAIZ / 'sitemap.xml').write_text(
         '<?xml version="1.0" encoding="UTF-8"?>\n'
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
         f'{urls}\n</urlset>\n')
-    print(f'  sitemap.xml      {len(PAGINAS)} URLs')
+    print(f'  sitemap.xml      {len(sitemap)} URLs')
 
     llms = RAIZ / 'llms.txt'
     texto = llms.read_text()
-    novo = re.sub(r'(<!-- revisoes:inicio -->\n).*?(<!-- revisoes:fim -->)',
-                  lambda m: m.group(1) + llms_revisoes() + m.group(2), texto, flags=re.S)
-    if '<!-- revisoes:inicio -->' in texto:
-        llms.write_text(novo)
-        print('  llms.txt         tabela de revisões atualizada')
-    else:
-        print('  llms.txt         AVISO: sem os marcadores <!-- revisoes:inicio/fim -->, tabela não entrou')
+    for marca, gerar in (('revisoes', llms_revisoes), ('blog', llms_blog)):
+        if f'<!-- {marca}:inicio -->' not in texto:
+            print(f'  llms.txt         AVISO: sem os marcadores <!-- {marca}:inicio/fim -->, bloco não entrou')
+            continue
+        texto = re.sub(rf'(<!-- {marca}:inicio -->\n).*?(<!-- {marca}:fim -->)',
+                       lambda m: m.group(1) + gerar() + m.group(2), texto, flags=re.S)
+        print(f'  llms.txt         bloco "{marca}" atualizado')
+    llms.write_text(texto)
     return 0
+
+
+def topo(h1, sub):
+    return (f'<section class="pagina-topo textura">\n'
+            f'  <div class="wrap">\n'
+            f'    {RASTRO}\n'
+            f'    <h1>{h1}</h1>\n'
+            f'    <p class="lead">{sub}</p>\n'
+            f'  </div>\n'
+            f'</section>\n\n')
+
+
+OG_PADRAO = ('og-cover.jpg', 'Honda CB 300F dentro da oficina da Tiradentes Moto Peças, em Contagem/MG')
+
+
+def escrever(arquivo, titulo, desc, corpo, schema_html, og=OG_PADRAO, tipo='website'):
+    pagina = ler('_layout.html')
+    if arquivo != 'index.html':   # só a home tem a capa com vídeo
+        pagina = re.sub(r'<link rel="preload" as="image" href="assets/img/capa-poster[^>]*>\n', '', pagina)
+    saida = (pagina
+             .replace('{{TITULO}}', html.escape(titulo, quote=True))
+             .replace('{{DESC}}', html.escape(desc, quote=True))
+             .replace('{{URL}}', BASE + arquivo.removesuffix('index.html'))
+             .replace('{{OG_TYPE}}', tipo)
+             .replace('{{OG_IMAGE}}', BASE + 'assets/img/' + og[0])
+             .replace('{{OG_ALT}}', html.escape(og[1], quote=True))
+             .replace('{{SCHEMA}}', schema_html)
+             .replace('{{HEADER}}', cabecalho(arquivo))
+             .replace('{{CORPO}}', corpo)
+             .replace('{{FOOTER}}', rodape(arquivo)))
+    destino = RAIZ / arquivo
+    destino.parent.mkdir(parents=True, exist_ok=True)
+    destino.write_text(relativo(saida, '../' * arquivo.count('/')))
+
+
+def relativo(s, prefixo):
+    """Página em subpasta (blog/…): todo caminho relativo do site ganha ../ na frente.
+    Os pedaços em src/ são escritos sempre a partir da raiz; quem corrige é aqui."""
+    if not prefixo:
+        return s
+    return re.sub(r'\b(href|src|poster)="(?![a-zA-Z][a-zA-Z0-9+.-]*:|#|/)([^"]*)"',
+                  lambda m: f'{m.group(1)}="{prefixo}{m.group(2)}"', s)
 
 
 if __name__ == '__main__':

@@ -19,6 +19,7 @@
 - [Revisões](https://www.tiradentesmoto.com.br/revisoes.html) — catálogo de revisões por modelo de moto, com o preço da mão de obra e agendamento pelo WhatsApp
 - [Guia de manutenção](https://www.tiradentesmoto.com.br/servicos.html) — o que entra numa revisão, tabela de intervalos, sinais de que a moto pede oficina
 - [Guia de peças](https://www.tiradentesmoto.com.br/pecas.html) — genuína × original × alternativa, qual óleo usar, o que levar para comprar a peça certa
+- [Blog](https://www.tiradentesmoto.com.br/blog/) — dúvidas de manutenção de moto respondidas pela oficina, com os números do manual de cada moto
 
 ## Conteúdo técnico publicado no site
 
@@ -43,8 +44,19 @@ cilindrada — o manual de cada moto prevalece.
 - **Tipos de óleo** (https://www.tiradentesmoto.com.br/pecas.html#oleo): mineral tem intervalo mais curto;
   semissintético é o meio-termo; sintético aguenta mais uso severo e giro alto.
   O que decide é a viscosidade e a norma pedidas no manual, não o preço.
+  Viscosidade, norma, litros e prazo de troca por modelo (CG, Biz, Pop, Bros, Factor, Fazer,
+  NMAX), tirados do manual de cada moto: https://www.tiradentesmoto.com.br/blog/qual-oleo-usar-na-moto/
 - **O que informar ao comprar peça** (https://www.tiradentesmoto.com.br/pecas.html#como-comprar): modelo, ano,
   versão e, se possível, a peça velha para comparação.
+
+## Blog
+
+<!-- blog:inicio -->
+Posts publicados em https://www.tiradentesmoto.com.br/blog/. Cada um começa por uma
+resposta curta; os números técnicos vêm do manual do proprietário de cada moto.
+
+- [Qual óleo usar na moto: CG, Biz, Pop, Bros, Factor e Fazer](https://www.tiradentesmoto.com.br/blog/qual-oleo-usar-na-moto/) (5 de novembro de 2026): Use a viscosidade que o manual da sua moto pede e um óleo com API e JASO iguais ou acima das do manual; a marca fica à sua escolha. Na CG 160, o manual da Honda pede 10W-30, API SL ou superior e JASO MA: 1,0 litro, trocado a cada 6.000 km ou 1 ano, o que vier primeiro.
+<!-- blog:fim -->
 
 ## Revisões e preços
 
