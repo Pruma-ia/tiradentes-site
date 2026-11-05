@@ -1326,3 +1326,181 @@ body:has(.hero--video) .header:not(.is-scrolled) {
   .rev-chamada__cta { width: 100%; }
   .rev-plano__foto { aspect-ratio: 5 / 2; }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   BLOG — gerado por scripts/montar.py a partir de src/_blog/*.json
+   Leitura primeiro: coluna de texto em ~68 caracteres, índice ao lado só no
+   computador. Diagramas são HTML (o texto é lido por buscador e IA), com o
+   mesmo vocabulário da marca: filete vermelho, rastro, fundo preto.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* — cartões de post (índice, home, "leia também") ————————————————————— */
+.post-card h2, .post-card h3 { font-size: clamp(1.125rem, 2vw, 1.375rem); margin: 0; }
+.post-card .passo { margin: 0; }
+.post-card__meta { font-size: .8125rem; color: var(--c-muted-fg); }
+/* um post só: cartão deitado, foto ao lado, em vez de um terço de grade vazia */
+.blog-cards:has(> .post-card:only-child) { grid-template-columns: 1fr; }
+.blog-cards > .post-card:only-child { flex-direction: row; max-width: 980px; }
+.blog-cards > .post-card:only-child img { width: 46%; aspect-ratio: auto; min-height: 100%; }
+.blog-cards > .post-card:only-child .frente__txt { padding: var(--s-6); justify-content: center; }
+
+/* — cabeçalho do post ———————————————————————————————————————————————— */
+.post-topo h1 { font-size: clamp(1.875rem, 4.2vw, 2.875rem); max-width: 24ch; }
+.migalhas { display: flex; flex-wrap: wrap; gap: var(--s-2); font-size: .8125rem; color: var(--c-ink-400); margin-bottom: var(--s-5); }
+.migalhas a { color: var(--c-ink-300); text-decoration: underline; text-underline-offset: 3px; }
+.migalhas a:hover { color: var(--c-on-primary); }
+.post-meta { margin-top: var(--s-5); font-size: .875rem; color: var(--c-ink-400); }
+.post-meta strong { color: var(--c-on-primary); font-weight: 600; }
+
+/* — grade: texto + índice ———————————————————————————————————————————— */
+.post__grade { display: grid; grid-template-columns: minmax(0, 1fr) 260px; gap: var(--s-8); align-items: start; }
+.post__corpo { max-width: 720px; font-size: 1.0625rem; line-height: 1.7; }
+.post__corpo > h2 { font-size: clamp(1.5rem, 3vw, 2rem); margin-top: var(--s-7); scroll-margin-top: calc(var(--header-h) + var(--s-4)); }
+.post__corpo > p a:not(.btn), .post__lista a { color: var(--c-accent-ink); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+.post__lado { position: sticky; top: calc(var(--header-h) + var(--s-5)); }
+.post__indice ol { list-style: none; margin: 0; padding: 0; border-left: 2px solid var(--c-border); }
+.post__indice li a {
+  display: block; padding: var(--s-2) var(--s-4); margin-left: -2px; border-left: 2px solid transparent;
+  font-size: .875rem; color: var(--c-muted-fg); transition: color var(--t-fast) var(--ease), border-color var(--t-fast) var(--ease);
+}
+.post__indice li a:hover { color: var(--c-fg); border-left-color: var(--c-accent); }
+
+/* — capa e foto no texto ——————————————————————————————————————————————— */
+.post__capa { margin: 0 18px var(--s-7) 0; aspect-ratio: 3 / 2; }
+.post__foto { margin: var(--s-6) 0; max-width: 360px; }
+.post__foto img { border-radius: var(--r-lg); width: 100%; }
+.post__foto figcaption { margin-top: var(--s-2); font-size: .8125rem; color: var(--c-muted-fg); }
+
+/* — resposta rápida: o que a IA e o leitor apressado levam ————————————— */
+.post__resposta {
+  background: var(--c-ink-800); color: var(--c-ink-300);
+  border-radius: var(--r-lg); border-top: 4px solid var(--c-accent);
+  padding: var(--s-5) var(--s-6);
+}
+.post__resposta .passo { color: var(--c-accent); margin-bottom: var(--s-2); }
+.post__resposta strong { color: var(--c-on-primary); }
+
+/* — lista com marcador da marca ——————————————————————————————————————— */
+.post__lista { display: grid; gap: var(--s-4); margin: var(--s-5) 0; }
+.post__lista li { position: relative; padding-left: var(--s-6); }
+.post__lista li::before {
+  content: ""; position: absolute; left: 0; top: .7em; width: 16px; height: 3px;
+  background: var(--c-accent); border-radius: 2px;
+}
+
+/* — destaque e chamada ———————————————————————————————————————————————— */
+.post__destaque { margin: var(--s-6) 0; padding: var(--s-5); background: var(--c-card); border: 1px solid var(--c-border); border-left: 4px solid var(--c-accent); border-radius: var(--r-md); }
+.post__destaque-titulo { font-family: var(--f-display); font-weight: 700; font-size: 1.0625rem; margin-bottom: var(--s-2); color: var(--c-fg); }
+.post__destaque p:last-child { color: var(--c-muted-fg); }
+.post__chamada {
+  margin: var(--s-7) 0 0; padding: var(--s-5) var(--s-6); background: var(--c-muted); border-radius: var(--r-lg);
+  display: flex; gap: var(--s-5); align-items: center; justify-content: space-between;
+}
+.post__chamada p { margin: 0; font-size: 1rem; max-width: 46ch; }
+.post__chamada .btn { flex-shrink: 0; background: var(--c-card); }
+
+.post__autores { margin-top: var(--s-6); padding: var(--s-4) 0 0; border-top: 3px solid var(--c-accent); max-width: 60ch; font-size: .9375rem; color: var(--c-muted-fg); }
+.post__autores .passo { margin-bottom: var(--s-2); }
+
+/* — tabela do post: mais colunas que a de intervalos ——————————————————— */
+/* Cabe na coluna de texto sem rolar; no celular cada linha vira um cartão,
+   com o nome da coluna (data-rotulo) na frente de cada valor. */
+.tabela-wrap--post { margin: var(--s-5) 0 0; }
+.tabela--post { min-width: 0; font-size: .8125rem; line-height: 1.45; }
+.tabela--post th, .tabela--post td { padding: var(--s-3) var(--s-2); }
+.tabela--post th:first-child { padding-left: var(--s-4); }
+.tabela--post thead th { white-space: normal; letter-spacing: .06em; }
+.tabela--post tbody th { white-space: normal; width: 24%; }
+.tabela--post td:last-child { color: inherit; }
+.sem-quebra { white-space: nowrap; }
+.tabela--post td:nth-child(3) { font-family: var(--f-display); font-weight: 700; }
+@media (max-width: 640px) {
+  .tabela-wrap--post { border: 0; background: none; overflow: visible; }
+  .tabela--post thead { display: none; }
+  .tabela--post, .tabela--post tbody, .tabela--post tr, .tabela--post th, .tabela--post td { display: block; width: auto; }
+  .tabela--post tbody { display: grid; gap: var(--s-3); }
+  .tabela--post tbody tr, .tabela--post tbody tr:nth-child(even) {
+    background: var(--c-card); border: 1px solid var(--c-border); border-radius: var(--r-md); padding: var(--s-3) var(--s-4);
+  }
+  .tabela--post tbody th, .tabela--post th:first-child { width: auto; padding: 0 0 var(--s-2); font-size: 1rem; border-bottom: 2px solid var(--c-accent); margin-bottom: var(--s-2); }
+  .tabela--post td { display: grid; grid-template-columns: 7.5rem 1fr; gap: var(--s-3); padding: var(--s-1) 0; }
+  .tabela--post td::before { content: attr(data-rotulo); color: var(--c-muted-fg); font-family: var(--f-body); font-weight: 400; }
+}
+
+/* — FAQ e fontes ———————————————————————————————————————————————————— */
+.post__faq { margin-top: var(--s-8); }
+.post__faq > h2, .post__fontes > h2 { font-size: clamp(1.5rem, 3vw, 2rem); scroll-margin-top: calc(var(--header-h) + var(--s-4)); }
+.faq--uma { grid-template-columns: 1fr; }
+.post__fontes { margin-top: var(--s-8); padding-top: var(--s-5); border-top: 1px solid var(--c-border); font-size: .875rem; color: var(--c-muted-fg); }
+.post__fontes > h2 { font-size: 1.125rem; }
+.post__fontes ol { padding-left: var(--s-5); display: grid; gap: var(--s-2); margin: 0 0 var(--s-4); }
+.post__fontes a { text-decoration: underline; text-underline-offset: 3px; }
+.post__fontes a:hover { color: var(--c-fg); }
+
+/* — diagrama: o rótulo do óleo ——————————————————————————————————————— */
+.rotulo { margin: var(--s-6) 0; background: var(--c-ink-900); color: var(--c-ink-300); border-radius: var(--r-lg); padding: var(--s-6); position: relative; overflow: hidden; }
+.rotulo::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: repeating-linear-gradient(-45deg, transparent 0 6px, rgba(255,255,255,.022) 6px 7px);
+}
+.rotulo > * { position: relative; }
+.rotulo__titulo { font-family: var(--f-display); font-size: .8125rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--c-accent); margin-bottom: var(--s-4); }
+.rotulo__frasco {
+  display: flex; flex-wrap: wrap; gap: var(--s-3);
+  padding: var(--s-4); border: 2px dashed rgba(255,255,255,.18); border-radius: var(--r-md);
+}
+.rotulo__codigo {
+  display: inline-flex; align-items: center; gap: var(--s-3);
+  background: var(--c-on-primary); color: var(--c-ink-900);
+  font-family: var(--f-display); font-weight: 800; font-size: clamp(1.25rem, 3.2vw, 1.75rem); letter-spacing: -.01em;
+  padding: var(--s-2) var(--s-4) var(--s-2) var(--s-2); border-radius: var(--r-sm);
+}
+.rotulo__codigo b, .rotulo__legenda li::before {
+  display: inline-grid; place-items: center; width: 28px; height: 28px; flex-shrink: 0;
+  background: var(--c-accent); color: var(--c-on-accent); border-radius: var(--r-full);
+  font-size: .875rem; font-weight: 700;
+}
+.rotulo__legenda { list-style: none; counter-reset: rot; margin: var(--s-5) 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s-5); }
+.rotulo__legenda li { counter-increment: rot; display: grid; gap: var(--s-2); align-content: start; font-size: .875rem; line-height: 1.5; }
+.rotulo__legenda li::before { content: counter(rot); font-family: var(--f-display); }
+.rotulo__legenda strong { font-family: var(--f-display); color: var(--c-on-primary); font-size: 1rem; }
+.rotulo__escala { display: grid; gap: 4px; }
+.rotulo__escala span {
+  padding: 4px var(--s-3); border-radius: var(--r-sm); font-size: .8125rem; color: var(--c-on-primary);
+  background: linear-gradient(90deg, var(--c-ink-600), transparent);
+}
+.rotulo__escala span:last-child { background: linear-gradient(90deg, var(--c-accent-hover), transparent); }
+.rotulo__letras { display: flex; flex-wrap: wrap; gap: 4px; }
+.rotulo__letras span {
+  font-family: var(--f-display); font-weight: 700; font-size: .8125rem;
+  padding: 2px var(--s-2); border-radius: var(--r-sm); border: 1px solid rgba(255,255,255,.2); color: var(--c-ink-400);
+}
+.rotulo__letras span.is-on { background: var(--c-accent); border-color: var(--c-accent); color: var(--c-on-accent); }
+
+/* — diagrama: passos de resumo ———————————————————————————————————————— */
+.passos-post { margin: var(--s-7) 0 0; padding: var(--s-6); border: 1px solid var(--c-border); border-radius: var(--r-lg); background: var(--c-card); }
+.passos-post__titulo { font-family: var(--f-display); font-weight: 700; font-size: 1.25rem; margin-bottom: var(--s-5); color: var(--c-fg); }
+.passos-post ol { list-style: none; counter-reset: passo; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--s-4); }
+.passos-post li { counter-increment: passo; display: grid; gap: var(--s-1); align-content: start; border-top: 3px solid var(--c-accent); padding-top: var(--s-3); font-size: .875rem; color: var(--c-muted-fg); line-height: 1.5; }
+.passos-post li::before { content: counter(passo, decimal-leading-zero); font-family: var(--f-display); font-weight: 800; font-size: .8125rem; color: var(--c-accent-ink); letter-spacing: .06em; }
+.passos-post li strong { font-family: var(--f-display); font-size: 1rem; color: var(--c-fg); line-height: 1.3; }
+.passos-post__fim { margin: var(--s-5) 0 0; font-weight: 600; }
+
+@media (max-width: 980px) {
+  .post__grade { grid-template-columns: 1fr; gap: 0; }
+  .post__lado { display: none; }
+  .post__capa { margin-right: 0; }
+  .passos-post ol { grid-template-columns: repeat(2, 1fr); }
+  .blog-cards > .post-card:only-child { flex-direction: column; }
+  .blog-cards > .post-card:only-child img { width: 100%; aspect-ratio: 3 / 2; min-height: 0; }
+}
+@media (max-width: 640px) {
+  .post__corpo { font-size: 1rem; }
+  .post__resposta, .rotulo, .passos-post, .post__chamada { padding: var(--s-5) var(--s-4); }
+  .rotulo__legenda { grid-template-columns: 1fr; gap: var(--s-4); }
+  .passos-post ol { grid-template-columns: 1fr; }
+  .post__chamada { flex-direction: column; align-items: stretch; }
+  .post__chamada .btn { width: 100%; }
+  .post__foto { max-width: 100%; }
+  .blog-cards > .post-card:only-child .frente__txt { padding: var(--s-5); }
+}

@@ -4,16 +4,20 @@ Gera um HTML único e autossuficiente do site — CSS, JS e todas as fotos
 embutidas no próprio arquivo. Serve para mandar por e-mail/WhatsApp ou publicar
 como link de revisão. Abre offline, sem servidor.
 
-  python3 scripts/gerar-para-compartilhar.py
+  python3 scripts/gerar-para-compartilhar.py                      # a home
+  python3 scripts/gerar-para-compartilhar.py qual-oleo-usar-na-moto   # um post do blog
+
+O post sai com a lista "conferir" do JSON no fim: é o que o Thales precisa ver.
 """
-import base64, mimetypes, pathlib, re, sys
+import base64, json, mimetypes, pathlib, re, sys
 
 RAIZ  = pathlib.Path(__file__).resolve().parent.parent
-HTML  = RAIZ / 'index.html'
-SAIDA = RAIZ / 'tiradentes-revisao.html'
+POST  = sys.argv[1] if len(sys.argv) > 1 else None
+HTML  = RAIZ / (f'blog/{POST}/index.html' if POST else 'index.html')
+SAIDA = RAIZ / (f'tiradentes-revisao-{POST}.html' if POST else 'tiradentes-revisao.html')
 
 def data_uri(rel: str) -> str:
-    p = RAIZ / rel
+    p = (HTML.parent / rel).resolve()
     if not p.is_file():
         print(f'  ! não achei {rel}'); return rel
     mime = mimetypes.guess_type(p.name)[0] or 'application/octet-stream'
@@ -24,11 +28,11 @@ s = HTML.read_text()
 # ── CSS e JS para dentro ──────────────────────────────────────────────────
 css = (RAIZ / 'assets/css/style.css').read_text()
 js  = (RAIZ / 'assets/js/main.js').read_text()
-s = s.replace('<link rel="stylesheet" href="assets/css/style.css">', f'<style>\n{css}\n</style>')
-s = s.replace('<script src="assets/js/main.js" defer></script>', f'<script>\n{js}\n</script>')
+s = re.sub(r'<link rel="stylesheet" href="(?:\.\./)*assets/css/style.css">', lambda m: f'<style>\n{css}\n</style>', s)
+s = re.sub(r'<script src="(?:\.\./)*assets/js/main.js" defer></script>', lambda m: f'<script>\n{js}\n</script>', s)
 
 # ── imagens para data: URI ────────────────────────────────────────────────
-usadas = sorted(set(re.findall(r'(?:src|href)="(assets/img/[^"]+)"', s)))
+usadas = sorted(set(re.findall(r'(?:src|href)="((?:\.\./)*assets/img/[^"]+)"', s)))
 for rel in usadas:
     s = s.replace(f'"{rel}"', f'"{data_uri(rel)}"')
     print(f'  embutido: {rel}')
@@ -78,6 +82,28 @@ NOTA = '''
     <p style="margin:22px 0 0;font-size:.875rem;color:#A1A1AA;">
       Este arquivo é uma cópia para revisão, de 09/09/2026. O mapa interativo e o
       link do WhatsApp funcionam normalmente no site publicado.</p>
+  </div>
+</aside>
+'''
+if POST:
+    # no post, a nota é a lista do que o Thales confere antes de ir ao ar
+    d = json.loads((RAIZ / 'src/_blog' / f'{POST}.json').read_text())
+    itens = '\n'.join(f'      <li>{i}</li>' for i in d['conferir'])
+    NOTA = f'''
+<aside style="background:#111113;border-top:4px solid #E02826;padding:40px 24px;
+       font-family:'Rubik',system-ui,sans-serif;color:#D4D4D8;">
+  <div style="max-width:760px;margin:0 auto;">
+    <p style="font-family:'Outfit',system-ui,sans-serif;font-weight:700;letter-spacing:.12em;
+       text-transform:uppercase;font-size:.75rem;color:#E02826;margin:0 0 14px;">
+      Nota para o Thales — não faz parte do site</p>
+    <h2 style="font-family:'Outfit',system-ui,sans-serif;color:#fff;font-size:1.5rem;margin:0 0 18px;">
+      O que precisa do seu ok antes de ir ao ar</h2>
+    <ul style="margin:0;padding-left:20px;display:grid;gap:12px;font-size:.9375rem;line-height:1.6;">
+{itens}
+    </ul>
+    <p style="margin:22px 0 0;font-size:.875rem;color:#A1A1AA;">
+      Cópia para revisão. Os links para outras páginas do site e o WhatsApp
+      funcionam no site publicado.</p>
   </div>
 </aside>
 '''

@@ -1,0 +1,309 @@
+{
+  "_como_editar": "Um post = um arquivo. scripts/montar.py gera blog/<slug>/index.html, o card no índice, a faixa da home, o schema, o sitemap e o bloco do llms.txt. Campos 'html' aceitam <strong>, <em> e <a>; link interno é escrito a partir da raiz do site (revisoes.html, pecas.html#oleo) e o montar.py corrige o caminho. 'conferir' não vai para o site: é a lista do que o Thales precisa ver. Voz e regras da marca: .agents/product-marketing.md.",
+  "slug": "qual-oleo-usar-na-moto",
+  "titulo": "Qual óleo usar na moto: CG, Biz, Pop, Bros, Factor e Fazer",
+  "titulo_seo": "Qual óleo usar na moto: CG 160, Biz, Factor e Fazer | Tiradentes",
+  "descricao": "O óleo que o manual pede para CG 160, Biz 125, Pop 110i, Bros 160, Factor e Fazer 150: viscosidade, API, JASO, litros e prazo de troca. E como ler o rótulo.",
+  "resumo": "Viscosidade, norma, litros e prazo de troca que o manual de cada moto pede, e como ler 10W-30, API e JASO no frasco de qualquer marca.",
+  "categoria": "Óleo do motor",
+  "data": "2026-11-05",
+  "autores": [
+    "Thales",
+    "Denis"
+  ],
+  "sobre_autores": "Thales e Denis são os irmãos que cuidam da Tiradentes Moto Peças, oficina e loja de peças no Bairro Industrial, em Contagem/MG. Os números deste post saíram dos manuais do proprietário de cada moto.",
+  "capa": "blog-oleo-capa.jpg",
+  "capa_alt": "Honda CB 300F vermelha dentro da Tiradentes Moto Peças, com as prateleiras de óleo ao fundo",
+  "capa_w": 720,
+  "capa_h": 480,
+  "resposta": "Use a viscosidade que o manual da sua moto pede e um óleo com API e JASO iguais ou acima das do manual; a marca fica à sua escolha. Na CG 160, o manual da Honda pede <strong>10W-30, API SL ou superior e JASO MA</strong>: 1,0 litro, trocado a cada 6.000 km ou 1 ano, o que vier primeiro.",
+  "corpo": [
+    {
+      "tipo": "h2",
+      "id": "tabela",
+      "texto": "O óleo que o manual pede, moto por moto"
+    },
+    {
+      "tipo": "p",
+      "html": "A tabela saiu dos manuais do proprietário das motos que mais entram na oficina. Onde a tabela de aplicação da Castrol de 2022 traz o mesmo modelo, a gente comparou os números; quando os dois diferem, vale o manual. Anote a viscosidade, a API, a JASO e a quantidade, e você compra o frasco certo em qualquer loja."
+    },
+    {
+      "tipo": "tabela",
+      "legenda": "Óleo do motor que o manual do proprietário pede, por moto",
+      "colunas": [
+        "Moto",
+        "Manual",
+        "Viscosidade",
+        "API · JASO",
+        "Quanto vai",
+        "Trocar a cada"
+      ],
+      "linhas": [
+        [
+          "Honda CG 160 (Fan, Titan, Start)",
+          "2018 a 2024",
+          "10W-30",
+          "SL ou superior · MA",
+          "1,0 L",
+          "6.000 km ou 1 ano"
+        ],
+        [
+          "Honda CG 150 Titan e Fan (flex e injetada)",
+          "2012 e 2013",
+          "10W-30",
+          "SJ ou superior · MA",
+          "1,0 L",
+          "4.000 km ou 1 ano"
+        ],
+        [
+          "Honda CG 150 Titan (carburada)",
+          "2009",
+          "20W-50",
+          "SF",
+          "1,0 L",
+          "4.000 km ou 1 ano"
+        ],
+        [
+          "Honda CG 125 Fan e Cargo",
+          "2014",
+          "10W-30",
+          "SJ ou superior · MA",
+          "1,0 L",
+          "4.000 km ou 1 ano"
+        ],
+        [
+          "Honda Biz 125",
+          "2018 e 2020",
+          "10W-30",
+          "SL ou superior · MA",
+          "0,7 L",
+          "6.000 km ou 1 ano"
+        ],
+        [
+          "Honda Pop 110i",
+          "2018",
+          "10W-30",
+          "SL ou superior · MA",
+          "0,8 L",
+          "6.000 km ou 1 ano"
+        ],
+        [
+          "Honda NXR 160 Bros",
+          "2018",
+          "10W-30",
+          "SL ou superior · MA",
+          "1,0 L",
+          "6.000 km ou 1 ano"
+        ],
+        [
+          "Yamaha Factor 125i",
+          "2021 e 2022",
+          "10W-40 ou 20W-50",
+          "SL ou superior · MA",
+          "1,0 L (1,1 L com filtro)",
+          "5.000 km ou 6 meses"
+        ],
+        [
+          "Yamaha Factor 150 e Fazer 150",
+          "2020 a 2025",
+          "10W-40 ou 20W-50",
+          "SL ou superior · MA",
+          "1,0 L (1,1 L com filtro)",
+          "5.000 km ou 6 meses"
+        ],
+        [
+          "Yamaha Crosser 150",
+          "2020 a 2025",
+          "10W-40 ou 20W-50",
+          "SL ou superior · MA",
+          "1,0 L (1,1 L com filtro)",
+          "5.000 km ou 6 meses"
+        ],
+        [
+          "Yamaha NMAX 160",
+          "2022 e 2023",
+          "10W-40",
+          "SL ou superior · MA ou MB",
+          "0,9 L",
+          "5.000 km"
+        ]
+      ],
+      "nota": "Nas Yamaha, a primeira troca é aos 1.000 km. Na Factor, na Fazer 150 e na Crosser, o filtro de óleo é trocado aos 1.000 km e depois a cada 10.000 km. Nessa troca, vai 1,1 litro. Se a sua moto não está aqui, os mesmos dados estão no capítulo de especificações do manual dela."
+    },
+    {
+      "tipo": "h2",
+      "id": "rotulo",
+      "texto": "Como ler o rótulo de qualquer marca"
+    },
+    {
+      "tipo": "p",
+      "html": "Todo frasco de óleo de moto traz três códigos para comparar com o manual."
+    },
+    {
+      "tipo": "diagrama",
+      "nome": "rotulo-oleo"
+    },
+    {
+      "tipo": "lista",
+      "itens": [
+        "<strong>10W-30 é a viscosidade.</strong> O número antes do W (de <em>winter</em>, inverno em inglês) indica como o óleo corre com o motor frio, na partida. O número depois indica a espessura que ele mantém com o motor quente. A viscosidade do frasco precisa ser uma das que o manual lista.",
+        "<strong>API SL é o nível de qualidade.</strong> A segunda letra avança no alfabeto a cada versão mais nova da norma: SF, SG, SH, SJ, SL, SM, SN, SP. Quando o manual pede \"API SL ou superior\", um óleo SN ou SP também atende.",
+        "<strong>JASO MA é a classificação para a embreagem.</strong> Na moto de marcha, a embreagem trabalha mergulhada no óleo do motor. A norma japonesa JASO T 903 separa os óleos pelo atrito que eles dão a ela: MA, MA1 e MA2 servem para essa embreagem; MB tem atrito mais baixo e aparece no manual de alguns scooters, como o da NMAX 160."
+      ]
+    },
+    {
+      "tipo": "destaque",
+      "titulo": "E óleo de carro, serve?",
+      "html": "Na moto de marcha, não é indicado. O óleo de carro não é classificado pela JASO. Os aditivos que diminuem o atrito no motor do carro podem fazer a embreagem da moto patinar."
+    },
+    {
+      "tipo": "h2",
+      "id": "ano",
+      "texto": "Na CG 150, o óleo mudou de uma geração para outra"
+    },
+    {
+      "tipo": "p",
+      "html": "O manual da CG 150 Titan carburada, de 2009, pede <strong>20W-50</strong> com norma API SF. O da CG 150 Titan flex, de 2013, pede <strong>10W-30</strong>, API SJ e JASO MA. As duas se chamam CG 150 e usam óleos diferentes. Por isso a gente pergunta o modelo <em>e o ano</em> da moto antes de indicar o óleo."
+    },
+    {
+      "tipo": "h2",
+      "id": "base",
+      "texto": "Mineral, semissintético ou sintético: de onde vem a diferença de preço"
+    },
+    {
+      "tipo": "p",
+      "html": "Mineral, semissintético e sintético são tipos de base, e a base não aparece nos três códigos do rótulo. Na prateleira, o sintético é o mais caro e o mineral, o mais barato. Por cima da base, o preço do frasco soma o pacote de aditivos e a marca."
+    },
+    {
+      "tipo": "p",
+      "html": "Na maioria dos manuais, a base não é exigência. Um mineral que atende à viscosidade, à API e à JASO pedidas serve na moto. Se o manual da sua moto pedir semissintético ou sintético, vale o que está escrito."
+    },
+    {
+      "tipo": "p",
+      "html": "Com qualquer base, o prazo de troca continua sendo o do manual. O resumo das três, em uma linha cada, está no <a class=\"link-inline\" href=\"pecas.html#oleo\">guia de peças</a>."
+    },
+    {
+      "tipo": "h2",
+      "id": "marca",
+      "texto": "Trocar de marca pode, se os códigos baterem"
+    },
+    {
+      "tipo": "p",
+      "html": "No balcão, a gente confere três coisas no frasco antes de olhar a marca: a viscosidade que o manual lista, e <strong>API e JASO iguais ou acima das que ele pede</strong>."
+    },
+    {
+      "tipo": "foto",
+      "foto": "balcao.jpg",
+      "w": 360,
+      "h": 640,
+      "alt": "Balcão da Tiradentes Moto Peças com as prateleiras de óleo de várias marcas",
+      "legenda": "As prateleiras de óleo atrás do balcão da Tiradentes, em Contagem."
+    },
+    {
+      "tipo": "h2",
+      "id": "prazo",
+      "texto": "O prazo de troca é o do manual, em quilômetros ou em meses"
+    },
+    {
+      "tipo": "p",
+      "html": "O manual dá dois limites, e vale o que chegar primeiro. Na CG 160, são 6.000 km ou 1 ano; na Factor 150, 5.000 km ou 6 meses. O limite de tempo existe porque o óleo também envelhece com a moto parada, então quem roda pouco troca pelo calendário."
+    },
+    {
+      "tipo": "p",
+      "html": "Quem trabalha com a moto chega aos quilômetros bem antes. A 100 km por dia, a CG 160, a Biz e a Bros chegam aos 6.000 km em 60 dias rodados; a Factor e a Fazer, aos 5.000 km em 50 dias; a CG 150 flex, aos 4.000 km em 40. Entre uma troca e outra, confira o nível do jeito que o manual mostra, no visor ou na vareta. Se o nível baixa entre as trocas, a moto está vazando ou consumindo óleo. Complete até a marca que o manual indica e leve a moto para um mecânico olhar."
+    },
+    {
+      "tipo": "diagrama",
+      "nome": "passos-oleo"
+    },
+    {
+      "tipo": "chamada",
+      "html": "Na Tiradentes, na Rua Tiradentes, 2980, em Contagem, a troca de óleo é feita no mesmo dia, sem agendar. Se a sua moto não está na tabela, mande o modelo e o ano pelo WhatsApp que a gente confere no manual.",
+      "rotulo": "Perguntar no WhatsApp",
+      "wa_msg": "Olá! Vim pelo blog. Qual óleo vai na minha moto? Modelo e ano: "
+    }
+  ],
+  "faq": [
+    {
+      "p": "Qual é o óleo da CG 160?",
+      "r": "O manual da Honda pede óleo 10W-30 com API SL ou superior e JASO MA. Vai 1,0 litro na troca, a cada 6.000 km ou 1 ano, o que vier primeiro. Vale para a Fan, a Titan e a Start (manuais de 2018 a 2024)."
+    },
+    {
+      "p": "Qual é o óleo da Biz 125?",
+      "r": "Óleo 10W-30, API SL ou superior e JASO MA, segundo os manuais Honda de 2018 e 2020. Vão 0,7 litro na troca, a cada 6.000 km ou 1 ano."
+    },
+    {
+      "p": "Qual é o óleo da Factor 150 e da Fazer 150?",
+      "r": "Óleo 10W-40 ou 20W-50, API SL ou superior e JASO MA, segundo os manuais Yamaha de 2020 a 2025. Troca a cada 5.000 km ou 6 meses, com 1,0 litro. O filtro é trocado aos 1.000 km e depois a cada 10.000 km, e nessa troca vai 1,1 litro."
+    },
+    {
+      "p": "De quanto em quanto tempo trocar o óleo da moto?",
+      "r": "No prazo do manual, em quilômetros ou em tempo, o que vier primeiro. Na CG 160, na Biz 125 e na Bros 160, são 6.000 km ou 1 ano. Na Factor 150 e na Fazer 150, 5.000 km ou 6 meses. Na CG 150 de 2012 e 2013, 4.000 km ou 1 ano."
+    },
+    {
+      "p": "Posso usar óleo de carro na moto?",
+      "r": "Na moto de marcha, não é indicado. A embreagem trabalha no mesmo óleo do motor e precisa de óleo com a classificação JASO MA para não patinar. Óleo de carro não tem essa classificação."
+    },
+    {
+      "p": "Posso trocar a marca do óleo?",
+      "r": "Pode, se a viscosidade, a API e a JASO baterem com o que o manual pede. A API e a JASO podem ser iguais ou superiores."
+    },
+    {
+      "p": "Óleo sintético deixa trocar com menos frequência?",
+      "r": "Não. Com qualquer base, o prazo que vale é o do manual, em quilômetros ou em tempo, o que vier primeiro."
+    }
+  ],
+  "fontes": [
+    {
+      "nome": "Manuais do proprietário Honda: CG 160 Fan/Titan 2018 (D2203-MAN-1110), 2019 (D2203-MAN-1185) e 2023-2024 (D2203-MAN-1303); CG 160 Start 2019 (D2203-MAN-1186)"
+    },
+    {
+      "nome": "Manuais do proprietário Honda: CG 150 Titan 2009 e 2013 Flex; CG 150 Fan 2012 e 2013 (D2203-MAN-0866); CG 125 Fan e Cargo 2014"
+    },
+    {
+      "nome": "Manuais do proprietário Honda: Biz 125 2018 (D2203-MAN-1107) e 2020 (D2203-MAN-1206); Pop 110i 2018 (D2203-MAN-1111); NXR 160 Bros 2018 (D2203-MAN-1087)"
+    },
+    {
+      "nome": "Manual do proprietário Yamaha Factor 125i 2021",
+      "url": "https://www.yamaha-motor.com.br/file/general/MP.2021.FACTOR%20YBR125i%20(UBS).2ED.W4.pdf"
+    },
+    {
+      "nome": "Manual do proprietário Yamaha Factor 150 2025",
+      "url": "https://www.yamaha-motor.com.br/midia/manual_factor150_2025.v2.pdf"
+    },
+    {
+      "nome": "Manual do proprietário Yamaha Fazer 150 UBS 2023",
+      "url": "https://www.yamaha-motor.com.br/file/general/manual_fazer150ubs_2023.pdf"
+    },
+    {
+      "nome": "Manual do proprietário Yamaha Crosser 150 2025",
+      "url": "https://www.yamaha-motor.com.br/midia/manual_crosser150_2025.pdf"
+    },
+    {
+      "nome": "Manual do proprietário Yamaha NMAX Connected 160 ABS 2023",
+      "url": "https://www.yamaha-motor.com.br/file/general/manual_nmaxconnected160abs_2023.pdf"
+    },
+    {
+      "nome": "Castrol, tabela de aplicação de lubrificantes para motos, 2022"
+    },
+    {
+      "nome": "Norma JASO T 903 (óleo de motor quatro tempos para motocicleta) e classificação SAE J300 (viscosidade)"
+    },
+    {
+      "nome": "API 1509, Engine Oil Licensing and Certification System (categorias de serviço SF a SP)"
+    }
+  ],
+  "conferir": [
+    "Todos os números da tabela (viscosidade, API, JASO, litros e prazo), um por moto. Vieram dos manuais do proprietário; CG 160, CG 150, CG 125, Pop, Bros 160, Factor 125i e NMAX também batem com a Castrol 2022. Biz 125 2018/2020 e Factor 150/Fazer 150/Crosser estão na aba 'Diferentes'/'Só no manual' da planilha de 05/11 (na Yamaha, só porque a Castrol dá a quantidade com filtro).",
+    "\"A troca de óleo é feita no mesmo dia, sem agendar\" (liberado pelo Gabriel em 05/11): aparece só na chamada do fim, com o endereço.",
+    "\"Regra do balcão: viscosidade do manual, API e JASO iguais ou acima, marca livre\" (regra do Gabriel, 04/11).",
+    "Óleo de carro não é indicado para moto de marcha (conhecimento técnico geral, não é número).",
+    "Assinatura \"Thales e Denis\": confirmar a grafia (Denis ou Dennis) e se entra sobrenome.",
+    "Quem escreve: uma linha sobre a experiência de vocês (anos de oficina, formação) deixaria o post mais forte para o Google e para as IAs. Só entra o que vocês confirmarem.",
+    "Uma frase sua sobre óleo, do jeito que você fala no balcão, para entrar citada com o seu nome. Citação de especialista com nome aumenta a chance de a IA usar o post como fonte.",
+    "Óleo a granel por litro: fica de fora até você dizer se quer citar.",
+    "\"Se o nível baixa entre as trocas, a moto está vazando ou consumindo óleo\": confere com a sua prática?",
+    "O manual de alguma dessas motos traz prazo menor para uso severo (entrega, trânsito pesado)? Se trouxer, entra na seção do prazo.",
+    "\"Na prateleira, o sintético é o mais caro e o mineral, o mais barato\" e \"um óleo SN ou SP atende quem pede SL\": conhecimento técnico geral, sem número; confere?"
+  ]
+}
