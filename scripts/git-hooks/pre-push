@@ -1,14 +1,30 @@
 #!/usr/bin/env bash
-# prumo pre-push (kit satélite — instalado/atualizado por bootstrap.sh da plataforma)
-# Bypass consciente: PRUMO_SKIP=1 git push — e o motivo vai escrito no PR.
+# pruma pre-push (kit satélite — instalado/atualizado por bootstrap.sh da plataforma)
+# Bypass consciente: PRUMA_SKIP=1 git push — e o motivo vai escrito no PR.
 set -uo pipefail
 ROOT="$(git rev-parse --show-toplevel)"
 ZERO="0000000000000000000000000000000000000000"
 
-if [ "${PRUMO_SKIP:-}" = "1" ]; then
-  echo "[pre-push] PRUMO_SKIP=1 — gates pulados. ESCREVA O MOTIVO NO PR."
+if [ "${PRUMA_SKIP:-}" = "1" ]; then
+  echo "[pre-push] PRUMA_SKIP=1 — gates pulados. ESCREVA O MOTIVO NO PR."
   exit 0
 fi
+
+# O stdin não rebobina: lido uma vez, alimenta o laço e a triagem.
+REFS="$(cat)"
+
+# Triagem automática no PR: com o push liberado, publica no PR da branch o comentário com as
+# conferências do sinais.cjs e o label de risco, antes de o commit subir — o job `pruma` do CI
+# confere o comentário deste SHA. Sem PR não faz nada; falha nunca bloqueia o push.
+SHA_DA_BRANCH="$(awk -v r="$(git symbolic-ref -q HEAD)" '$1 == r { print $2; exit }' <<< "$REFS")"
+publicar_sinais() {
+  rc=$?
+  if [ "$rc" = "0" ] && [ -n "$SHA_DA_BRANCH" ] && [ -f "$ROOT/scripts/pruma/sinais-pr.cjs" ]; then
+    ( cd "$ROOT" && node scripts/pruma/sinais-pr.cjs publicar --sha "$SHA_DA_BRANCH" ) || true
+  fi
+  exit "$rc"
+}
+trap publicar_sinais EXIT
 
 # Árvore vazia do git — base do PRIMEIRO push de um repo novo: sem origin ainda,
 # a comparação certa é contra o nada (checa todos os commits e todos os arquivos).
@@ -25,15 +41,15 @@ while read -r _l local_sha _r remote_sha; do
   else
     RANGE="$remote_sha..$local_sha"; DIFF_BASE="$remote_sha"
   fi
-  node "$ROOT/scripts/prumo/commit-check.cjs" --range "$RANGE"
-  [ $? -eq 1 ] && { echo "[pre-push] BLOQUEADO pelo commit-check (válvula: linha 'prumo:bulk <motivo>' na mensagem)."; exit 1; }
-done
+  node "$ROOT/scripts/pruma/commit-check.cjs" --range "$RANGE"
+  [ $? -eq 1 ] && { echo "[pre-push] BLOQUEADO pelo commit-check (válvula: linha 'pruma:bulk <motivo>' na mensagem)."; exit 1; }
+done <<< "$REFS"
 
 # dado real / segredo no diff (base explícita — repo novo compara com a árvore vazia)
-node "$ROOT/scripts/prumo/sensitive-data-check.cjs" ${DIFF_BASE:+--base "$DIFF_BASE"}
+node "$ROOT/scripts/pruma/sensitive-data-check.cjs" ${DIFF_BASE:+--base "$DIFF_BASE"}
 rc=$?
 if [ "$rc" = "1" ]; then
-  echo "[pre-push] BLOQUEADO pelo sensitive-data-check — dado real fora do git; fixture legítimo em scripts/prumo/sensitive-allowlist."
+  echo "[pre-push] BLOQUEADO pelo sensitive-data-check — dado real fora do git; fixture legítimo em scripts/pruma/sensitive-allowlist."
   exit 1
 elif [ "$rc" != "0" ]; then
   echo "[pre-push] sensitive-data-check não conseguiu avaliar (exit $rc) — NÃO é reprovação. Push segue."

@@ -1,0 +1,34 @@
+# Núcleo protegido da plataforma — o que vale para TODOS os clientes.
+#
+# PR de UM cliente que altera qualquer caminho abaixo sai 🔴 "por desenho", mesmo com teste e
+# proteção: a lógica do cliente deveria morar na pasta dele (`(dashboard)/<cliente>/`,
+# `lib/<cliente>*`), não no núcleo com um `if cliente`. Decisão do dono em 07/10/2026, ao
+# revisar o #666 (perfis da Prime espalhados em convite, membros, layout e painel).
+#
+# Um padrão por linha, casado contra o caminho do arquivo (regex JavaScript). Linha com `#` é
+# comentário. Para tirar ou pôr uma pasta, edite aqui — o sinais.cjs lê este arquivo.
+
+# Casca de todas as telas
+^apps/web/src/app/\(dashboard\)/layout\.tsx$
+^apps/web/src/app/\(dashboard\)/dashboard/
+^apps/web/src/app/\(dashboard\)/settings/
+^apps/web/src/components/dashboard/
+^apps/web/src/components/ui/
+
+# Organização, membros, convite e acesso
+^apps/web/src/app/api/organizations/
+^apps/web/src/app/api/invite/
+^apps/web/src/app/invite/
+^apps/web/src/app/api/auth/
+^apps/web/src/app/\(auth\)/
+^apps/web/src/lib/plataforma/auth
+^apps/web/src/lib/plataforma/org-context\.ts$
+^apps/web/src/lib/plataforma/org-telas\.ts$
+^apps/web/src/lib/plataforma/telas\.ts$
+^apps/web/src/lib/papeis
+^apps/web/src/proxy\.ts$
+
+# Cobrança e administração da Pruma
+^apps/web/src/app/api/billing/
+^apps/web/src/app/\(admin\)/
+^apps/web/src/app/api/admin/

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# prumo pre-commit — a trava de branch compartilhada, no lugar certo.
+# pruma pre-commit — a trava de branch compartilhada, no lugar certo.
 #
 # POR QUE AQUI, e não lendo o comando. A trava viveu quatro gerações dentro do
 # hook do Claude Code, tentando decidir "isto é um `git commit`?" a partir do
@@ -23,7 +23,7 @@
 # não há texto para ler. E vale para qualquer cliente, não só o Claude Code.
 #
 # Escape: `git commit --no-verify` (explícito, e o reflog registra o commit na
-# branch protegida). Sem PRUMO_SKIP: a doc promete a válvula para "os gates
+# branch protegida). Sem PRUMA_SKIP: a doc promete a válvula para "os gates
 # locais (pre-push e portão de PR)", não para esta trava.
 
 set -uo pipefail
@@ -47,14 +47,14 @@ BRANCH="$(git branch --show-current)"
 case "$BRANCH" in
   master|main|production)
     echo ""
-    echo "[prumo] BLOQUEADO: commit direto em '$BRANCH'."
-    echo "[prumo] Branch compartilhada não recebe commit direto — plataforma ou satélite."
+    echo "[pruma] BLOQUEADO: commit direto em '$BRANCH'."
+    echo "[pruma] Branch compartilhada não recebe commit direto — plataforma ou satélite."
     echo ""
     echo "  git stash push -u -m wip     # guarda o que já está aqui"
     echo "  git checkout -b feat/<nome>"
     echo "  git stash pop"
     echo ""
-    echo "[prumo] Emergência consciente: git commit --no-verify (fica no reflog)."
+    echo "[pruma] Emergência consciente: git commit --no-verify (fica no reflog)."
     exit 1
     ;;
 esac
