@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 //
-// prumo sensitive-data-check — dado real e segredo não entram no git.
+// pruma sensitive-data-check — dado real e segredo não entram no git.
 //
 // O incidente que motiva: 1.238 linhas de contas a receber reais (id de cliente,
 // valores, vencimentos, operador) commitadas no satélite da Universal em CSVs de
@@ -13,16 +13,17 @@
 // detectores independentes:
 //
 //   1. segredo:   chave privada, token de provedor, atribuição suspeita de senha
+//                 (com ou sem aspas), cookie de sessão, e arquivo de segredo pelo nome
 //   2. dump:      arquivo .csv/.tsv/.jsonl/.xlsx/.sql/.parquet adicionado com
 //                 ≥ DUMP_MIN_ROWS linhas de dado, ou qualquer tamanho sob path
 //                 com backup/dump/export no nome
 //   3. densidade: ≥ PII_MIN_HITS ocorrências de CPF/CNPJ/e-mail num arquivo novo
 //
-// Falso positivo tem saída: scripts/prumo/sensitive-allowlist — um glob por
+// Falso positivo tem saída: scripts/pruma/sensitive-allowlist — um glob por
 // linha, versionado, então liberar um fixture fica no diff e no blame.
 //
 // Uso:
-//   node scripts/prumo/sensitive-data-check.cjs [--base <ref>] [--json]
+//   node scripts/pruma/sensitive-data-check.cjs [--base <ref>] [--json]
 //
 // Compara `<base>..HEAD` (diff de árvore, não precisa de merge-base — funciona em
 // checkout shallow do CI). Sem --base tenta origin/master, depois master.
@@ -53,7 +54,30 @@ const SECRET_PATTERNS = [
     what: "atribuição de credencial",
   },
   { re: /postgres(?:ql)?:\/\/[^\s"'/]+:[^\s"'@]+@(?!localhost|127\.0\.0\.1|pruma_db|db:)/, what: "connection string com senha para host não-local" },
+  // O formato do `.env`: valor SEM aspas, que o padrão acima não vê. É o formato em que
+  // a credencial do ERP de cliente vive nos satélites (`ELOCA_PWD=…`, `2CAPTCHA_API_KEY=…`).
+  // Valor com `.`, `(` ou `[` é referência de código (`API_KEY = settings.x`), não segredo;
+  // exigir letra E dígito tira nome de variável e palavra solta.
+  {
+    // Nome com `{0,64}` dos dois lados: `*` deixava a regex quadrática numa linha só de
+    // `KEY` repetido (120 KB em 7,9 s — trava o pre-push). 8+ caracteres porque senha de
+    // ERP costuma ser curta (`ELOCA_PWD=Senha123`), e a exigência de letra E dígito segura o ruído.
+    re: /^[ \t]*(?:export[ \t]+)?[A-Z0-9_]{0,64}(?:KEY|SECRET|SENHA|PASSWORD|PWD|TOKEN)[A-Z0-9_]{0,64}[ \t]*=[ \t]*(?=[^\s"'`]*\d)(?=[^\s"'`]*[A-Za-z])[^\s"'`$<{.(\[]{8,}[ \t]*$/m,
+    what: "credencial em formato .env (sem aspas)",
+  },
+  // `storage_state` do Playwright salvo com outro nome: o cookie é a sessão logada no ERP
+  // do cliente, e o ELOCA é single-session — quem tiver o cookie derruba a operadora.
+  { re: /"cookies"\s*:\s*\[\s*\{[^\]]*?"value"\s*:\s*"[^"]{16,}"/, what: "cookie de sessão (storage_state do Playwright)" },
 ]
+
+// Arquivo que É segredo pelo nome: o conteúdo nem importa. O `.gitignore` de cada satélite
+// cobre estes nomes, mas `git add -f` e um `.gitignore` novo sem eles passam; o gate não
+// depende do `.gitignore`. Exemplo/modelo (`.env.example`) e chave pública ficam de fora.
+function isSecretFile(file) {
+  const name = path.basename(file)
+  if (/\.(example|sample|template|pub)$/i.test(name)) return false
+  return /^\.env(\..+)?$|^\.(envrc|netrc|npmrc|pypirc)$|^(auth_state|storage_state)(?!.*\.(py|ts|js|mjs|cjs|md)$)|^credentials\.json$|\.(pem|key|p12|pfx|keystore|jks)$|^id_(rsa|ed25519|ecdsa)/i.test(name)
+}
 
 // Valores obviamente de exemplo não bloqueiam — placeholder em teste e runbook é
 // rotina. `user:pass@host` e interpolação `${VAR}` entraram após falso positivo
@@ -219,7 +243,7 @@ function readBlob(sha) {
 }
 
 function loadAllowlist(repoRoot) {
-  const p = path.join(repoRoot, "scripts", "prumo", "sensitive-allowlist")
+  const p = path.join(repoRoot, "scripts", "pruma", "sensitive-allowlist")
   if (!fs.existsSync(p)) return []
   return fs
     .readFileSync(p, "utf8")
@@ -306,7 +330,7 @@ function checkDump(file, content) {
         message:
           `arquivo tabular com ${rows} linha(s)${hinted ? " sob path de backup/dump/export" : ""} — ` +
           `parece dado real (o incidente da Universal eram CSVs assim, sem nenhum CPF para um regex achar). ` +
-          `Dado real vive fora do git; fixture legítimo entra em scripts/prumo/sensitive-allowlist (versionado, fica no diff)`,
+          `Dado real vive fora do git; fixture legítimo entra em scripts/pruma/sensitive-allowlist (versionado, fica no diff)`,
       },
     ]
   }
@@ -360,6 +384,15 @@ function run(args) {
       continue
     }
 
+    if (isSecretFile(file)) {
+      findings.push({
+        check: "segredo",
+        file,
+        message: "arquivo de segredo ou de sessão pelo nome (.env, .netrc, auth_state, storage_state, credentials.json, chave) — fica fora do git, mesmo com o conteúdo vazio hoje",
+      })
+      continue
+    }
+
     for (const { commit, blob } of fileVersions(range, file)) {
       let buf
       try {
@@ -408,11 +441,11 @@ function run(args) {
 function main() {
   const args = parseArgs(process.argv.slice(2))
   if (args.error) {
-    console.error(`[prumo] ${args.error}`)
+    console.error(`[pruma] ${args.error}`)
     process.exit(2)
   }
   if (args.help) {
-    console.log("uso: node scripts/prumo/sensitive-data-check.cjs [--base <ref>] [--json]")
+    console.log("uso: node scripts/pruma/sensitive-data-check.cjs [--base <ref>] [--json]")
     process.exit(0)
   }
 
@@ -424,21 +457,21 @@ function main() {
   }
 
   if (result.status === 2) {
-    console.error(`[prumo] sensitive-data-check não conseguiu avaliar: ${result.reason}`)
-    console.error("[prumo] NÃO é reprovação — investigue a causa acima.")
+    console.error(`[pruma] sensitive-data-check não conseguiu avaliar: ${result.reason}`)
+    console.error("[pruma] NÃO é reprovação — investigue a causa acima.")
     process.exit(2)
   }
 
   if (result.findings.length === 0) {
     console.log(
-      `[prumo] sensitive-data-check OK — ${result.scanned} arquivo(s), ` +
+      `[pruma] sensitive-data-check OK — ${result.scanned} arquivo(s), ` +
         `${result.versionsScanned} versão(ões) em ${result.range}.`,
     )
     process.exit(0)
   }
 
   console.error("")
-  console.error(`[prumo] BLOQUEADO: ${result.findings.length} achado(s) de dado sensível.`)
+  console.error(`[pruma] BLOQUEADO: ${result.findings.length} achado(s) de dado sensível.`)
   console.error("")
   for (const f of result.findings) {
     // O commit é parte do achado, não enfeite: a versão suja pode não estar mais
@@ -448,14 +481,14 @@ function main() {
     console.error("")
   }
   console.error(
-    "[prumo] O conteúdo pode já ter saído do disco: o gate lê os BLOBS que o push publica.",
+    "[pruma] O conteúdo pode já ter saído do disco: o gate lê os BLOBS que o push publica.",
   )
   console.error(
-    "[prumo] Para tirar do histórico da branch: git rebase -i, ou refaça os commits sem o arquivo.",
+    "[pruma] Para tirar do histórico da branch: git rebase -i, ou refaça os commits sem o arquivo.",
   )
   process.exit(1)
 }
 
 if (require.main === module) main()
 
-module.exports = { run, checkSecrets, checkDump, checkPiiDensity }
+module.exports = { run, checkSecrets, checkDump, checkPiiDensity, isSecretFile }

@@ -1,17 +1,21 @@
-# Prumo Gates — kit satélite (instalado/atualizado pelo bootstrap.sh da plataforma;
+# Pruma Gates — kit satélite (instalado/atualizado pelo bootstrap.sh da plataforma;
 # não editar à mão — mudança se perde no próximo bootstrap).
 # É a camada que alcança qualquer máquina, com ou sem hook local. Sem válvula.
-name: Prumo Gates
+name: Pruma Gates
 on:
   pull_request:
     types: [opened, synchronize, reopened, edited]
 
 jobs:
-  prumo:
-    name: Prumo — commit-check + sensitive-data
+  pruma:
+    name: Pruma Gates — commit-check + sensitive-data
     if: >
       github.event.action != 'edited' || github.event.changes.base
     runs-on: ubuntu-latest
+    # `pull-requests: read` é do step da triagem automática, que lê os comentários do PR.
+    permissions:
+      contents: read
+      pull-requests: read
     steps:
       # `fetch-depth: 0` NÃO é excesso de zelo: com o padrão (profundidade 1) o
       # repo fica com `.git/shallow`, e os DOIS gates leem história — o
@@ -24,7 +28,7 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0
-      # Exit 2 NUNCA é reprovação — em todo script do prumo ele significa "não
+      # Exit 2 NUNCA é reprovação — em todo script do pruma ele significa "não
       # consegui avaliar" (base inalcançável, git indisponível). Tratar `!= 0`
       # como vermelho deixaria os satélites reprovando PR com a mensagem
       # "não é reprovação" no log. `--depth` fora: o checkout já traz o que
@@ -34,7 +38,7 @@ jobs:
           git fetch origin "${{ github.base_ref }}" || true
           git fetch origin "${{ github.event.pull_request.head.sha }}" || true
           set +e
-          node scripts/prumo/commit-check.cjs --range "origin/${{ github.base_ref }}..${{ github.event.pull_request.head.sha }}"
+          node scripts/pruma/commit-check.cjs --range "origin/${{ github.base_ref }}..${{ github.event.pull_request.head.sha }}"
           rc=$?
           set -e
           case "$rc" in
@@ -45,11 +49,33 @@ jobs:
       - name: sensitive-data-check
         run: |
           set +e
-          node scripts/prumo/sensitive-data-check.cjs --base "origin/${{ github.base_ref }}"
+          node scripts/pruma/sensitive-data-check.cjs --base "origin/${{ github.base_ref }}"
           rc=$?
           set -e
           case "$rc" in
             0) ;;
             1) echo "::error::sensitive-data-check reprovou (segredo, dump ou PII no diff)."; exit 1 ;;
             *) echo "::warning::sensitive-data-check não conseguiu avaliar (exit $rc) — sem veredito, não é reprovação." ;;
+          esac
+      # A triagem roda na máquina do autor (pre-push); aqui só se confere que o PR tem o
+      # comentário DESTE commit, esperando até 40 s, e que ele não aponta migration repetida.
+      # Sem job novo: o minuto deste já está pago. Exit 2 (API fora) fica vermelho com o
+      # motivo — sem a conferência, o comentário velho passaria por novo.
+      - name: Triagem automática do commit
+        if: ${{ !cancelled() }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          PR: ${{ github.event.pull_request.number }}
+          PONTA: ${{ github.event.pull_request.head.sha }}
+          BASE_REF: ${{ github.base_ref }}
+        run: |
+          set +e
+          node scripts/pruma/sinais-pr.cjs conferir --repo "$REPO" --pr "$PR" --head "$PONTA" --base-ref "$BASE_REF" --espera 40
+          rc=$?
+          set -e
+          case "$rc" in
+            0) ;;
+            1) echo "::error::sem a triagem automática deste commit, ou ela aponta migration repetida (a linha acima diz qual)."; exit 1 ;;
+            *) echo "::error::a conferência da triagem NÃO avaliou (exit $rc) — isto não é reprovação do PR. Re-rode o check."; exit 1 ;;
           esac

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 //
-// prumo commit-check — proxies mecânicos de commit atômico.
+// pruma commit-check — proxies mecânicos de commit atômico.
 //
 // Atomicidade plena é julgamento humano; o que máquina prova são dois proxies,
 // e os dois têm incidente de origem:
@@ -11,11 +11,11 @@
 //   2. TAMANHO — commit não-merge com > MAX_LINES linhas mudadas ou > MAX_FILES
 //      arquivos é grande demais para revisar como unidade (o PR #217 era UM
 //      commit de 9k linhas — o review inteiro virou arqueologia). Válvula
-//      auditável NA MENSAGEM do commit: a linha `prumo:bulk <motivo>` libera e
+//      auditável NA MENSAGEM do commit: a linha `pruma:bulk <motivo>` libera e
 //      fica no histórico para sempre.
 //
 // Uso:
-//   node scripts/prumo/commit-check.cjs --range <a..b> [--json]
+//   node scripts/pruma/commit-check.cjs --range <a..b> [--json]
 //
 // Exit: 0 limpo, 1 achado, 2 falha de execução (nunca é reprovação).
 
@@ -29,36 +29,56 @@ const MAX_FILES = 60
 // Arquivos GERADOS por ferramenta, descontados do tamanho. Não é indulgência: o teto existe
 // para proteger o que se revisa como unidade, e ninguém revisa retrato de schema linha a linha.
 // O snapshot do drizzle tem ~12 mil linhas por migration — medido na 0080 e de novo na 0081 —,
-// então sem isto TODO commit de migration estoura o teto e a válvula `prumo:bulk` vira carimbo
+// então sem isto TODO commit de migration estoura o teto e a válvula `pruma:bulk` vira carimbo
 // automático, que é como gate morre.
 //
 // O lockfile fica DE FORA desta lista de propósito: mudar dependência merece a fricção de
 // escrever o motivo, e é a mesma linha que o Snyk depois cobra.
 const GERADOS = [/(^|\/)db\/migrations\/meta\/[^/]+\.json$/]
 
-const ehGerado = (caminho) => GERADOS.some((re) => re.test(caminho))
+const casaGerado = (caminho) => GERADOS.some((re) => re.test(caminho))
+
+// Renomeação no `--numstat` vem como `pasta/{velho => novo}/arq` (ou `velho => novo`
+// quando não há pedaço em comum), e o caminho termina em `}` — não casa com nada que
+// exija extensão. O PR #1301 (08/11/2026) reprovou assim: o robô que renumera
+// migration renomeia o snapshot, e 5 mil linhas geradas entraram na conta.
+// Descontado só se OS DOIS lados forem gerados: arquivo de código movido para dentro
+// de `meta/` não ganha desconto. `--no-renames` não serve: toda mudança de pasta de
+// código passaria a contar o arquivo inteiro duas vezes.
+function ladosDaRenomeacao(caminho) {
+  const chave = caminho.match(/^(.*)\{(.*) => (.*)\}(.*)$/)
+  if (chave) {
+    const [, pre, velho, novo, pos] = chave
+    const junta = (meio) => `${pre}${meio}${pos}`.replace(/\/{2,}/g, "/")
+    return [junta(velho), junta(novo)]
+  }
+  const solto = caminho.split(" => ")
+  return solto.length === 2 ? solto : [caminho]
+}
+
+const ehGerado = (caminho) => ladosDaRenomeacao(caminho).every(casaGerado)
 const TYPE_RE = /^(feat|fix|refactor|docs|test|chore|perf|ci|style|build|revert)(\([^)]+\))?!?: .+/
 const MERGE_RE = /^(Merge |merge[:( ])/i
 /**
  * A válvula de tamanho, estreitada em 07/09/2026 — ela abria por ACIDENTE.
  *
- * Era `/prumo:bulk\s+\S+/`, solta em qualquer posição do corpo. Duas formas de
+ * Era `/pruma:bulk\s+\S+/`, solta em qualquer posição do corpo. Duas formas de
  * ligar sem querer, e a primeira foi medida na prática (no gate irmão
  * `test-integrity`, que copiava esta forma):
  *
  *   - MENCIONAR a válvula liberava a válvula. O commit que documenta a sintaxe
- *     traz `prumo:bulk <motivo>` no corpo para explicar como usar, e o
+ *     traz `pruma:bulk <motivo>` no corpo para explicar como usar, e o
  *     placeholder entre `<>` satisfazia o `\S+`. Escrever sobre a regra
  *     desligava a regra — para o range inteiro, porque o corpo é lido por
  *     commit mas o teto vale para o push;
- *   - citação no meio de frase contava igual. "não use prumo:bulk aqui" liberava.
+ *   - citação no meio de frase contava igual. "não use pruma:bulk aqui" liberava.
  *
  * Agora exige LINHA PRÓPRIA (que é como a doc sempre a descreveu — "a linha
- * `prumo:bulk <motivo>`") e recusa motivo que comece com `<`, que não é motivo,
+ * `pruma:bulk <motivo>`") e recusa motivo que comece com `<`, que não é motivo,
  * é a documentação da sintaxe. Gate cuja válvula abre sozinha é pior que gate
  * ausente: ele fica verde e parece ter avaliado.
  */
-const BULK_RE = /^[ \t]*prumo:bulk[ \t]+(?!<)\S/m
+const BULK_RE = /^[ \t]*prum[ao]:bulk[ \t]+(?!<)\S/m // prum[ao]: o nome velho (Prumo) segue aceito para sempre — está em migration e commit que não se reescrevem
 
 function git(...argv) {
   return execFileSync("git", argv, { encoding: "utf8", maxBuffer: 16 * 1024 * 1024 })
@@ -70,7 +90,7 @@ function main() {
   const range = rIdx !== -1 ? argv[rIdx + 1] : null
   const json = argv.includes("--json")
   if (!range) {
-    console.error("[prumo] uso: commit-check.cjs --range <a..b>")
+    console.error("[pruma] uso: commit-check.cjs --range <a..b>")
     process.exit(2)
   }
 
@@ -83,7 +103,7 @@ function main() {
     // Merges entram só para o check de formato (MERGE_RE cobre).
     allShas = git("rev-list", range).split("\n").filter(Boolean)
   } catch (err) {
-    console.error(`[prumo] commit-check não conseguiu avaliar (${err.message.split("\n")[0]}) — NÃO é reprovação.`)
+    console.error(`[pruma] commit-check não conseguiu avaliar (${err.message.split("\n")[0]}) — NÃO é reprovação.`)
     process.exit(2)
   }
 
@@ -140,13 +160,13 @@ function main() {
               : "") +
             ` — acima de ${MAX_FILES} arquivos ou ${MAX_LINES} linhas ` +
             `não se revisa como unidade (o PR #217 era UM commit de 9k linhas). Divida em commits atômicos, ou — para ` +
-            `lockfile/geração/vendoring legítimos — libere com a linha "prumo:bulk <motivo>" na mensagem do commit.`,
+            `lockfile/geração/vendoring legítimos — libere com a linha "pruma:bulk <motivo>" na mensagem do commit.`,
         })
       }
     }
   } catch (err) {
     console.error(
-      `[prumo] commit-check não conseguiu ler um commit do range (${err.message.split("\n")[0]}) — ` +
+      `[pruma] commit-check não conseguiu ler um commit do range (${err.message.split("\n")[0]}) — ` +
         `clone raso? NÃO é reprovação.`,
     )
     process.exit(2)
@@ -158,12 +178,12 @@ function main() {
   }
 
   if (findings.length === 0) {
-    console.log(`[prumo] commit-check OK — ${allShas.length} commit(s) em ${range}.`)
+    console.log(`[pruma] commit-check OK — ${allShas.length} commit(s) em ${range}.`)
     process.exit(0)
   }
 
   console.error("")
-  console.error(`[prumo] BLOQUEADO: ${findings.length} problema(s) de commit em ${range}.`)
+  console.error(`[pruma] BLOQUEADO: ${findings.length} problema(s) de commit em ${range}.`)
   console.error("")
   for (const f of findings) {
     console.error(`  ✗ [${f.check}] ${f.sha}`)
