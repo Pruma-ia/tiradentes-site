@@ -11,12 +11,12 @@
     "Thales",
     "Denis"
   ],
-  "sobre_autores": "Thales e Denis são os irmãos que cuidam da Tiradentes Moto Peças, oficina e loja de peças no Bairro Industrial, em Contagem/MG. Os números deste post saíram dos manuais do proprietário de cada moto.",
+  "sobre_autores": "Thales e Denis são os irmãos que cuidam da Tiradentes Moto Peças, oficina e loja de peças no Bairro Industrial, em Contagem/MG. Os números da tabela saíram dos manuais do proprietário de cada moto; a recomendação de troca é da oficina.",
   "capa": "blog-oleo-capa.jpg",
   "capa_alt": "Honda CB 300F vermelha dentro da Tiradentes Moto Peças, com as prateleiras de óleo ao fundo",
   "capa_w": 720,
   "capa_h": 480,
-  "resposta": "Use a viscosidade que o manual da sua moto pede e um óleo com API e JASO iguais ou acima das do manual; a marca fica à sua escolha. Na CG 160, o manual da Honda pede <strong>10W-30, API SL ou superior e JASO MA</strong>: 1,0 litro, trocado a cada 6.000 km ou 1 ano, o que vier primeiro.",
+  "resposta": "Use a viscosidade que o manual da sua moto pede e um óleo com API e JASO iguais ou acima das do manual. Na CG 160, o manual da Honda pede <strong>10W-30, API SL ou superior e JASO MA</strong>, 1,0 litro, com limite de 6.000 km ou 1 ano. Na Tiradentes, a recomendação para moto refrigerada a ar, como a CG, é trocar a cada 1.500 km.",
   "corpo": [
     {
       "tipo": "h2",
@@ -36,7 +36,7 @@
         "Viscosidade",
         "API · JASO",
         "Quanto vai",
-        "Trocar a cada"
+        "Limite do manual"
       ],
       "linhas": [
         [
@@ -128,7 +128,7 @@
           "5.000 km"
         ]
       ],
-      "nota": "Nas Yamaha, a primeira troca é aos 1.000 km. Na Factor, na Fazer 150 e na Crosser, o filtro de óleo é trocado aos 1.000 km e depois a cada 10.000 km. Nessa troca, vai 1,1 litro. Se a sua moto não está aqui, os mesmos dados estão no capítulo de especificações do manual dela."
+      "nota": "O prazo da tabela é o máximo que o fabricante aceita; a Tiradentes recomenda trocar antes (<a class=\"link-inline\" href=\"#prazo\">veja abaixo</a>). Nas Yamaha, a primeira troca é aos 1.000 km. Na Factor, na Fazer 150 e na Crosser, o filtro de óleo é trocado aos 1.000 km e depois a cada 10.000 km. Nessa troca, vai 1,1 litro. Se a sua moto não está aqui, os mesmos dados estão no capítulo de especificações do manual dela."
     },
     {
       "tipo": "h2",
@@ -180,7 +180,7 @@
     },
     {
       "tipo": "p",
-      "html": "Com qualquer base, o prazo de troca continua sendo o do manual. O resumo das três, em uma linha cada, está no <a class=\"link-inline\" href=\"pecas.html#oleo\">guia de peças</a>."
+      "html": "Na Tiradentes, a gente recomenda no mínimo semissintético na moto refrigerada a ar e 100% sintético na refrigerada a líquido. Um óleo melhor aguenta mais o calor e o uso pesado. O resumo das três bases, em uma linha cada, está no <a class=\"link-inline\" href=\"pecas.html#oleo\">guia de peças</a>."
     },
     {
       "tipo": "h2",
@@ -202,7 +202,7 @@
     {
       "tipo": "h2",
       "id": "prazo",
-      "texto": "O prazo de troca é o do manual, em quilômetros ou em meses"
+      "texto": "O manual dá o limite; a oficina recomenda trocar antes"
     },
     {
       "tipo": "p",
@@ -210,7 +210,26 @@
     },
     {
       "tipo": "p",
-      "html": "Quem trabalha com a moto chega aos quilômetros bem antes. A 100 km por dia, a CG 160, a Biz e a Bros chegam aos 6.000 km em 60 dias rodados; a Factor e a Fazer, aos 5.000 km em 50 dias; a CG 150 flex, aos 4.000 km em 40. Entre uma troca e outra, confira o nível do jeito que o manual mostra, no visor ou na vareta. Se o nível baixa entre as trocas, a moto está vazando ou consumindo óleo. Complete até a marca que o manual indica e leve a moto para um mecânico olhar."
+      "html": "Esse é o máximo que o fabricante aceita. A maioria das motos de baixa cilindrada é refrigerada a ar: sem radiador, o motor tem pouco controle de temperatura, e o óleo se desgasta mais rápido, principalmente em quem roda todo dia. Por isso a recomendação da Tiradentes é mais curta que a do manual:"
+    },
+    {
+      "tipo": "lista",
+      "itens": [
+        "<strong>Moto refrigerada a ar:</strong> troca a cada <strong>1.500 km</strong>, com óleo semissintético ou sintético.",
+        "<strong>Refrigerada a ar, com radiador de óleo:</strong> até <strong>2.500 km</strong>.",
+        "<strong>Refrigerada a líquido:</strong> no máximo <strong>5.000 km</strong>, com óleo 100% sintético.",
+        "<strong>Filtro de óleo de papel ou de cartucho:</strong> troca junto, em toda troca de óleo. Se o filtro da sua moto é centrífugo, a limpeza segue o prazo do manual."
+      ]
+    },
+    {
+      "tipo": "citacao",
+      "html": "Quanto mais severo o uso, mais vale antecipar a troca. O óleo é a manutenção mais barata da moto.",
+      "autor": "Denis",
+      "papel": "Tiradentes Moto Peças"
+    },
+    {
+      "tipo": "p",
+      "html": "A ficha técnica do manual diz como a sua moto é refrigerada. A 100 km por dia, 1.500 km são 15 dias rodados; pelo limite do manual, a CG 160 iria a 60. Entre uma troca e outra, confira o nível toda semana, ou todo dia se a moto roda muito, no visor ou na vareta. Se o nível baixa entre as trocas, a moto está vazando ou consumindo óleo. Complete até a marca que o manual indica e leve a moto para um mecânico olhar."
     },
     {
       "tipo": "diagrama",
@@ -226,7 +245,7 @@
   "faq": [
     {
       "p": "Qual é o óleo da CG 160?",
-      "r": "O manual da Honda pede óleo 10W-30 com API SL ou superior e JASO MA. Vai 1,0 litro na troca, a cada 6.000 km ou 1 ano, o que vier primeiro. Vale para a Fan, a Titan e a Start (manuais de 2018 a 2024)."
+      "r": "O manual da Honda pede óleo 10W-30 com API SL ou superior e JASO MA. Vai 1,0 litro na troca, com limite de 6.000 km ou 1 ano, o que vier primeiro. Vale para a Fan, a Titan e a Start (manuais de 2018 a 2024). Na Tiradentes, a recomendação é trocar a cada 1.500 km, com óleo semissintético ou sintético."
     },
     {
       "p": "Qual é o óleo da Biz 125?",
@@ -234,11 +253,11 @@
     },
     {
       "p": "Qual é o óleo da Factor 150 e da Fazer 150?",
-      "r": "Óleo 10W-40 ou 20W-50, API SL ou superior e JASO MA, segundo os manuais Yamaha de 2020 a 2025. Troca a cada 5.000 km ou 6 meses, com 1,0 litro. O filtro é trocado aos 1.000 km e depois a cada 10.000 km, e nessa troca vai 1,1 litro."
+      "r": "Óleo 10W-40 ou 20W-50, API SL ou superior e JASO MA, segundo os manuais Yamaha de 2020 a 2025. Troca a cada 5.000 km ou 6 meses, com 1,0 litro. O filtro é trocado aos 1.000 km e depois a cada 10.000 km, e nessa troca vai 1,1 litro. Na Tiradentes, a gente recomenda trocar o filtro em toda troca de óleo."
     },
     {
       "p": "De quanto em quanto tempo trocar o óleo da moto?",
-      "r": "No prazo do manual, em quilômetros ou em tempo, o que vier primeiro. Na CG 160, na Biz 125 e na Bros 160, são 6.000 km ou 1 ano. Na Factor 150 e na Fazer 150, 5.000 km ou 6 meses. Na CG 150 de 2012 e 2013, 4.000 km ou 1 ano."
+      "r": "O manual dá o limite: 6.000 km ou 1 ano na CG 160, na Biz 125 e na Bros 160; 5.000 km ou 6 meses na Factor 150 e na Fazer 150; 4.000 km ou 1 ano na CG 150 de 2012 e 2013. A Tiradentes recomenda trocar antes: a cada 1.500 km na moto refrigerada a ar, até 2.500 km se ela tiver radiador de óleo e no máximo 5.000 km na refrigerada a líquido, com o filtro trocado junto."
     },
     {
       "p": "Posso usar óleo de carro na moto?",
@@ -250,7 +269,7 @@
     },
     {
       "p": "Óleo sintético deixa trocar com menos frequência?",
-      "r": "Não. Com qualquer base, o prazo que vale é o do manual, em quilômetros ou em tempo, o que vier primeiro."
+      "r": "Pelo manual, o prazo é o mesmo com qualquer base. Na Tiradentes, a gente recomenda no mínimo semissintético na moto refrigerada a ar e 100% sintético na refrigerada a líquido, porque aguentam mais calor. O prazo recomendado continua o mesmo: 1.500 km a ar, 2.500 km com radiador de óleo e 5.000 km a líquido."
     }
   ],
   "fontes": [
@@ -295,6 +314,8 @@
   ],
   "conferir": [
     "Todos os números da tabela (viscosidade, API, JASO, litros e prazo), um por moto. Vieram dos manuais do proprietário; CG 160, CG 150, CG 125, Pop, Bros 160, Factor 125i e NMAX também batem com a Castrol 2022. Biz 125 2018/2020 e Factor 150/Fazer 150/Crosser estão na aba 'Diferentes'/'Só no manual' da planilha de 05/11 (na Yamaha, só porque a Castrol dá a quantidade com filtro).",
+    "Recomendação de troca da oficina (Denis, 12/11): 1.500 km a ar com semissintético ou melhor; 2.500 km com radiador de óleo; até 5.000 km a líquido com 100% sintético; filtro de papel/cartucho em toda troca. Está na seção do prazo, no FAQ e na resposta rápida. Confere como ficou escrito?",
+    "Citação com o nome: \"Quanto mais severo o uso, mais vale antecipar a troca. O óleo é a manutenção mais barata da moto.\" (Denis, adaptada da resposta de 12/11). Pode sair assim?",
     "\"A troca de óleo é feita no mesmo dia, sem agendar\" (liberado pelo Gabriel em 05/11): aparece só na chamada do fim, com o endereço.",
     "\"Regra do balcão: viscosidade do manual, API e JASO iguais ou acima, marca livre\" (regra do Gabriel, 04/11).",
     "Óleo de carro não é indicado para moto de marcha (conhecimento técnico geral, não é número).",
@@ -303,7 +324,7 @@
     "Uma frase sua sobre óleo, do jeito que você fala no balcão, para entrar citada com o seu nome. Citação de especialista com nome aumenta a chance de a IA usar o post como fonte.",
     "Óleo a granel por litro: fica de fora até você dizer se quer citar.",
     "\"Se o nível baixa entre as trocas, a moto está vazando ou consumindo óleo\": confere com a sua prática?",
-    "O manual de alguma dessas motos traz prazo menor para uso severo (entrega, trânsito pesado)? Se trouxer, entra na seção do prazo.",
     "\"Na prateleira, o sintético é o mais caro e o mineral, o mais barato\" e \"um óleo SN ou SP atende quem pede SL\": conhecimento técnico geral, sem número; confere?"
-  ]
+  ],
+  "atualizado": "2026-11-13"
 }

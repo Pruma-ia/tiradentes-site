@@ -1504,3 +1504,12 @@ body:has(.hero--video) .header:not(.is-scrolled) {
   .post__foto { max-width: 100%; }
   .blog-cards > .post-card:only-child .frente__txt { padding: var(--s-5); }
 }
+
+/* Citação de quem é da oficina, com o nome: é a voz da loja dentro do post. */
+.post__citacao { margin: var(--s-6) 0; padding: var(--s-5) var(--s-6); background: var(--c-primary); color: var(--c-on-primary); border-radius: var(--r-lg); }
+.post__citacao blockquote { margin: 0; }
+.post__citacao blockquote p { margin: 0; font-family: var(--f-display); font-weight: 700; font-size: 1.25rem; line-height: 1.35; color: var(--c-on-primary); }
+.post__citacao blockquote p::before { content: '“'; color: var(--c-accent); margin-right: .1em; }
+.post__citacao blockquote p::after { content: '”'; color: var(--c-accent); margin-left: .05em; }
+.post__citacao figcaption { margin-top: var(--s-3); font-size: .9375rem; color: var(--c-ink-300); }
+.post__citacao figcaption strong { color: var(--c-on-primary); }

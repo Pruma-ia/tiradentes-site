@@ -25,7 +25,7 @@ SRC  = RAIZ / 'src'
 BASE = 'https://www.tiradentesmoto.com.br/'
 # <lastmod> das páginas fixas no sitemap. Mudou texto, menu ou rodapé delas? Atualize.
 # (Post usa a própria data, ou 'atualizado', do JSON.)
-PAGINAS_ATUALIZADAS = '2026-11-05'
+PAGINAS_ATUALIZADAS = '2026-11-13'
 
 # ─────────────────────────────────────────────────────────────────────────
 # Menu: 4 itens, todos ÂNCORAS da home. A v2 voltou para página única porque
@@ -358,7 +358,7 @@ def catalogo_revisoes():
           <p class="rev-campos__erro" data-erro role="alert"></p>
           <p class="rev-campos__aviso">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-            <span>Tempo médio na oficina: <strong>de 1 a 2 dias</strong>. Seg a sex 8h–18h · sáb 8h–13h.</span>
+            <span>Tempo médio na oficina: <strong>1 dia</strong> na Preventiva, <strong>2</strong> na Intermediária e <strong>2 a 3</strong> na Premium. Seg a sex 8h–18h · sáb 8h–13h.</span>
           </p>
         </div>
       </div>
@@ -507,11 +507,21 @@ def bloco(b):
                 f'  <figcaption>{html.escape(b["legenda"])}</figcaption>\n</figure>')
     if t == 'diagrama':
         return (BLOG / '_diagramas' / f'{b["nome"]}.html').read_text().strip()
+    if t == 'citacao':
+        return (f'<figure class="post__citacao">\n  <blockquote><p>{b["html"]}</p></blockquote>\n'
+                f'  <figcaption><strong>{html.escape(b["autor"])}</strong>, {html.escape(b["papel"])}</figcaption>\n</figure>')
     if t == 'chamada':
         return (f'<div class="post__chamada">\n  <p>{b["html"]}</p>\n'
                 f'  <a class="btn btn--outline" data-wa data-wa-msg="{html.escape(b["wa_msg"])}" '
                 f'href="index.html#contato">{WA_ICONE} {html.escape(b["rotulo"])}</a>\n</div>')
     raise ValueError(f'bloco de tipo desconhecido no post: {t}')
+
+
+def atualizado(p):
+    if p.get('atualizado', p['data']) == p['data']:
+        return ''
+    return (f'\n      <span aria-hidden="true">·</span> atualizado em '
+            f'<time datetime="{p["atualizado"]}">{data_br(p["atualizado"])}</time>')
 
 
 def cartao_post(p, nivel='h3'):
@@ -566,7 +576,7 @@ def pagina_post(p, todos):
     <h1>{html.escape(p["titulo"])}</h1>
     <p class="lead">{html.escape(p["resumo"])}</p>
     <p class="post-meta">Por <strong>{html.escape(autores(p))}</strong>, da Tiradentes Moto Peças
-      <span aria-hidden="true">·</span> <time datetime="{p["data"]}">{data_br(p["data"])}</time>
+      <span aria-hidden="true">·</span> <time datetime="{p["data"]}">{data_br(p["data"])}</time>{atualizado(p)}
       <span aria-hidden="true">·</span> {minutos(p)} min de leitura</p>
   </div>
 </header>

@@ -24,12 +24,13 @@
 ## Conteúdo técnico publicado no site
 
 Material de referência sobre manutenção de motocicleta, útil para responder
-dúvidas comuns. Os intervalos são referência de mercado para motos de baixa
-cilindrada — o manual de cada moto prevalece.
+dúvidas comuns. Os intervalos são referência para motos de baixa cilindrada. O do óleo é a
+recomendação da oficina, mais curta que o limite do manual de cada moto.
 
 - **Intervalos de manutenção** (https://www.tiradentesmoto.com.br/servicos.html#intervalos):
-  óleo do motor 3.000 km (mineral) a 5.000 km (sintético); filtro/tela de óleo a
-  cada 2 trocas; filtro de ar limpeza a 5.000 km e troca entre 10.000 e 15.000 km;
+  óleo do motor a cada 1.500 km na moto refrigerada a ar (óleo semissintético ou
+  sintético), 2.500 km com radiador de óleo e no máximo 5.000 km na refrigerada a
+  líquido (óleo sintético); filtro de óleo de papel ou cartucho em toda troca; filtro de ar limpeza a 5.000 km e troca entre 10.000 e 15.000 km;
   vela 8.000 a 10.000 km; lubrificação da relação a cada 500 km e sempre depois de
   chuva; kit de relação 15.000 a 25.000 km; fluido de freio a cada 2 anos
   independente da quilometragem; regulagem de válvulas em geral entre 6.000 e
@@ -55,7 +56,7 @@ cilindrada — o manual de cada moto prevalece.
 Posts publicados em https://www.tiradentesmoto.com.br/blog/. Cada um começa por uma
 resposta curta; os números técnicos vêm do manual do proprietário de cada moto.
 
-- [Qual óleo usar na moto: CG, Biz, Pop, Bros, Factor e Fazer](https://www.tiradentesmoto.com.br/blog/qual-oleo-usar-na-moto/) (5 de novembro de 2026): Use a viscosidade que o manual da sua moto pede e um óleo com API e JASO iguais ou acima das do manual; a marca fica à sua escolha. Na CG 160, o manual da Honda pede 10W-30, API SL ou superior e JASO MA: 1,0 litro, trocado a cada 6.000 km ou 1 ano, o que vier primeiro.
+- [Qual óleo usar na moto: CG, Biz, Pop, Bros, Factor e Fazer](https://www.tiradentesmoto.com.br/blog/qual-oleo-usar-na-moto/) (5 de novembro de 2026): Use a viscosidade que o manual da sua moto pede e um óleo com API e JASO iguais ou acima das do manual. Na CG 160, o manual da Honda pede 10W-30, API SL ou superior e JASO MA, 1,0 litro, com limite de 6.000 km ou 1 ano. Na Tiradentes, a recomendação para moto refrigerada a ar, como a CG, é trocar a cada 1.500 km.
 <!-- blog:fim -->
 
 ## Revisões e preços
