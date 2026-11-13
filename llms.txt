@@ -45,8 +45,8 @@ recomendação da oficina, mais curta que o limite do manual de cada moto.
 - **Tipos de óleo** (https://www.tiradentesmoto.com.br/pecas.html#oleo): mineral tem intervalo mais curto;
   semissintético é o meio-termo; sintético aguenta mais uso severo e giro alto.
   O que decide é a viscosidade e a norma pedidas no manual, não o preço.
-  Viscosidade, norma, litros e prazo de troca por modelo (CG, Biz, Pop, Bros, Factor, Fazer,
-  NMAX), tirados do manual de cada moto: https://www.tiradentesmoto.com.br/blog/qual-oleo-usar-na-moto/
+  Viscosidade, norma, litros e prazo de troca por modelo (CG 160, Bros, Factor,
+  Fazer e outras), tirados do manual de cada moto: https://www.tiradentesmoto.com.br/blog/qual-oleo-usar-na-moto/
 - **O que informar ao comprar peça** (https://www.tiradentesmoto.com.br/pecas.html#como-comprar): modelo, ano,
   versão e, se possível, a peça velha para comparação.
 
@@ -56,7 +56,7 @@ recomendação da oficina, mais curta que o limite do manual de cada moto.
 Posts publicados em https://www.tiradentesmoto.com.br/blog/. Cada um começa por uma
 resposta curta; os números técnicos vêm do manual do proprietário de cada moto.
 
-- [Qual óleo usar na moto: CG, Biz, Pop, Bros, Factor e Fazer](https://www.tiradentesmoto.com.br/blog/qual-oleo-usar-na-moto/) (5 de novembro de 2026): Use a viscosidade que o manual da sua moto pede e um óleo com API e JASO iguais ou acima das do manual. Na CG 160, o manual da Honda pede 10W-30, API SL ou superior e JASO MA, 1,0 litro, com limite de 6.000 km ou 1 ano. Na Tiradentes, a recomendação para moto refrigerada a ar, como a CG, é trocar a cada 1.500 km.
+- [Qual óleo usar na moto: CG 160, Bros, Factor e Fazer](https://www.tiradentesmoto.com.br/blog/qual-oleo-usar-na-moto/) (5 de novembro de 2026): Use a viscosidade que o manual da sua moto pede e um óleo com API e JASO iguais ou acima das do manual. Na CG 160, o manual da Honda pede 10W-30, API SL ou superior e JASO MA, 1,0 litro, com limite de 6.000 km ou 1 ano. Na Tiradentes, a recomendação para moto refrigerada a ar, como a CG, é trocar a cada 1.500 km.
 <!-- blog:fim -->
 
 ## Revisões e preços

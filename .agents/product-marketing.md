@@ -16,7 +16,8 @@ Quem cuida da oficina são os irmãos **Thales e Denis**.
 ## Para quem escreve
 
 Quem usa a moto para trabalhar: entregador, motoboy, quem vai e volta do serviço de moto. Moto
-de baixa cilindrada na maioria (CG, Biz, Pop, Bros, Factor, Fazer). Para essa pessoa, moto parada
+de baixa cilindrada na maioria. **A loja é regional:** em Contagem, as motos que contam são CG 160,
+XRE 300 e CB 300F; Biz e Pop vendem pouco na região (Denis, 12/11) e não vão para título. Para essa pessoa, moto parada
 é dia sem ganhar, e cada real conta. Lê no celular, com pressa.
 
 ## Como a marca fala
@@ -73,6 +74,8 @@ Não pode (sem prova ainda):
 
 - 13/11: a oficina recomenda prazos mais curtos que os manuais. Post que só cita o manual contradiz
   quem assina. Antes de publicar número de manutenção, perguntar o que a oficina pratica.
+- 13/11: título e exemplos seguem o que roda na região, não o ranking nacional de vendas. Dado de
+  mercado, quando entrar, é local (Fenabrave MG ou regional).
 - Respostas da loja ficam em `.agents/fontes/`, como vieram; são a fonte do que vai ao site.
 
 - 05/11: primeira versão do post do óleo tinha "AI tells" (contraste armado, pergunta que o próprio

@@ -1,9 +1,9 @@
 {
   "_como_editar": "Um post = um arquivo. scripts/montar.py gera blog/<slug>/index.html, o card no índice, a faixa da home, o schema, o sitemap e o bloco do llms.txt. Campos 'html' aceitam <strong>, <em> e <a>; link interno é escrito a partir da raiz do site (revisoes.html, pecas.html#oleo) e o montar.py corrige o caminho. 'conferir' não vai para o site: é a lista do que o Thales precisa ver. Voz e regras da marca: .agents/product-marketing.md.",
   "slug": "qual-oleo-usar-na-moto",
-  "titulo": "Qual óleo usar na moto: CG, Biz, Pop, Bros, Factor e Fazer",
-  "titulo_seo": "Qual óleo usar na moto: CG 160, Biz, Factor e Fazer | Tiradentes",
-  "descricao": "O óleo que o manual pede para CG 160, Biz 125, Pop 110i, Bros 160, Factor e Fazer 150: viscosidade, API, JASO, litros e prazo de troca. E como ler o rótulo.",
+  "titulo": "Qual óleo usar na moto: CG 160, Bros, Factor e Fazer",
+  "titulo_seo": "Qual óleo usar na moto: CG 160, Bros, Factor e Fazer | Tiradentes",
+  "descricao": "O óleo que o manual pede para CG 160, Bros 160, Factor e Fazer 150: viscosidade, API, JASO, litros e prazo de troca, e quando a oficina recomenda trocar antes.",
   "resumo": "Viscosidade, norma, litros e prazo de troca que o manual de cada moto pede, e como ler 10W-30, API e JASO no frasco de qualquer marca.",
   "categoria": "Óleo do motor",
   "data": "2026-11-05",
