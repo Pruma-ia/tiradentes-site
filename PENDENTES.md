@@ -85,11 +85,20 @@ versão para compartilhar):
   dos dois;
 - se algum manual traz prazo menor para uso severo.
 
-**Divergência a resolver:** a tabela de intervalos (`servicos.html#intervalos`) e o
-`llms.txt` dizem "óleo 3.000 km (mineral) a 5.000 km (sintético)"; o post, pelo
-manual, diz 6.000 km ou 1 ano na CG 160, Biz, Pop e Bros, com qualquer base. A
-referência de mercado é mais conservadora, mas o Google e as IAs leem as duas. Decidir
-com o Thales se a tabela passa a apontar o manual.
+**Resolvido em 13/11 (respostas do Denis, 12/11):** o prazo de troca de óleo passou a
+ser a recomendação da oficina (1.500 km a ar, 2.500 km com radiador de óleo, até
+5.000 km a líquido, filtro em toda troca) no post, na tabela de intervalos e no
+`llms.txt`; o post mantém o limite do manual na tabela, com fonte. O tempo na oficina
+virou por nível (Preventiva 1 dia, Intermediária 2, Premium 2 a 3). Respostas
+completas em `.agents/fontes/2026-11-12-respostas-dennis.md`.
+
+**Ainda aberto:** o guia de peças (`pecas.html#oleo`) diz que o mineral "serve bem em
+moto de baixa cilindrada com troca em dia"; a oficina recomenda no mínimo
+semissintético na moto refrigerada a ar. Decidir se a linha muda.
+
+**Matéria 3 muda (Denis, 12/11):** em vez de CG 160 × Biz × Pop (Pop e Biz vendem pouco
+em Contagem), comparar **CG 160, XRE 300 e CB 300F**, com dado de emplacamento local
+(Fenabrave MG/regional).
 
 ## ❌ Fora de propósito
 

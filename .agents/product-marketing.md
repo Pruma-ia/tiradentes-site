@@ -16,7 +16,8 @@ Quem cuida da oficina são os irmãos **Thales e Denis**.
 ## Para quem escreve
 
 Quem usa a moto para trabalhar: entregador, motoboy, quem vai e volta do serviço de moto. Moto
-de baixa cilindrada na maioria (CG, Biz, Pop, Bros, Factor, Fazer). Para essa pessoa, moto parada
+de baixa cilindrada na maioria. **A loja é regional:** em Contagem, as motos que contam são CG 160,
+XRE 300 e CB 300F; Biz e Pop vendem pouco na região (Denis, 12/11) e não vão para título. Para essa pessoa, moto parada
 é dia sem ganhar, e cada real conta. Lê no celular, com pressa.
 
 ## Como a marca fala
@@ -45,6 +46,12 @@ Pode (está no site ou foi liberado):
 - Peça original e alternativa; aplicação conferida por modelo, ano e versão.
 - Tabela de revisões com preço de **mão de obra** (`revisoes.html`), peças à parte.
 - Troca de óleo no mesmo dia, sem agendar (liberado pelo Gabriel em 05/11 para o blog).
+- Tempo médio na oficina por nível de revisão: Preventiva 1 dia, Intermediária 2, Premium 2 a 3,
+  com aviso antes se algo mudar o prazo (Denis, 12/11).
+- Recomendação de troca de óleo da oficina: 1.500 km a ar (semissintético ou melhor), 2.500 km com
+  radiador de óleo, até 5.000 km a líquido (100% sintético), filtro de papel/cartucho em toda troca
+  (Denis, 12/11). Mais curta que o manual: escrever os dois, o manual como limite e a oficina como
+  recomendação.
 
 Não pode (sem prova ainda):
 - Preço de peça ou de outro serviço. Estoque, faturamento, conversa do atendimento.
@@ -64,6 +71,12 @@ Não pode (sem prova ainda):
   tabela, o caso real do balcão, a conta feita para quem roda 100 km por dia.
 
 ## Learnings
+
+- 13/11: a oficina recomenda prazos mais curtos que os manuais. Post que só cita o manual contradiz
+  quem assina. Antes de publicar número de manutenção, perguntar o que a oficina pratica.
+- 13/11: título e exemplos seguem o que roda na região, não o ranking nacional de vendas. Dado de
+  mercado, quando entrar, é local (Fenabrave MG ou regional).
+- Respostas da loja ficam em `.agents/fontes/`, como vieram; são a fonte do que vai ao site.
 
 - 05/11: primeira versão do post do óleo tinha "AI tells" (contraste armado, pergunta que o próprio
   texto responde, repetição de efeito). A agência de marketing da loja vai ler: cortar todos.
