@@ -1,0 +1,158 @@
+/* ============================================================================
+   Catálogo de ponta de estoque — página de trabalho do lojista.
+   Usa só os tokens de ../assets/css/style.css (nenhum hex aqui). Vermelho só no
+   botão principal e no erro; o resto em preto e cinza (canvas aprovado, 19/11).
+   Uma marcação só para celular e computador: a linha muda de forma por CSS.
+   ========================================================================== */
+
+.cat { background: var(--c-bg); padding-bottom: 96px; }
+.cat [hidden] { display: none !important; }
+
+.cat-largura { max-width: var(--w-max); margin: 0 auto; padding: 0 var(--s-4); }
+
+/* — topo ————————————————————————————————————————————————————— */
+.cat-topo { background: var(--c-card); border-bottom: 1px solid var(--c-border); padding: var(--s-4) 0; }
+.cat-marca { display: inline-flex; align-items: center; gap: var(--s-2); color: var(--c-fg); text-decoration: none;
+  font: 600 14px var(--f-display); }
+.cat-marca img { width: 30px; height: auto; }
+.cat-titulo { margin: var(--s-3) 0 var(--s-1); font: 700 26px/1.12 var(--f-display); letter-spacing: -.01em; }
+.cat-data { margin: 0; font-size: 13px; color: var(--c-muted-fg); }
+
+.cat-aviso { padding: var(--s-4); }
+
+/* — corpo: lista + painel ———————————————————————————————————— */
+.cat-corpo { padding-top: var(--s-4); }
+.cat-painel { display: none; }
+
+.cat-busca label { display: block; font-size: 13px; font-weight: 500; margin-bottom: 6px; }
+.cat-busca-linha { display: flex; gap: var(--s-2); }
+.cat-busca input,
+.cat-campo input {
+  flex: 1; min-width: 0; width: 100%; height: 48px; padding: 0 14px;
+  border: 1.5px solid var(--c-fg); border-radius: var(--r-md); background: var(--c-card);
+  font: 400 16px var(--f-body); color: var(--c-fg);
+}
+.cat-busca input:disabled, .cat-campo input:disabled { background: var(--c-muted); border-color: var(--c-border); color: var(--c-muted-fg); }
+.cat input:focus-visible, .cat button:focus-visible, .cat a:focus-visible { outline: 3px solid var(--c-ring); outline-offset: 2px; }
+
+.cat-contagem { margin: var(--s-3) 0 var(--s-2); font-size: 13px; color: var(--c-muted-fg); min-height: 1.2em; }
+
+/* — botões ———————————————————————————————————————————————————— */
+.cat-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--s-2);
+  min-height: 44px; padding: 0 18px; border-radius: var(--r-md); border: 1.5px solid transparent;
+  font: 600 15px var(--f-body); text-decoration: none; cursor: pointer; white-space: nowrap;
+}
+.cat-btn:disabled { cursor: default; opacity: .55; }
+.cat-btn--principal { background: var(--c-accent); color: var(--c-on-accent); min-height: 48px; font-size: 16px; }
+.cat-btn--principal:hover:not(:disabled) { background: var(--c-accent-hover); }
+.cat-btn--escuro { background: var(--c-fg); color: var(--c-on-primary); min-height: 48px; font-size: 16px; }
+.cat-btn--contorno { background: var(--c-card); color: var(--c-fg); border-color: var(--c-fg); }
+.cat-btn--leve { background: var(--c-card); color: var(--c-fg); border-color: var(--c-border); font-weight: 500; }
+.cat-btn--cheio { width: 100%; }
+
+/* — lista ————————————————————————————————————————————————————— */
+.cat-lista { list-style: none; margin: 0 -16px; padding: 0; border-top: 1px solid var(--c-border); }
+.cat-linha {
+  display: grid; grid-template-columns: 1fr auto; grid-template-areas:
+    "nome nome" "meta meta" "preco acao";
+  column-gap: var(--s-3); align-items: center;
+  padding: 14px 16px; background: var(--c-card); border-bottom: 1px solid var(--c-border);
+  border-left: 3px solid transparent;
+}
+.cat-linha.is-escolhida { background: var(--c-bg); border-left-color: var(--c-fg); }
+.cat-linha-nome { grid-area: nome; font-size: 15px; font-weight: 500; line-height: 1.35; }
+.cat-linha-meta { grid-area: meta; margin-top: 3px; font-size: 13px; color: var(--c-muted-fg); }
+.cat-linha-disp::before { content: ' · '; }
+.cat-preco { grid-area: preco; margin-top: 10px; }
+.cat-linha-acao { grid-area: acao; margin-top: 10px; justify-self: end; }
+
+.cat-preco-de { font-size: 13px; color: var(--c-muted-fg); margin-right: 6px; }
+.cat-preco-por { font: 700 20px var(--f-display); color: var(--c-fg); }
+.cat-preco-combinar { font-size: 15px; font-weight: 600; }
+
+.cat-qtd { display: inline-flex; align-items: center; }
+.cat-qtd-b {
+  width: 44px; height: 44px; border-radius: var(--r-md); border: 1.5px solid var(--c-fg);
+  background: var(--c-card); color: var(--c-fg); font: 500 22px var(--f-body); cursor: pointer; line-height: 1;
+}
+.cat-qtd-b--mais { background: var(--c-fg); color: var(--c-on-primary); }
+.cat-qtd-b:disabled { border-color: var(--c-border); background: var(--c-muted); color: var(--c-muted-fg); cursor: default; }
+.cat-qtd-n { min-width: 40px; text-align: center; font: 600 18px var(--f-display); }
+
+.cat-paginas { display: flex; align-items: center; justify-content: space-between; gap: var(--s-2); padding: var(--s-4) 0; }
+.cat-paginas span { font-size: 14px; font-weight: 500; }
+
+.cat-estado { padding: var(--s-7) var(--s-5); text-align: center; }
+.cat-estado h2 { margin: 0 0 var(--s-2); font: 700 22px/1.2 var(--f-display); }
+.cat-estado p { margin: 0 0 var(--s-5); font-size: 15px; color: var(--c-muted-fg); }
+
+/* — barra do pedido (celular) ————————————————————————————————— */
+.cat-barra {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 20;
+  display: flex; align-items: center; justify-content: space-between; gap: var(--s-3);
+  padding: 12px 16px calc(12px + env(safe-area-inset-bottom)); background: var(--c-fg); color: var(--c-on-primary);
+}
+.cat-barra-conta { display: flex; flex-direction: column; font-size: 14px; line-height: 1.3; }
+.cat-barra-conta span { font: 700 20px var(--f-display); }
+
+/* — itens do pedido (painel e resumo) ——————————————————————————— */
+.cat-itens { list-style: none; margin: 0; padding: 0; }
+.cat-item { padding: 10px 0; border-bottom: 1px solid var(--c-border); }
+.cat-item-nome { display: block; font-size: 14px; line-height: 1.35; }
+.cat-item small { display: block; color: var(--c-muted-fg); font-size: 13px; }
+.cat-item-qtd { display: flex; align-items: center; gap: var(--s-3); margin-top: var(--s-2); }
+.cat-item-valor { margin-left: auto; font-weight: 600; white-space: nowrap; }
+.cat-remover { background: none; border: 0; padding: 0 var(--s-1); min-height: 44px; font: 500 14px var(--f-body);
+  color: var(--c-fg); text-decoration: underline; cursor: pointer; }
+.cat-total { padding-top: var(--s-3); }
+.cat-total-linha { display: flex; justify-content: space-between; align-items: baseline; gap: var(--s-3); font-size: 14px; }
+.cat-total-linha strong { font: 700 24px var(--f-display); }
+.cat-total small { display: block; text-align: right; color: var(--c-muted-fg); font-size: 13px; }
+
+/* — resumo, formulário e fim ———————————————————————————————————— */
+.cat-etapa { max-width: 560px; padding-top: var(--s-2); }
+.cat-voltar { background: none; border: 0; padding: 0; min-height: 44px; font: 500 14px var(--f-body); color: var(--c-fg); cursor: pointer; }
+.cat-cartao { background: var(--c-card); border: 1px solid var(--c-border); border-radius: var(--r-md); padding: var(--s-4); }
+.cat-cartao h2 { margin: 0 0 var(--s-1); font: 700 22px var(--f-display); }
+.cat-alerta { margin-bottom: var(--s-3); padding: 14px 16px; background: var(--c-card); border: 1.5px solid var(--c-accent-ink); border-radius: var(--r-md); }
+.cat-alerta strong { font: 700 17px var(--f-display); color: var(--c-accent-ink); }
+.cat-alerta p { margin: 4px 0 0; font-size: 14px; line-height: 1.45; }
+
+.cat-form { padding: var(--s-2) 0 var(--s-4); }
+.cat-campo label { display: block; font-size: 14px; font-weight: 500; margin: 14px 0 6px; }
+.cat-campo input[aria-invalid="true"] { border-color: var(--c-accent-ink); }
+.cat-erro { margin: 6px 0 0; font-size: 13px; color: var(--c-accent-ink); }
+.cat-nota { font-size: 12px; color: var(--c-muted-fg); margin: 10px 0 var(--s-4); }
+.cat-acoes { display: flex; flex-direction: column; gap: var(--s-2); }
+.cat-acoes #whats-reserva { order: -1; }   /* na falha, o WhatsApp vem antes do "tentar de novo" */
+.cat-armadilha { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+.cat-fim { text-align: center; padding-top: var(--s-7); }
+.cat-ok { width: 56px; height: 56px; margin: 0 auto 18px; border-radius: 50%; background: var(--c-fg); color: var(--c-on-primary);
+  display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 700; }
+.cat-fim h2 { margin: 0 0 var(--s-2); font: 700 22px/1.25 var(--f-display); }
+.cat-fim p { margin: 0 0 var(--s-5); color: var(--c-muted-fg); font-size: 15px; }
+
+/* — computador: lista em tabela + painel lateral ———————————————— */
+@media (min-width: 960px) {
+  .cat { padding-bottom: 0; }
+  .cat-titulo { font-size: 34px; }
+  .cat-corpo { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: var(--s-5); align-items: start; padding-top: var(--s-5); }
+  .cat-busca input { max-width: 520px; }
+  .cat-lista { margin: 0; border: 1px solid var(--c-border); border-radius: var(--r-md); overflow: hidden; }
+  .cat-linha {
+    grid-template-columns: minmax(0, 1fr) auto 140px;
+    grid-template-areas: "nome preco acao" "meta preco acao"; column-gap: var(--s-5); padding: 12px 20px;
+  }
+  .cat-preco, .cat-linha-acao { margin: 0; }
+  .cat-preco { white-space: nowrap; }
+  .cat-linha-acao { justify-self: end; }
+  .cat-qtd-b { width: 40px; height: 40px; }
+  .cat-painel { display: block; position: sticky; top: var(--s-4); background: var(--c-card);
+    border: 1px solid var(--c-border); border-radius: var(--r-md); padding: 18px 20px; }
+  .cat-painel h2 { margin: 0 0 6px; font: 700 20px var(--f-display); }
+  .cat-painel-vazio { color: var(--c-muted-fg); font-size: 14px; }
+  .cat-painel .cat-btn--principal { margin-top: var(--s-3); }
+  .cat-barra { display: none !important; }
+}

@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Página de trabalho para lojista, divulgada só em grupo: fora do Google, fora do
+     sitemap.xml (o montar.py não a conhece) e sem link em nenhuma outra página. -->
+<meta name="robots" content="noindex, nofollow">
+<title>Ponta de estoque para lojistas — Tiradentes Moto Peças</title>
+<meta name="theme-color" content="#0B0B0C">
+<link rel="icon" href="../assets/img/favicon.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="catalogo.css">
+</head>
+<body class="cat">
+
+<header class="cat-topo">
+  <div class="cat-largura">
+    <a class="cat-marca" href="../">
+      <img src="../assets/img/logo-mark.png" alt="" width="30" height="25">
+      <span>Tiradentes Moto Peças</span>
+    </a>
+    <h1 class="cat-titulo">Ponta de estoque para lojistas — peças com <span data-desconto>50%</span> de desconto</h1>
+    <p class="cat-data" id="data-lista">A loja confirma a disponibilidade.</p>
+  </div>
+</header>
+
+<noscript><p class="cat-largura cat-aviso">Esta página precisa de JavaScript. Fale com a loja pelo WhatsApp: (31) 98324-7256.</p></noscript>
+
+<div class="cat-largura cat-corpo" id="vista-lista">
+  <main class="cat-principal">
+    <div class="cat-busca">
+      <label for="busca">Buscar peça por nome ou código</label>
+      <div class="cat-busca-linha">
+        <input id="busca" type="search" autocomplete="off" placeholder="Ex.: pastilha CG 160 ou LOC512" disabled>
+        <button type="button" class="cat-btn cat-btn--leve" id="limpar" hidden>Limpar</button>
+      </div>
+    </div>
+    <p class="cat-contagem" id="contagem" aria-live="polite">Carregando o catálogo…</p>
+    <div class="cat-estado" id="estado" hidden></div>
+    <ul class="cat-lista" id="lista" aria-label="Peças da ponta de estoque"></ul>
+    <nav class="cat-paginas" id="paginas" aria-label="Páginas da lista" hidden>
+      <button type="button" class="cat-btn cat-btn--contorno" id="anterior">Anterior</button>
+      <span id="faixa"></span>
+      <button type="button" class="cat-btn cat-btn--contorno" id="proxima">Próxima</button>
+    </nav>
+  </main>
+
+  <aside class="cat-painel" id="painel" aria-labelledby="painel-titulo">
+    <h2 id="painel-titulo">Seu pedido</h2>
+    <p class="cat-painel-vazio" id="painel-vazio">Escolha as peças na lista.</p>
+    <ul class="cat-itens" id="painel-itens"></ul>
+    <div class="cat-total" id="painel-total" hidden></div>
+    <button type="button" class="cat-btn cat-btn--principal cat-btn--cheio" id="painel-confirmar" hidden>Confirmar pedido</button>
+  </aside>
+</div>
+
+<div class="cat-barra" id="barra" hidden>
+  <div class="cat-barra-conta" id="barra-conta"></div>
+  <button type="button" class="cat-btn cat-btn--principal" id="barra-confirmar">Confirmar pedido</button>
+</div>
+
+<section class="cat-largura cat-etapa" id="vista-resumo" hidden aria-labelledby="resumo-titulo">
+  <button type="button" class="cat-voltar" id="voltar">← Voltar à lista</button>
+  <div class="cat-alerta" id="falha" role="alert" hidden>
+    <strong>Não conseguimos enviar</strong>
+    <p>Seu pedido continua aqui, nada se perdeu. Tente de novo ou mande pelo WhatsApp da loja.</p>
+  </div>
+  <div class="cat-cartao">
+    <h2 id="resumo-titulo">Confirmar pedido</h2>
+    <ul class="cat-itens" id="resumo-itens"></ul>
+    <div class="cat-total" id="resumo-total"></div>
+  </div>
+  <form class="cat-form" id="form" novalidate>
+    <div class="cat-campo">
+      <label for="nome">Nome</label>
+      <input id="nome" name="nome" autocomplete="name" placeholder="Seu nome" aria-describedby="erro-nome">
+      <p class="cat-erro" id="erro-nome" hidden></p>
+    </div>
+    <div class="cat-campo">
+      <label for="telefone">Telefone</label>
+      <input id="telefone" name="telefone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(31) 9 9999-9999" aria-describedby="erro-telefone">
+      <p class="cat-erro" id="erro-telefone" hidden></p>
+    </div>
+    <div class="cat-campo">
+      <label for="email">E-mail</label>
+      <input id="email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="voce@suaempresa.com.br" aria-describedby="erro-email">
+      <p class="cat-erro" id="erro-email" hidden></p>
+    </div>
+    <!-- Campo para robô: escondido de quem usa a página. Preenchido, o fluxo não posta. -->
+    <div class="cat-armadilha" aria-hidden="true">
+      <label for="site">Não preencha</label>
+      <input id="site" name="site" tabindex="-1" autocomplete="off">
+    </div>
+    <p class="cat-nota">Os três campos são obrigatórios. A loja confirma a disponibilidade e te chama no WhatsApp.</p>
+    <div class="cat-acoes">
+      <button type="submit" class="cat-btn cat-btn--principal cat-btn--cheio" id="enviar">Enviar pedido</button>
+      <a class="cat-btn cat-btn--escuro cat-btn--cheio" id="whats-reserva" hidden target="_blank" rel="noopener">Mandar pelo WhatsApp da loja</a>
+    </div>
+  </form>
+</section>
+
+<section class="cat-largura cat-etapa cat-fim" id="vista-enviado" hidden aria-live="polite">
+  <div class="cat-ok" aria-hidden="true">✓</div>
+  <h2>Pedido enviado. A loja vai te chamar no WhatsApp.</h2>
+  <p id="enviado-detalhe"></p>
+  <button type="button" class="cat-btn cat-btn--contorno" id="outro">Fazer outro pedido</button>
+</section>
+
+<script src="logica.js"></script>
+<script src="catalogo.js"></script>
+</body>
+</html>
