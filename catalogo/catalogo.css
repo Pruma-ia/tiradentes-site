@@ -32,6 +32,7 @@
   border: 1.5px solid var(--c-fg); border-radius: var(--r-md); background: var(--c-card);
   font: 400 16px var(--f-body); color: var(--c-fg);
 }
+.cat-busca input::-webkit-search-cancel-button { -webkit-appearance: none; appearance: none; }   /* o "Limpar" já faz isso */
 .cat-busca input:disabled, .cat-campo input:disabled { background: var(--c-muted); border-color: var(--c-border); color: var(--c-muted-fg); }
 .cat input:focus-visible, .cat button:focus-visible, .cat a:focus-visible { outline: 3px solid var(--c-ring); outline-offset: 2px; }
 

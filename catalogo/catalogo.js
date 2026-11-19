@@ -127,7 +127,12 @@
     li.appendChild(preco(peca));
     var acao = el('div', 'cat-linha-acao');
     if (estado.escolha[peca.codigo]) acao.appendChild(seletor(peca, true));
-    else acao.appendChild(botao('Adicionar', 'cat-btn cat-btn--contorno', 'Adicionar ' + peca.nome, function () { definir(peca.codigo, 1); }));
+    else {
+      var add = botao('Adicionar', 'cat-btn cat-btn--contorno', 'Adicionar ' + peca.nome, function () { definir(peca.codigo, 1); });
+      // O pedido vai até 60 peças diferentes (o fluxo recusa acima): passou disso, outro pedido.
+      if (estado.ordem.length >= L.MAX_ITENS) { add.disabled = true; add.title = 'No máximo ' + L.MAX_ITENS + ' peças por pedido'; }
+      acao.appendChild(add);
+    }
     li.appendChild(acao);
     return li;
   }
@@ -292,14 +297,17 @@
     // de CORS, que o webhook do n8n não responde.
     var corpo = new URLSearchParams();
     corpo.set('pedido', JSON.stringify(L.corpoDoPedido(r, contato(), estado.lista)));
-    corpo.set('site', $('site').value);
+    corpo.set('contato_url_2', $('contato_url_2').value);
 
     fetch(CONFIG.pedido, { method: 'POST', body: corpo })
-      .then(function (resp) {
-        if (!resp.ok) throw new Error('HTTP ' + resp.status);
+      .then(function (resp) { return resp.ok; }, function () { return false; })
+      .then(function (ok) {
+        // Só o envio decide entre "enviado" e "falhou": erro ao desenhar depois do 200 não pode
+        // oferecer o WhatsApp, senão o lojista manda o mesmo pedido duas vezes.
+        if (!ok) return falhou();
         var c = contato();
         $('enviado-detalhe').textContent = textoDaConta(r) + ' · ' + L.reais(r.total) +
-          ' · enviado às ' + L.horaDeBrasilia(new Date()) + '. Em nome de ' + c.nome.trim() + ', ' + c.telefone.trim() + '.';
+          ' · enviado às ' + L.horaDeBrasilia(new Date()) + '. Em nome de ' + c.nome.trim() + ', ' + L.telefoneLegivel(c.telefone) + '.';
         estado.escolha = {};
         estado.ordem = [];
         $('falha').hidden = true;
@@ -307,7 +315,6 @@
         b.className = 'cat-btn cat-btn--principal cat-btn--cheio';
         ver('enviado');
       })
-      .catch(falhou)
       .then(function () {
         estado.enviando = false;
         b.disabled = false;

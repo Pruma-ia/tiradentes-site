@@ -9,7 +9,7 @@
   'use strict';
 
   var FUSO = 'America/Sao_Paulo';
-  var MAX_ITENS = 200;
+  var MAX_ITENS = 60;   // o fluxo do n8n recusa acima disso
 
   /* Texto comparável: sem acento, minúsculo, espaços simples. */
   function normalizar(texto) {
@@ -95,6 +95,13 @@
     return d;
   }
 
+  function telefoneLegivel(telefone) {
+    var d = digitosDoTelefone(telefone);
+    if (d.length === 11) return '(' + d.slice(0, 2) + ') ' + d.slice(2, 7) + '-' + d.slice(7);
+    if (d.length === 10) return '(' + d.slice(0, 2) + ') ' + d.slice(2, 6) + '-' + d.slice(6);
+    return String(telefone || '').trim();
+  }
+
   function validarContato(contato) {
     var erros = {};
     if (!String(contato.nome || '').trim()) erros.nome = 'Escreva seu nome.';
@@ -162,7 +169,7 @@
     linhas.push('Total: ' + reais(resumo.total) + (resumo.semPreco ? ' + ' + resumo.semPreco + ' peça(s) com preço a combinar' : ''));
     linhas.push('');
     linhas.push('Nome: ' + String(contato.nome || '').trim());
-    linhas.push('Telefone: ' + String(contato.telefone || '').trim());
+    linhas.push('Telefone: ' + telefoneLegivel(contato.telefone));
     linhas.push('E-mail: ' + String(contato.email || '').trim());
     return linhas.join('\n');
   }
@@ -181,6 +188,7 @@
     limitarQuantidade: limitarQuantidade,
     paginar: paginar,
     digitosDoTelefone: digitosDoTelefone,
+    telefoneLegivel: telefoneLegivel,
     validarContato: validarContato,
     resumir: resumir,
     diaDaLista: diaDaLista,
