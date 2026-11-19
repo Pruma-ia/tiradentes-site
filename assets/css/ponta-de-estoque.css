@@ -1,22 +1,18 @@
 /* ============================================================================
-   Catálogo de ponta de estoque — página de trabalho do lojista.
-   Usa só os tokens de ../assets/css/style.css (nenhum hex aqui). Vermelho só no
-   botão principal e no erro; o resto em preto e cinza (canvas aprovado, 19/11).
+   Ponta de estoque para lojistas (/ponta-de-estoque/) — página de trabalho.
+   Montada pelo scripts/montar.py com o cabeçalho e o rodapé do site, e só esta
+   página carrega este arquivo. Só tokens de style.css (nenhum hex aqui), na IDV
+   da loja: vermelho no preço, na peça escolhida, no botão principal e no erro.
    Uma marcação só para celular e computador: a linha muda de forma por CSS.
    ========================================================================== */
+
+/* A barra do pedido ocupa o rodapé da tela no celular: o WhatsApp flutuante sai daqui. */
+.wa-float { display: none !important; }
 
 .cat { background: var(--c-bg); padding-bottom: 96px; }
 .cat [hidden] { display: none !important; }
 
 .cat-largura { max-width: var(--w-max); margin: 0 auto; padding: 0 var(--s-4); }
-
-/* — topo ————————————————————————————————————————————————————— */
-.cat-topo { background: var(--c-card); border-bottom: 1px solid var(--c-border); padding: var(--s-4) 0; }
-.cat-marca { display: inline-flex; align-items: center; gap: var(--s-2); color: var(--c-fg); text-decoration: none;
-  font: 600 14px var(--f-display); }
-.cat-marca img { width: 30px; height: auto; }
-.cat-titulo { margin: var(--s-3) 0 var(--s-1); font: 700 26px/1.12 var(--f-display); letter-spacing: -.01em; }
-.cat-data { margin: 0; font-size: 13px; color: var(--c-muted-fg); }
 
 .cat-aviso { padding: var(--s-4); }
 
@@ -61,7 +57,7 @@
   padding: 14px 16px; background: var(--c-card); border-bottom: 1px solid var(--c-border);
   border-left: 3px solid transparent;
 }
-.cat-linha.is-escolhida { background: var(--c-bg); border-left-color: var(--c-fg); }
+.cat-linha.is-escolhida { background: var(--c-bg); border-left-color: var(--c-accent); }
 .cat-linha-nome { grid-area: nome; font-size: 15px; font-weight: 500; line-height: 1.35; }
 .cat-linha-meta { grid-area: meta; margin-top: 3px; font-size: 13px; color: var(--c-muted-fg); }
 .cat-linha-disp::before { content: ' · '; }
@@ -69,7 +65,7 @@
 .cat-linha-acao { grid-area: acao; margin-top: 10px; justify-self: end; }
 
 .cat-preco-de { font-size: 13px; color: var(--c-muted-fg); margin-right: 6px; }
-.cat-preco-por { font: 700 20px var(--f-display); color: var(--c-fg); }
+.cat-preco-por { font: 700 20px var(--f-display); color: var(--c-accent-ink); }
 .cat-preco-combinar { font-size: 15px; font-weight: 600; }
 
 .cat-qtd { display: inline-flex; align-items: center; }
@@ -138,7 +134,6 @@
 /* — computador: lista em tabela + painel lateral ———————————————— */
 @media (min-width: 960px) {
   .cat { padding-bottom: 0; }
-  .cat-titulo { font-size: 34px; }
   .cat-corpo { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: var(--s-5); align-items: start; padding-top: var(--s-5); }
   .cat-busca input { max-width: 520px; }
   .cat-lista { margin: 0; border: 1px solid var(--c-border); border-radius: var(--r-md); overflow: hidden; }

@@ -1,6 +1,6 @@
 /* ============================================================================
-   Catálogo de ponta de estoque — a tela.
-   As regras (preço, busca, validação, mensagem) moram em logica.js; aqui só se
+   Ponta de estoque para lojistas — a tela (/ponta-de-estoque/).
+   As regras (preço, busca, validação, mensagem) moram em ponta-de-estoque-logica.js; aqui só se
    desenha e se reage ao clique. Todo texto da lista entra por textContent.
    ========================================================================== */
 (function () {
@@ -356,7 +356,7 @@
         if (!lista) throw new Error('lista fora do formato');
         estado.lista = lista;
         var dia = L.diaDaLista(lista.atualizadaEm);
-        $('data-lista').textContent = (dia ? 'Lista de ' + dia + '. ' : '') + 'A loja confirma a disponibilidade.';
+        document.querySelector('.pagina-topo .lead').textContent = (dia ? 'Lista de ' + dia + '. ' : '') + 'A loja confirma a disponibilidade.';
         $('busca').disabled = false;
         desenhar();
       })

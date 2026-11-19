@@ -1,10 +1,10 @@
 // Provas P2–P5, P8 e P11 do SPEC-2026-11-19-catalogo-lojistas (pruma-plataform).
-// Rodar: node --test catalogo/catalogo.test.mjs
+// Rodar: node --test tests/ponta-de-estoque.test.mjs
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { createRequire } from 'node:module';
 
-const L = createRequire(import.meta.url)('./logica.js');
+const L = createRequire(import.meta.url)('../assets/js/ponta-de-estoque-logica.js');
 
 const LISTA = {
   lista: 'teste',

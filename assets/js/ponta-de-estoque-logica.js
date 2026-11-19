@@ -1,6 +1,6 @@
 /* ============================================================================
    Catálogo de ponta de estoque — as regras, sem tela.
-   Separado do catalogo.js para ser testado em Node (`node --test tests/`):
+   Separado de ponta-de-estoque.js para ser testado em Node (`node --test tests/ponta-de-estoque.test.mjs`):
    preço "por", busca, limite de quantidade, validação e a mensagem do pedido.
    No navegador vira `window.CatalogoLogica`; no Node, `module.exports`.
    Spec: pruma-plataform, .planning/workstreams/tiradentes/SPEC-2026-11-19-catalogo-lojistas.md

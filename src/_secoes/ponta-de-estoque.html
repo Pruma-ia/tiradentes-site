@@ -1,32 +1,7 @@
-<!doctype html>
-<html lang="pt-BR">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- Página de trabalho para lojista, divulgada só em grupo: fora do Google, fora do
-     sitemap.xml (o montar.py não a conhece) e sem link em nenhuma outra página. -->
-<meta name="robots" content="noindex, nofollow">
-<title>Ponta de estoque para lojistas — Tiradentes Moto Peças</title>
-<meta name="theme-color" content="#0B0B0C">
-<link rel="icon" href="../assets/img/favicon.png" type="image/png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="../assets/css/style.css">
-<link rel="stylesheet" href="catalogo.css">
-</head>
-<body class="cat">
-
-<header class="cat-topo">
-  <div class="cat-largura">
-    <a class="cat-marca" href="../">
-      <img src="../assets/img/logo-mark.png" alt="" width="30" height="25">
-      <span>Tiradentes Moto Peças</span>
-    </a>
-    <h1 class="cat-titulo">Ponta de estoque para lojistas — peças com <span data-desconto>50%</span> de desconto</h1>
-    <p class="cat-data" id="data-lista">A loja confirma a disponibilidade.</p>
-  </div>
-</header>
-
+<!-- ══════════════════════ PONTA DE ESTOQUE (lojistas) ══════════════════════
+     Página de trabalho do lojista: fora do sitemap e com noindex (scripts/montar.py, PONTA).
+     O comportamento está em assets/js/ponta-de-estoque.js; as regras, em ponta-de-estoque-logica.js. -->
+<div class="cat">
 <noscript><p class="cat-largura cat-aviso">Esta página precisa de JavaScript. Fale com a loja pelo WhatsApp: (31) 98324-7256.</p></noscript>
 
 <div class="cat-largura cat-corpo" id="vista-lista">
@@ -108,8 +83,7 @@
   <p id="enviado-detalhe"></p>
   <button type="button" class="cat-btn cat-btn--contorno" id="outro">Fazer outro pedido</button>
 </section>
+</div>
 
-<script src="logica.js"></script>
-<script src="catalogo.js"></script>
-</body>
-</html>
+<script src="assets/js/ponta-de-estoque-logica.js" defer></script>
+<script src="assets/js/ponta-de-estoque.js" defer></script>
