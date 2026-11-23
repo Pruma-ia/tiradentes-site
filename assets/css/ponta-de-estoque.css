@@ -60,7 +60,8 @@
 .cat-linha.is-escolhida { background: var(--c-bg); border-left-color: var(--c-accent); }
 .cat-linha-nome { grid-area: nome; font-size: 15px; font-weight: 500; line-height: 1.35; }
 .cat-linha-meta { grid-area: meta; margin-top: 3px; font-size: 13px; color: var(--c-muted-fg); }
-.cat-linha-disp::before { content: ' · '; }
+.cat-linha-disp::before, .cat-linha-no-pedido::before { content: ' · '; }
+.cat-linha-no-pedido { color: var(--c-accent-ink); font-weight: 600; }
 .cat-preco { grid-area: preco; margin-top: 10px; }
 .cat-linha-acao { grid-area: acao; margin-top: 10px; justify-self: end; }
 
@@ -93,6 +94,19 @@
 .cat-barra-conta { display: flex; flex-direction: column; font-size: 14px; line-height: 1.3; }
 .cat-barra-conta span { font: 700 20px var(--f-display); }
 
+/* O aviso de "entrou no pedido" (celular): logo abaixo do cabeçalho, longe de onde o dedo está
+   adicionando, e some sozinho. */
+.cat-adicionado {
+  position: fixed; left: 16px; right: 16px; top: calc(var(--header-h) + 8px); z-index: 21; margin: 0;
+  padding: 10px 14px; background: var(--c-card); border: 1px solid var(--c-border); border-left: 3px solid var(--c-accent);
+  border-radius: var(--r-md); box-shadow: var(--sh-lg); font-size: 14px; line-height: 1.35;
+  overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+  opacity: 0; transform: translateY(-8px); pointer-events: none; transition: opacity .2s, transform .2s;
+}
+.cat-adicionado.is-visivel { opacity: 1; transform: none; }
+
+.cat-limite { margin-top: var(--s-3); }
+
 /* — itens do pedido (painel e resumo) ——————————————————————————— */
 .cat-itens { list-style: none; margin: 0; padding: 0; }
 .cat-item { padding: 10px 0; border-bottom: 1px solid var(--c-border); }
@@ -100,6 +114,13 @@
 .cat-item small { display: block; color: var(--c-muted-fg); font-size: 13px; }
 .cat-item-qtd { display: flex; align-items: center; gap: var(--s-3); margin-top: var(--s-2); }
 .cat-item-valor { margin-left: auto; font-weight: 600; white-space: nowrap; }
+/* A peça que acabou de entrar pisca no topo do pedido. */
+.cat-item.is-nova { animation: cat-nova 1.6s ease-out; }
+@keyframes cat-nova { from { background: color-mix(in srgb, var(--c-accent) 10%, transparent); } to { background: transparent; } }
+@media (prefers-reduced-motion: reduce) {
+  .cat-item.is-nova { animation: none; }
+  .cat-adicionado { transition: none; }
+}
 .cat-remover { background: none; border: 0; padding: 0 var(--s-1); min-height: 44px; font: 500 14px var(--f-body);
   color: var(--c-fg); text-decoration: underline; cursor: pointer; }
 .cat-total { padding-top: var(--s-3); }
@@ -145,10 +166,25 @@
   .cat-preco { white-space: nowrap; }
   .cat-linha-acao { justify-self: end; }
   .cat-qtd-b { width: 40px; height: 40px; }
-  .cat-painel { display: block; position: sticky; top: var(--s-4); background: var(--c-card);
+  /* O painel cabe na tela: total e botão em cima, sempre à vista (mesmo no topo da página, antes de o painel
+     grudar), e a lista de itens rola por dentro, a última escolhida primeiro. */
+  .cat-painel { display: flex; flex-direction: column; position: sticky; top: calc(var(--header-h) + var(--s-4));
+    max-height: calc(100vh - var(--header-h) - 2 * var(--s-4)); background: var(--c-card);
     border: 1px solid var(--c-border); border-radius: var(--r-md); padding: 18px 20px; }
-  .cat-painel h2 { margin: 0 0 6px; font: 700 20px var(--f-display); }
+  .cat-painel-topo { display: flex; align-items: baseline; justify-content: space-between; gap: var(--s-3); margin-bottom: 6px; }
+  .cat-painel h2 { margin: 0; font: 700 20px var(--f-display); }
+  .cat-painel-conta { font-size: 13px; color: var(--c-muted-fg); white-space: nowrap; }
+  #painel-itens { flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain;
+    margin: var(--s-3) -20px 0; padding: 0 20px; border-top: 1px solid var(--c-border); }
+  .cat-painel .cat-item-nome { overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+  .cat-painel .cat-total { flex: none; padding-top: 0; }
+  .cat-painel .cat-btn--principal { flex: none; }
+  .cat-painel .cat-item:last-child { border-bottom: 0; }
+  #painel-itens:empty { border-top: 0; }
   .cat-painel-vazio { color: var(--c-muted-fg); font-size: 14px; }
   .cat-painel .cat-btn--principal { margin-top: var(--s-3); }
   .cat-barra { display: none !important; }
+  /* No computador o painel mostra a peça que entrou; o aviso fica só para o leitor de tela. */
+  .cat-adicionado { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden;
+    clip: rect(0 0 0 0); white-space: nowrap; border: 0; opacity: 1; transform: none; }
 }
