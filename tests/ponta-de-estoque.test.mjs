@@ -112,3 +112,17 @@ test('paginação de 20', () => {
   assert.deepEqual([p.de, p.ate, p.total, p.paginas, p.itens.length], [41, 45, 45, 3, 5]);
   assert.equal(L.paginar(itens, 9, 20).pagina, 3);
 });
+
+test('o pedido vai até 100 peças diferentes, e o contador mostra quanto falta', () => {
+  assert.equal(L.MAX_ITENS, 100);
+  assert.equal(L.contagemDoLimite(12), '12 de 100 peças');
+  assert.equal(L.contagemDoLimite(1), '1 de 100 peças');
+  assert.equal(L.noLimite(99), false);
+  assert.equal(L.noLimite(100), true);
+});
+
+test('o corpo do pedido leva as 100 peças, nenhuma a mais', () => {
+  const muitas = Array.from({ length: 101 }, (_, i) => ({ peca: { codigo: 'C' + i, nome: 'Peça ' + i, quantidade: 5, preco: 10 }, quantidade: 1 }));
+  const corpo = L.corpoDoPedido(L.resumir(muitas, 0.5), { nome: 'Ana', telefone: '31999998888', email: 'a@b.com' }, { atualizadaEm: '' });
+  assert.equal(corpo.itens.length, 100);
+});

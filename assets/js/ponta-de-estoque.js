@@ -40,6 +40,7 @@
     pagina: 1,
     escolha: {},        // código → quantidade
     ordem: [],          // códigos na ordem em que foram escolhidos
+    ultima: null,       // a peça que acabou de entrar: pisca no painel
     enviando: false
   };
 
@@ -76,14 +77,28 @@
   function definir(codigo, quantidade) {
     var peca = pecaPorCodigo(codigo);
     if (!peca) return;
+    var nova = quantidade > 0 && !(codigo in estado.escolha);
     if (quantidade <= 0) {
       delete estado.escolha[codigo];
       estado.ordem = estado.ordem.filter(function (c) { return c !== codigo; });
     } else {
-      if (!(codigo in estado.escolha)) estado.ordem.push(codigo);
+      if (nova) estado.ordem.push(codigo);
       estado.escolha[codigo] = L.limitarQuantidade(quantidade, peca.quantidade);
     }
+    estado.ultima = nova ? codigo : null;
     desenhar();
+    if (nova) avisarAdicionada(peca);
+  }
+
+  /* No celular o pedido não está à vista: o aviso confirma o que entrou e quanto falta. */
+  var esconderAviso;
+  function avisarAdicionada(peca) {
+    var aviso = $('adicionado');
+    aviso.textContent = '✓ ' + peca.nome + ' · ' + L.contagemDoLimite(estado.ordem.length);
+    aviso.classList.add('is-visivel');
+    clearTimeout(esconderAviso);
+    esconderAviso = setTimeout(function () { aviso.classList.remove('is-visivel'); }, 2500);
+    $('painel-itens').scrollTop = 0;
   }
 
   /* − / quantidade / +, com o limite à vista. O "−" na quantidade 1 não tira a
@@ -123,14 +138,15 @@
     var meta = el('span', 'cat-linha-meta');
     meta.appendChild(el('span', 'cat-linha-codigo', peca.codigo));
     meta.appendChild(el('span', 'cat-linha-disp', 'disponível: ' + peca.quantidade));
+    if (estado.escolha[peca.codigo]) meta.appendChild(el('span', 'cat-linha-no-pedido', '✓ no pedido'));
     li.appendChild(meta);
     li.appendChild(preco(peca));
     var acao = el('div', 'cat-linha-acao');
     if (estado.escolha[peca.codigo]) acao.appendChild(seletor(peca, true));
     else {
       var add = botao('Adicionar', 'cat-btn cat-btn--contorno', 'Adicionar ' + peca.nome, function () { definir(peca.codigo, 1); });
-      // O pedido vai até 60 peças diferentes (o fluxo recusa acima): passou disso, outro pedido.
-      if (estado.ordem.length >= L.MAX_ITENS) { add.disabled = true; add.title = 'No máximo ' + L.MAX_ITENS + ' peças por pedido'; }
+      // O pedido vai até L.MAX_ITENS peças diferentes (o fluxo recusa acima): o aviso #limite diz o porquê.
+      if (L.noLimite(estado.ordem.length)) add.disabled = true;
       acao.appendChild(add);
     }
     li.appendChild(acao);
@@ -159,6 +175,7 @@
     ul.textContent = '';
     $('estado').hidden = true;
     $('paginas').hidden = true;
+    $('limite').hidden = !L.noLimite(estado.ordem.length);
     if (!estado.lista) return;
 
     var todas = estado.lista.pecas;
@@ -192,11 +209,12 @@
     return r.pecas + (r.pecas === 1 ? ' peça' : ' peças') + ' · ' + r.unidades + ' un.';
   }
 
+  /* A última escolhida fica em cima: é a que o lojista quer conferir. */
   function desenharItens(ul, r, comRemover) {
     ul.textContent = '';
-    r.itens.forEach(function (i) {
+    r.itens.slice().reverse().forEach(function (i) {
       var peca = pecaPorCodigo(i.codigo);
-      var li = el('li', 'cat-item');
+      var li = el('li', i.codigo === estado.ultima ? 'cat-item is-nova' : 'cat-item');
       var info = el('div', 'cat-item-info');
       info.appendChild(el('span', 'cat-item-nome', i.nome));
       info.appendChild(el('small', null, i.codigo + ' · ' + (i.preco_por == null ? 'preço a combinar' : L.reais(i.preco_por) + ' cada') + ' · máx. ' + i.disponivel));
@@ -225,13 +243,15 @@
     $('painel-vazio').hidden = tem;
     $('painel-total').hidden = !tem;
     $('painel-confirmar').hidden = !tem;
+    $('painel-conta').hidden = !tem;
+    $('painel-conta').textContent = L.contagemDoLimite(r.pecas);
     desenharItens($('painel-itens'), r, true);
     if (tem) desenharTotal($('painel-total'), r);
 
     $('barra').hidden = !tem || !$('vista-resumo').hidden || !$('vista-enviado').hidden;
     var conta = $('barra-conta');
     conta.textContent = '';
-    conta.appendChild(el('b', null, textoDaConta(r)));
+    conta.appendChild(el('b', null, L.contagemDoLimite(r.pecas) + ' · ' + r.unidades + ' un.'));
     conta.appendChild(el('span', null, L.reais(r.total)));
 
     desenharItens($('resumo-itens'), r, true);
@@ -246,6 +266,8 @@
 
   /* ── etapas ────────────────────────────────────────────────────────────── */
   function ver(qual) {
+    estado.ultima = null;
+    $('adicionado').classList.remove('is-visivel');
     $('vista-lista').hidden = qual !== 'lista';
     $('vista-resumo').hidden = qual !== 'resumo';
     $('vista-enviado').hidden = qual !== 'enviado';
@@ -366,6 +388,7 @@
   function iniciar() {
     var pct = Math.round(CONFIG.desconto * 100) + '%';
     Array.prototype.forEach.call(document.querySelectorAll('[data-desconto]'), function (s) { s.textContent = pct; });
+    Array.prototype.forEach.call(document.querySelectorAll('[data-max]'), function (s) { s.textContent = L.MAX_ITENS; });
 
     $('busca').addEventListener('input', aoBuscar);
     $('limpar').addEventListener('click', function () { $('busca').value = ''; aoBuscar(); $('busca').focus(); });

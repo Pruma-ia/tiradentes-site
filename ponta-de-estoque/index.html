@@ -103,6 +103,10 @@
         <button type="button" class="cat-btn cat-btn--leve" id="limpar" hidden>Limpar</button>
       </div>
     </div>
+    <div class="cat-alerta cat-limite" id="limite" role="status" hidden>
+      <strong>Seu pedido chegou a <span data-max>100</span> peças</strong>
+      <p>É o máximo de um pedido. Envie este e faça outro em seguida.</p>
+    </div>
     <p class="cat-contagem" id="contagem" aria-live="polite">Carregando o catálogo…</p>
     <div class="cat-estado" id="estado" hidden></div>
     <ul class="cat-lista" id="lista" aria-label="Peças da ponta de estoque"></ul>
@@ -114,18 +118,23 @@
   </main>
 
   <aside class="cat-painel" id="painel" aria-labelledby="painel-titulo">
-    <h2 id="painel-titulo">Seu pedido</h2>
+    <div class="cat-painel-topo">
+      <h2 id="painel-titulo">Seu pedido</h2>
+      <span class="cat-painel-conta" id="painel-conta" hidden></span>
+    </div>
     <p class="cat-painel-vazio" id="painel-vazio">Escolha as peças na lista.</p>
-    <ul class="cat-itens" id="painel-itens"></ul>
     <div class="cat-total" id="painel-total" hidden></div>
     <button type="button" class="cat-btn cat-btn--principal cat-btn--cheio" id="painel-confirmar" hidden>Confirmar pedido</button>
+    <ul class="cat-itens" id="painel-itens"></ul>
   </aside>
 </div>
 
 <div class="cat-barra" id="barra" hidden>
   <div class="cat-barra-conta" id="barra-conta"></div>
-  <button type="button" class="cat-btn cat-btn--principal" id="barra-confirmar">Confirmar pedido</button>
+  <button type="button" class="cat-btn cat-btn--principal" id="barra-confirmar">Ver pedido</button>
 </div>
+
+<p class="cat-adicionado" id="adicionado" role="status"></p>
 
 <section class="cat-largura cat-etapa" id="vista-resumo" hidden aria-labelledby="resumo-titulo">
   <button type="button" class="cat-voltar" id="voltar">← Voltar à lista</button>

@@ -9,7 +9,9 @@
   'use strict';
 
   var FUSO = 'America/Sao_Paulo';
-  var MAX_ITENS = 60;   // o fluxo do n8n recusa acima disso
+  // O fluxo do n8n recusa acima disso. Era 60 (revisão de segurança, 19/11); 100 a pedido do Gabriel em
+  // 23/11, depois que o Thales esbarrou no limite: a mensagem no grupo fica em ~8.700 caracteres.
+  var MAX_ITENS = 100;
 
   /* Texto comparável: sem acento, minúsculo, espaços simples. */
   function normalizar(texto) {
@@ -72,6 +74,15 @@
     var q = Math.floor(Number(quantidade));
     if (!(q >= 1)) q = 1;
     return Math.min(q, disponivel);
+  }
+
+  /* "12 de 100 peças": quanto do pedido já foi usado, sempre à vista. */
+  function contagemDoLimite(pecas) {
+    return pecas + ' de ' + MAX_ITENS + ' peças';
+  }
+
+  function noLimite(pecas) {
+    return pecas >= MAX_ITENS;
   }
 
   function paginar(itens, pagina, porPagina) {
@@ -186,6 +197,8 @@
     precoPor: precoPor,
     reais: reais,
     limitarQuantidade: limitarQuantidade,
+    contagemDoLimite: contagemDoLimite,
+    noLimite: noLimite,
     paginar: paginar,
     digitosDoTelefone: digitosDoTelefone,
     telefoneLegivel: telefoneLegivel,
