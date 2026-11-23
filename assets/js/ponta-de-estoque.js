@@ -94,10 +94,13 @@
   var esconderAviso;
   function avisarAdicionada(peca) {
     var aviso = $('adicionado');
-    aviso.textContent = '✓ ' + peca.nome + ' · ' + L.contagemDoLimite(estado.ordem.length);
+    aviso.textContent = '✓ ' + peca.nome + ' · ' + L.contagemDoLimite(estado.ordem.length) +
+      (L.noLimite(estado.ordem.length) ? ', o máximo de um pedido' : '');
     aviso.classList.add('is-visivel');
     clearTimeout(esconderAviso);
     esconderAviso = setTimeout(function () { aviso.classList.remove('is-visivel'); }, 2500);
+    // Busca e página redesenham o painel: depois do pisca, a peça deixa de ser "nova".
+    setTimeout(function () { if (estado.ultima === peca.codigo) estado.ultima = null; }, 1600);
     $('painel-itens').scrollTop = 0;
   }
 
@@ -146,7 +149,11 @@
     else {
       var add = botao('Adicionar', 'cat-btn cat-btn--contorno', 'Adicionar ' + peca.nome, function () { definir(peca.codigo, 1); });
       // O pedido vai até L.MAX_ITENS peças diferentes (o fluxo recusa acima): o aviso #limite diz o porquê.
-      if (L.noLimite(estado.ordem.length)) add.disabled = true;
+      if (L.noLimite(estado.ordem.length)) {
+        add.disabled = true;
+        add.textContent = 'Pedido cheio';
+        add.setAttribute('aria-label', 'Pedido cheio: no máximo ' + L.MAX_ITENS + ' peças');
+      }
       acao.appendChild(add);
     }
     li.appendChild(acao);
@@ -228,10 +235,10 @@
     });
   }
 
-  function desenharTotal(caixa, r) {
+  function desenharTotal(caixa, r, soUnidades) {
     caixa.textContent = '';
     var linhaT = el('div', 'cat-total-linha');
-    linhaT.appendChild(el('span', null, 'Total · ' + textoDaConta(r)));
+    linhaT.appendChild(el('span', null, 'Total · ' + (soUnidades ? r.unidades + ' un.' : textoDaConta(r))));
     linhaT.appendChild(el('strong', null, L.reais(r.total)));
     caixa.appendChild(linhaT);
     if (r.semPreco) caixa.appendChild(el('small', null, '+ ' + r.semPreco + (r.semPreco === 1 ? ' peça' : ' peças') + ' com preço a combinar'));
@@ -246,7 +253,7 @@
     $('painel-conta').hidden = !tem;
     $('painel-conta').textContent = L.contagemDoLimite(r.pecas);
     desenharItens($('painel-itens'), r, true);
-    if (tem) desenharTotal($('painel-total'), r);
+    if (tem) desenharTotal($('painel-total'), r, true);
 
     $('barra').hidden = !tem || !$('vista-resumo').hidden || !$('vista-enviado').hidden;
     var conta = $('barra-conta');
