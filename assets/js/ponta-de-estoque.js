@@ -10,10 +10,10 @@
      CONFIGURAÇÃO
      ───────────────────────────────────────────────────────────────────────── */
   var CONFIG = {
-    // Endereço da lista do dia (JSON, formato na spec). Fica FORA deste repo,
-    // que é público. Vazio = página mostra "fora do ar".
-    // [pendente: central, com a entrega do estoque]
-    lista: '',
+    // Endereço da lista do dia (JSON, formato na spec): a lista "Peças sem
+    // custo" do painel da Tiradentes, atualizada toda noite. O dado fica FORA
+    // deste repo, que é público. Vazio = página mostra "fora do ar".
+    lista: 'https://app.pruma.io/tiradentes/api/publico/ponta-de-estoque',
     // Fluxo do n8n que posta o pedido no grupo de vendas da loja.
     pedido: 'https://n8n.pruma.io/webhook/tiradentes-catalogo-pedido',
     // Reserva quando o envio falha: o WhatsApp do site (assets/js/main.js).
