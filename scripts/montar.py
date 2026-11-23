@@ -138,6 +138,8 @@ def rodape(atual):
     itens = [f'          <li><a href="{ancora(atual, i)}">{r}</a></li>' for i, r, _ in MENU]
     itens += ['          <li><a href="servicos.html">Guia de manutenção</a></li>',
               '          <li><a href="pecas.html">Guia de peças</a></li>']
+    if atual == 'index.html':   # só no fim da home, discreto: o lojista chega pelo link do grupo
+        itens.append(f'          <li><a href="{PONTA["arquivo"].removesuffix("index.html")}">Ponta de estoque para lojistas</a></li>')
     itens = '\n'.join(itens)
     r = re.sub(r'(<h4>Navegação</h4>\n\s*<ul class="footer__links">\n).*?(\n\s*</ul>)',
                lambda m: m.group(1) + itens + m.group(2), r, flags=re.S)
@@ -718,6 +720,17 @@ def llms_blog():
     return '\n'.join(linhas)
 
 
+# A página do lojista (SPEC-2026-11-19-catalogo-lojistas, na pruma-plataform). O "50%" do título
+# é trocado pelo desconto do CONFIG de assets/js/ponta-de-estoque.js quando a página abre.
+PONTA = {
+    'arquivo': 'ponta-de-estoque/index.html',
+    'titulo': 'Ponta de estoque para lojistas — Tiradentes Moto Peças',
+    'desc': 'Peças da ponta de estoque da Tiradentes Moto Peças com desconto para lojistas. '
+            'Escolha as peças e a loja confirma pelo WhatsApp.',
+    'h1': 'Ponta de estoque para lojistas — peças com <span data-desconto>50%</span> de desconto',
+    'sub': 'A loja confirma a disponibilidade pelo WhatsApp.',
+}
+
 GERADAS = {'catalogo-revisoes': catalogo_revisoes, 'blog-recentes': blog_recentes}
 
 
@@ -768,6 +781,15 @@ def montar():
             sitemap.append((arquivo, p.get('atualizado', p['data']), '0.7'))
         print(f'  blog/            índice + {len(todos)} post(s)')
 
+    # ── ponta de estoque: página de trabalho do lojista, divulgada em grupo de WhatsApp ──
+    # Fora do sitemap e com noindex (decisão do Gabriel, 19/11/2026): quem chega é pelo link
+    # compartilhado ou pelo item discreto no rodapé da home (rodape()).
+    escrever(PONTA['arquivo'], PONTA['titulo'], PONTA['desc'],
+             topo(PONTA['h1'], PONTA['sub']) + secao('ponta-de-estoque'), '',
+             cabeca_extra='<meta name="robots" content="noindex, nofollow">\n'
+                          '<link rel="stylesheet" href="assets/css/ponta-de-estoque.css">')
+    print(f'  {PONTA["arquivo"]}  fora do sitemap')
+
     # sitemap sempre em sincronia com as páginas geradas
     urls = '\n'.join(
         f'  <url>\n    <loc>{BASE + a.removesuffix("index.html")}</loc>\n'
@@ -806,8 +828,10 @@ def topo(h1, sub):
 OG_PADRAO = ('og-cover.jpg', 'Honda CB 300F dentro da oficina da Tiradentes Moto Peças, em Contagem/MG')
 
 
-def escrever(arquivo, titulo, desc, corpo, schema_html, og=OG_PADRAO, tipo='website'):
+def escrever(arquivo, titulo, desc, corpo, schema_html, og=OG_PADRAO, tipo='website', cabeca_extra=''):
     pagina = ler('_layout.html')
+    if cabeca_extra:
+        pagina = pagina.replace('</head>', cabeca_extra + '\n</head>')
     if arquivo != 'index.html':   # só a home tem a capa com vídeo
         pagina = re.sub(r'<link rel="preload" as="image" href="assets/img/capa-poster[^>]*>\n', '', pagina)
     saida = (pagina
